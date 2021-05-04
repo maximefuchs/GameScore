@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name Player 1"
+                android:text="Maxime"
                 android:textSize="30sp"
                 android:id="@+id/nameP1"/>
         </LinearLayout>
@@ -46,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name Player 2"
+                android:text="Philippe"
                 android:textSize="30sp"
                 android:id="@+id/nameP2"/>
         </LinearLayout>
@@ -65,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name Player 3"
+                android:text="Louise"
                 android:textSize="30sp"
                 android:id="@+id/nameP3"/>
         </LinearLayout>
@@ -84,6 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name Player 4"
+                android:text="Papa"
                 android:textSize="30sp"
                 android:id="@+id/nameP4"/>
         </LinearLayout>
