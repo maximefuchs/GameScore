@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GameScore</string>
+    <string name="game1">Tarot</string>
+    <string name="game2">Belote</string>
+    <string name="game3">Wist</string>
+    <string name="game4">Dice</string>
+
+    <string name="title_nb_players">Number of players</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
