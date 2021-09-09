@@ -8,41 +8,46 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="0"
+        android:text="@string/score"
         android:id="@+id/scoreP1"
         android:textSize="30sp"
+        android:textColor="#FFF"
         android:gravity="center"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="0"
+        android:text="@string/score"
         android:id="@+id/scoreP2"
         android:textSize="30sp"
+        android:textColor="#FFF"
         android:gravity="center"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="0"
+        android:text="@string/score"
         android:id="@+id/scoreP3"
         android:textSize="30sp"
+        android:textColor="#FFF"
         android:gravity="center"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="0"
+        android:text="@string/score"
         android:id="@+id/scoreP4"
         android:textSize="30sp"
+        android:textColor="#FFF"
         android:gravity="center"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="0"
+        android:text="@string/score"
         android:id="@+id/scoreP5"
         android:textSize="30sp"
+        android:textColor="#FFF"
         android:gravity="center"/>
 
 </LinearLayout>

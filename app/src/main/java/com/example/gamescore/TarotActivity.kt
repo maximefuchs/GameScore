@@ -12,8 +12,8 @@ import java.util.ArrayList
 
 class TarotActivity : AppCompatActivity() {
     lateinit var context: Context
-    var NbPlayers : Int = 0
-    var names : List<String> = listOf<String>()
+    var NbPlayers: Int = 0
+    var names: List<String> = listOf<String>()
     lateinit var listGames: ArrayList<Game>
     var contrats: HashMap<String, Int> = hashMapOf(
         "Petite" to 10,
@@ -28,22 +28,25 @@ class TarotActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tarot)
         context = this
 
-        supportFragmentManager.beginTransaction().replace(R.id.container,NbPlayersFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.container, NbPlayersFragment())
+            .commit()
     }
 
-    fun getName(nb_players: Int){
+    fun getName(nb_players: Int) {
         NbPlayers = nb_players
-        supportFragmentManager.beginTransaction().replace(R.id.container,NameFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.container, NameFragment()).commit()
     }
-    fun startGame(list_names : List<String>){
+
+    fun startGame(list_names: List<String>) {
         names = list_names
         val f = ScoreFragment()
         listGames = ArrayList<Game>()
         f.listPlayers = names
         f.listGames = listGames
-        supportFragmentManager.beginTransaction().replace(R.id.container,f).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
     }
-    fun addTarotGame(){
+
+    fun addTarotGame() {
         val intent = Intent(this, AddGameTarotActivity::class.java)
         val bundle = Bundle()
         bundle.putStringArrayList("players", ArrayList(names))
@@ -53,67 +56,82 @@ class TarotActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == 1) {
-//            if (resultCode == Activity.RESULT_OK) {
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
                 val b: Bundle? = data?.extras
                 val contrat = b?.getString("contrat")
-                Log.w("contrat", contrat)
                 val valContrat = contrats.get(contrat)
-                Log.w("val contrat", valContrat.toString())
                 val result = b?.getBoolean("result")
-                Log.w("RES", result.toString())
                 val ecart = b?.getInt("ecart")
-                Log.w("Ecart", ecart.toString())
                 var toAdd = valContrat?.plus(ecart!!)
                 if (!result!!) toAdd = -toAdd!!
-                Log.w("to ADD", toAdd.toString())
+//                Log.w("contrat", contrat)
 
                 val g: Game
-                val newScore : MutableList<Int>
+                val newScore: MutableList<Int>
                 if (listGames.size > 0)
-                    newScore = listGames.last().score.toMutableList()
-                else {
-                    if (names.size == 4)
-                        newScore = mutableListOf<Int>(0, 0, 0, 0)
-                    else
-                        newScore = mutableListOf<Int>(0, 0, 0, 0, 0)
+                {
+//                    newScore = listGames.last().score.toMutableList()
+                    newScore = listGames.get(0).score.toMutableList()
                 }
+                else {
+                    if (names.size == 4) newScore = mutableListOf<Int>(0, 0, 0, 0)
+                    else newScore = mutableListOf<Int>(0, 0, 0, 0, 0)
+                }
+                val preneur = b.getInt("preneur")
+                val bonus = b.getInt("bonus")
                 if (names.size == 4) {
                     for (i in 0..3) {
-                        if (i == b.getInt("preneur"))
-                            newScore[i] = newScore[i] + 3 * toAdd!!
-                        else
-                            newScore[i] = newScore[i] - toAdd!!
-                    }
-                    g = Game(names.size, b.getInt("preneur"), contrat!!, newScore)
-                } else {
-                    for (i in 0..4) {
-                        if (i == b.getInt("preneur"))
-                            newScore[i] = newScore[i] + 2 * toAdd!!
-                        else if (i == b.getInt("appel"))
-                            newScore[i] = newScore[i] + toAdd!!
-                        else
-                            newScore[i] = newScore[i] - toAdd!!
+                        if (i == preneur) newScore[i] = newScore[i] + 3 * toAdd!!
+                        else newScore[i] = newScore[i] - toAdd!!
+
+                        if (bonus != -1) // -1 means no bonus
+                        {
+                            if (i == bonus) newScore[i] = newScore[i] + 30
+                            else newScore[i] = newScore[i] - 10
+                        }
                     }
                     g = Game(
                         names.size,
-                        b.getInt("preneur"),
+                        preneur,
                         contrat!!,
-                        b.getInt("appel"),
+                        newScore
+                    )
+                } else {
+                    val appel = b.getInt("appel")
+                    for (i in 0..4) {
+                        if (appel == preneur) {
+                            if (i == preneur) newScore[i] = newScore[i] + 4 * toAdd!!
+                            else newScore[i] = newScore[i] - toAdd!!
+                        } else {
+                            if (i == preneur) newScore[i] = newScore[i] + 2 * toAdd!!
+                            else if (i == appel) newScore[i] = newScore[i] + toAdd!!
+                            else newScore[i] = newScore[i] - toAdd!!
+                        }
+
+                        if (bonus != -1) // -1 means no bonus
+                        {
+                            if (i == bonus) newScore[i] = newScore[i] + 40
+                            else newScore[i] = newScore[i] - 10
+                        }
+                    }
+                    g = Game(
+                        names.size,
+                        preneur,
+                        contrat!!,
+                        appel,
                         newScore
                     )
                 }
 
                 listGames.add(g)
 
-//                Log.w("H", "////////////////////////////////////////////////////// HEY")
                 Log.w("size", listGames.size.toString())
-                var f = ScoreFragment()
+                val f = ScoreFragment()
                 f.listPlayers = names
                 f.listGames = listGames
-                supportFragmentManager.beginTransaction().replace(R.id.container,f).commit()
-//            }
-//        }
+                supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+            }
+        }
     }
-
 }

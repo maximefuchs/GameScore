@@ -5,7 +5,19 @@
     <string name="game3">Wist</string>
     <string name="game4">Dice</string>
 
+    <string name="player">PL</string>
+    <string name="score">0</string>
+
+    <string name="J1">J1</string>
+    <string name="J2">J2</string>
+    <string name="J3">J3</string>
+    <string name="J4">J4</string>
+    <string name="J5">J5</string>
+    <string name="hint_name">Nom Joueur</string>
+
     <string name="title_nb_players">Number of players</string>
+    <string name="nb_players_tarot_1">4</string>
+    <string name="nb_players_tarot_2">5</string>
 
     <string-array name="contrats">
         <item>Petite</item>

@@ -42,6 +42,7 @@ class ScoreFragment : Fragment() {
         if(listGames.size > 0)
             Log.w("LIST", listGames[0].toString())
 
+        listGames.reverse()
         val adapter = TarotListAdapter(act.context,listGames)
         v.LV_games.adapter = adapter
 

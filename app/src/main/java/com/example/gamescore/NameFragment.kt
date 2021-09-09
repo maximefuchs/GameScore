@@ -23,7 +23,7 @@ class NameFragment : Fragment() {
             v.llP5.visibility = View.GONE
 
         v.ok_btn.setOnClickListener {
-            var l = mutableListOf<String>()
+            val l = mutableListOf<String>()
             l.add(nameP1.text.toString())
             l.add(nameP2.text.toString())
             l.add(nameP3.text.toString())

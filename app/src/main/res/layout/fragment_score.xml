@@ -2,8 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:layout_height="match_parent"
     tools:context=".ScoreFragment">
 
     <LinearLayout
@@ -20,47 +20,57 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:id="@+id/P1"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="P1"/>
+                android:textAllCaps="true"
+                android:textColor="#FFF"
+                android:text="@string/player"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:id="@+id/P2"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="P2"/>
+                android:textAllCaps="true"
+                android:textColor="#FFF"
+                android:text="@string/player"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:id="@+id/P3"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="P3"/>
+                android:textAllCaps="true"
+                android:textColor="#FFF"
+                android:text="@string/player"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:id="@+id/P4"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="P4"/>
+                android:textAllCaps="true"
+                android:textColor="#FFF"
+                android:text="@string/player"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:id="@+id/P5"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="P5"/>
+                android:textAllCaps="true"
+                android:textColor="#FFF"
+                android:text="@string/player"/>
 
         </LinearLayout>
 
@@ -75,10 +85,21 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#0000"
-        android:src="@drawable/add"
+        android:background="@drawable/background_games"
+        android:padding="10dp"
+        android:src="@drawable/cards_plus"
         android:layout_gravity="end|bottom"
         android:id="@+id/add_game"
+        android:layout_margin="30dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_games"
+        android:padding="10dp"
+        android:src="@drawable/pencil"
+        android:layout_gravity="start|bottom"
+        android:id="@+id/edit_game"
         android:layout_margin="30dp"/>
 
 </FrameLayout>
