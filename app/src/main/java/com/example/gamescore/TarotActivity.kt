@@ -8,12 +8,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_tarot.*
-import kotlinx.android.synthetic.main.fragment_score.*
 import java.util.ArrayList
 
 class TarotActivity : AppCompatActivity() {
     lateinit var context: Context
-    var NbPlayers: Int = 0
+    var nbPlayers: Int = 0
     var names: List<String> = listOf<String>()
     lateinit var listGames: ArrayList<Game>
     var contrats: HashMap<String, Int> = hashMapOf(
@@ -41,7 +40,7 @@ class TarotActivity : AppCompatActivity() {
     }
 
     fun getName(nb_players: Int) {
-        NbPlayers = nb_players
+        nbPlayers = nb_players
         supportFragmentManager.beginTransaction().replace(R.id.container, NameFragment()).commit()
     }
 
@@ -166,42 +165,42 @@ class TarotActivity : AppCompatActivity() {
                 if (names.size == 4) newScore = mutableListOf<Int>(0, 0, 0, 0)
                 else newScore = mutableListOf<Int>(0, 0, 0, 0, 0)
                 for (game_id in 0..listGames.size - 1) {
-                    val g = listGames[game_id]
-                    val valContrat = contrats[g.contract]
-                    var toAdd = valContrat?.plus(g.difference)
-                    if (!g.success) toAdd = -toAdd!!
+                    val gi = listGames[game_id]
+                    val valContrat = contrats[gi.contract]
+                    var toAdd = valContrat?.plus(gi.difference)
+                    if (!gi.success) toAdd = -toAdd!!
                     if (names.size == 4) {
                         for (i in 0..3) {
-                            if (i == g.player_take) newScore[i] = newScore[i] + 3 * toAdd!!
+                            if (i == gi.player_take) newScore[i] = newScore[i] + 3 * toAdd!!
                             else newScore[i] = newScore[i] - toAdd!!
 
-                            if (g.bonus != -1) // -1 means no bonus
+                            if (gi.bonus != -1) // -1 means no bonus
                             {
-                                if (i == g.bonus) newScore[i] = newScore[i] + 30
+                                if (i == gi.bonus) newScore[i] = newScore[i] + 30
                                 else newScore[i] = newScore[i] - 10
                             }
                         }
                     } else {
-                        val appel = g.teammate
-                        val preneur = g.player_take
+                        val appel = gi.teammate
+                        val preneur_i = gi.player_take
                         for (i in 0..4) {
-                            if (appel == preneur) {
-                                if (i == preneur) newScore[i] = newScore[i] + 4 * toAdd!!
+                            if (appel == preneur_i) {
+                                if (i == preneur_i) newScore[i] = newScore[i] + 4 * toAdd!!
                                 else newScore[i] = newScore[i] - toAdd!!
                             } else {
-                                if (i == preneur) newScore[i] = newScore[i] + 2 * toAdd!!
+                                if (i == preneur_i) newScore[i] = newScore[i] + 2 * toAdd!!
                                 else if (i == appel) newScore[i] = newScore[i] + toAdd!!
                                 else newScore[i] = newScore[i] - toAdd!!
                             }
 
-                            if (g.bonus != -1) // -1 means no bonus
+                            if (gi.bonus != -1) // -1 means no bonus
                             {
-                                if (i == g.bonus) newScore[i] = newScore[i] + 40
+                                if (i == gi.bonus) newScore[i] = newScore[i] + 40
                                 else newScore[i] = newScore[i] - 10
                             }
                         }
                     }
-                    g.score = newScore.toMutableList()
+                    gi.score = newScore.toMutableList()
                 }
 
                 val f = ScoreFragment()

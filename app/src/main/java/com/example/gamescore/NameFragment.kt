@@ -19,7 +19,7 @@ class NameFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_name, container, false)
         val act = activity as TarotActivity
-        if (act.NbPlayers == 4)
+        if (act.nbPlayers == 4)
             v.llP5.visibility = View.GONE
 
         v.ok_btn.setOnClickListener {
@@ -28,7 +28,7 @@ class NameFragment : Fragment() {
             l.add(nameP2.text.toString())
             l.add(nameP3.text.toString())
             l.add(nameP4.text.toString())
-            if (act.NbPlayers == 5)
+            if (act.nbPlayers == 5)
                 l.add(nameP5.text.toString())
             act.startGame(l)
         }

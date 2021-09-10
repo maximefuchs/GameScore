@@ -20,6 +20,9 @@
     <string name="nb_players_tarot_2">5</string>
 
     <string name="long_click_hint">Appuyez longtemps pour modifier</string>
+    <string name="question_quit">Voulez-vous quitter ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 
     <string-array name="contrats">
         <item>Petite</item>
