@@ -92,14 +92,14 @@
         android:id="@+id/add_game"
         android:layout_margin="30dp"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_games"
-        android:padding="10dp"
-        android:src="@drawable/pencil"
-        android:layout_gravity="start|bottom"
-        android:id="@+id/edit_game"
-        android:layout_margin="30dp"/>
+<!--    <ImageButton-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/background_games"-->
+<!--        android:padding="10dp"-->
+<!--        android:src="@drawable/pencil"-->
+<!--        android:layout_gravity="start|bottom"-->
+<!--        android:id="@+id/edit_game"-->
+<!--        android:layout_margin="30dp"/>-->
 
 </FrameLayout>

@@ -16,9 +16,13 @@ class AddGameTarotActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_game_tarot)
+        var game : Game
+        var game_id : Int = 0
 
         val b = intent.extras
         val players = b?.getStringArrayList("players") as ArrayList<String>
+        val edit = b.getBoolean("edit")
+
 
         if (players.size == 4)
             llcalled.visibility = View.GONE
@@ -46,7 +50,7 @@ class AddGameTarotActivity : AppCompatActivity() {
         val adapterCalled = ArrayAdapter(context, R.layout.spinner_item, players)
         spinner_called.adapter = adapterCalled
 
-        var players_none = ArrayList(players.map { it })
+        val players_none = ArrayList(players.map { it })
         players_none.add(0, " - ")
         val adapterBonus = ArrayAdapter(this, R.layout.spinner_item, players_none)
         spinner_bonus.adapter = adapterBonus
@@ -65,6 +69,18 @@ class AddGameTarotActivity : AppCompatActivity() {
         btnLose.setOnClickListener { party_is_won = changeResult(false) }
         btnWin.setOnClickListener { party_is_won = changeResult(true) }
 
+        if (edit)
+        {
+            game = b.getSerializable("lastGame") as Game
+            spinner_preneur.setSelection(game.player_take)
+            spinner_called.setSelection(game.teammate)
+            spinner_contrat.setSelection(contracts.indexOf(game.contract))
+            ecart_score = changeEcart(game.difference)
+            party_is_won = changeResult(game.success)
+            spinner_bonus.setSelection(game.bonus + 1)
+            game_id = game.game_id
+        }
+
 
         btnValider.setOnClickListener {
             val intent = Intent()
@@ -78,6 +94,8 @@ class AddGameTarotActivity : AppCompatActivity() {
             intent.putExtra("contrat", spinner_contrat.selectedItem.toString())
             intent.putExtra("result", party_is_won)
             intent.putExtra("ecart", ecart_score)
+            if(edit)
+                intent.putExtra("game_id",game_id)
             setResult(RESULT_OK, intent)
             finish()
         }

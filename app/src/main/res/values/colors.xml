@@ -6,6 +6,8 @@
     <color name="colorPrimaryLight">#5c965c</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <color name="colorBackTransparent">#40000000</color>
+
     <color name="colorDefeat">#c99198</color>
     <color name="colorVictory">#91c9b6</color>
 

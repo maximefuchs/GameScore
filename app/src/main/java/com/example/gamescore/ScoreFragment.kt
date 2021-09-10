@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_add_game_tarot.*
 import kotlinx.android.synthetic.main.fragment_score.*
@@ -42,13 +43,20 @@ class ScoreFragment : Fragment() {
         if(listGames.size > 0)
             Log.w("LIST", listGames[0].toString())
 
-        listGames.reverse()
+//        listGames.reverse()
         val adapter = TarotListAdapter(act.context,listGames)
         v.LV_games.adapter = adapter
 
 
         v.add_game.setOnClickListener {
             act.addTarotGame()
+        }
+
+        v.LV_games.setOnItemLongClickListener { parent, view, position, id ->
+            act.editTarotGame(position)
+        }
+        v.LV_games.setOnItemClickListener { parent, view, position, id ->
+            Toast.makeText(act.context,act.resources.getString(R.string.long_click_hint), Toast.LENGTH_SHORT).show()
         }
 
 //        Log.w("size", listGames.size.toString())

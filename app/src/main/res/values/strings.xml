@@ -3,7 +3,7 @@
     <string name="game1">Tarot</string>
     <string name="game2">Belote</string>
     <string name="game3">Wist</string>
-    <string name="game4">Dice</string>
+    <string name="game4">Dés</string>
 
     <string name="player">PL</string>
     <string name="score">0</string>
@@ -15,9 +15,11 @@
     <string name="J5">J5</string>
     <string name="hint_name">Nom Joueur</string>
 
-    <string name="title_nb_players">Number of players</string>
+    <string name="title_nb_players">Nombre de Joueurs</string>
     <string name="nb_players_tarot_1">4</string>
     <string name="nb_players_tarot_2">5</string>
+
+    <string name="long_click_hint">Appuyez longtemps pour modifier</string>
 
     <string-array name="contrats">
         <item>Petite</item>
