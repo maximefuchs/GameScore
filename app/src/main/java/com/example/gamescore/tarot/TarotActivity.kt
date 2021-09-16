@@ -1,20 +1,15 @@
-package com.example.gamescore
+package com.example.gamescore.tarot
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import kotlinx.android.synthetic.main.activity_tarot.*
+import com.example.gamescore.*
+import kotlinx.android.synthetic.main.activity_game.*
 import java.util.ArrayList
 
-class TarotActivity : AppCompatActivity() {
-    lateinit var context: Context
+class TarotActivity : GameActivity() {
     var nbPlayers: Int = 0
-    var names: List<String> = listOf<String>()
-    lateinit var listGames: ArrayList<Game>
     var contrats: HashMap<String, Int> = hashMapOf(
         "Petite" to 10,
         "Pousse" to 20,
@@ -22,32 +17,31 @@ class TarotActivity : AppCompatActivity() {
         "Garde Sans" to 80,
         "Garde Contre" to 160
     )
-    val ADDGAME = 1
-    val EDITGAME = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tarot)
         context = this
+        FrameTitle.text = resources.getText(R.string.game_tarot)
 
-        // quitting
-        RLquit.visibility = View.GONE
-        btnQuit.setOnClickListener { finish() }
-        btnNoQuit.setOnClickListener { RLquit.visibility = View.GONE }
-
-        supportFragmentManager.beginTransaction().replace(R.id.container, NbPlayersFragment())
+        supportFragmentManager.beginTransaction().replace(
+            R.id.container,
+            NbPlayersFragment()
+        )
             .commit()
     }
 
     fun getName(nb_players: Int) {
         nbPlayers = nb_players
-        supportFragmentManager.beginTransaction().replace(R.id.container, NameFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(
+            R.id.container,
+            NameFragmentTarot()
+        ).commit()
     }
 
     fun startGame(list_names: List<String>) {
         names = list_names
         val f = ScoreFragment()
-        listGames = ArrayList<Game>()
+        listGames = ArrayList<GameTarot>()
         f.listPlayers = names
         f.listGames = listGames
         supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
@@ -59,7 +53,7 @@ class TarotActivity : AppCompatActivity() {
         bundle.putBoolean("edit",false)
         bundle.putStringArrayList("players", ArrayList(names))
         intent.putExtras(bundle)
-        startActivityForResult(intent, ADDGAME)
+        startActivityForResult(intent, Request.ADDGAME.value)
     }
 
     fun editTarotGame(game_id: Int): Boolean {
@@ -69,13 +63,13 @@ class TarotActivity : AppCompatActivity() {
         bundle.putStringArrayList("players", ArrayList(names))
         bundle.putSerializable("lastGame",listGames[game_id])
         intent.putExtras(bundle)
-        startActivityForResult(intent, EDITGAME)
+        startActivityForResult(intent, Request.EDITGAME.value)
         return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ADDGAME) {
+        if (requestCode == Request.ADDGAME.value) {
             if (resultCode == Activity.RESULT_OK) {
                 val b: Bundle? = data?.extras
                 val preneur = b?.getInt("preneur")
@@ -88,13 +82,12 @@ class TarotActivity : AppCompatActivity() {
                 if (!result!!) toAdd = -toAdd!!
 //                Log.w("contrat", contrat)
 
-                val g: Game
+                val g: GameTarot
                 var game_id = 0
                 val newScore: MutableList<Int>
                 if (listGames.size > 0)
                 {
                     newScore = listGames.last().score.toMutableList()
-//                    newScore = listGames.get(0).score.toMutableList()
                     game_id = listGames.last().game_id + 1
                 }
                 else {
@@ -112,7 +105,16 @@ class TarotActivity : AppCompatActivity() {
                             else newScore[i] = newScore[i] - 10
                         }
                     }
-                    g = Game(game_id,names.size,preneur!!,contrat!!,result,ecart!!,bonus!!,newScore)
+                    g = GameTarot(
+                        game_id,
+                        names.size,
+                        preneur!!,
+                        contrat!!,
+                        result,
+                        ecart!!,
+                        bonus!!,
+                        newScore
+                    )
                 }
                 else {
                     val appel = b.getInt("appel")
@@ -132,7 +134,17 @@ class TarotActivity : AppCompatActivity() {
                             else newScore[i] = newScore[i] - 10
                         }
                     }
-                    g = Game(game_id,names.size,preneur!!,contrat!!,appel,result,ecart!!,bonus!!,newScore)
+                    g = GameTarot(
+                        game_id,
+                        names.size,
+                        preneur!!,
+                        contrat!!,
+                        appel,
+                        result,
+                        ecart!!,
+                        bonus!!,
+                        newScore
+                    )
                 }
 
                 listGames.add(g)
@@ -144,7 +156,7 @@ class TarotActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
             }
         }
-        if (requestCode == EDITGAME) {
+        if (requestCode == Request.EDITGAME.value) {
             if (resultCode == Activity.RESULT_OK) {
                 val b: Bundle? = data?.extras
                 val preneur = b?.getInt("preneur")
@@ -209,10 +221,5 @@ class TarotActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
             }
         }
-    }
-
-    override fun onBackPressed() {
-        RLquit.visibility = View.VISIBLE
-//        super.onBackPressed()
     }
 }

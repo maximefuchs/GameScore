@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".TarotActivity">
+    tools:context=".tarot.TarotActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/game1"
+            android:text="@string/game_default"
             android:textColor="#EEE"
             android:textSize="50sp"
             android:textStyle="bold" />
@@ -37,6 +37,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/RLquit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

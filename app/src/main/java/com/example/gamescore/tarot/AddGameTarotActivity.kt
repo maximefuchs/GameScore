@@ -1,22 +1,19 @@
-package com.example.gamescore
+package com.example.gamescore.tarot
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.core.content.ContextCompat
+import com.example.gamescore.R
 import kotlinx.android.synthetic.main.activity_add_game_tarot.*
 
 class AddGameTarotActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_game_tarot)
-        var game : Game
+        var game : GameTarot
         var game_id : Int = 0
 
         val b = intent.extras
@@ -28,7 +25,8 @@ class AddGameTarotActivity : AppCompatActivity() {
             llcalled.visibility = View.GONE
 
         val context = this
-        val adapterPreneur = ArrayAdapter(this, R.layout.spinner_item, players)
+        val adapterPreneur = ArrayAdapter(this,
+            R.layout.spinner_item, players)
         spinner_preneur.adapter = adapterPreneur
 
 //        spinner_preneur.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -47,16 +45,19 @@ class AddGameTarotActivity : AppCompatActivity() {
 //            }
 //        }
 
-        val adapterCalled = ArrayAdapter(context, R.layout.spinner_item, players)
+        val adapterCalled = ArrayAdapter(context,
+            R.layout.spinner_item, players)
         spinner_called.adapter = adapterCalled
 
         val players_none = ArrayList(players.map { it })
         players_none.add(0, " - ")
-        val adapterBonus = ArrayAdapter(this, R.layout.spinner_item, players_none)
+        val adapterBonus = ArrayAdapter(this,
+            R.layout.spinner_item, players_none)
         spinner_bonus.adapter = adapterBonus
 
         val contracts = resources.getStringArray(R.array.contrats)
-        val adapterContrat = ArrayAdapter(this, R.layout.spinner_item, contracts)
+        val adapterContrat = ArrayAdapter(this,
+            R.layout.spinner_item, contracts)
         spinner_contrat.adapter = adapterContrat
 
         var ecart_score = changeEcart(0)
@@ -71,7 +72,7 @@ class AddGameTarotActivity : AppCompatActivity() {
 
         if (edit)
         {
-            game = b.getSerializable("lastGame") as Game
+            game = b.getSerializable("lastGame") as GameTarot
             spinner_preneur.setSelection(game.player_take)
             spinner_called.setSelection(game.teammate)
             spinner_contrat.setSelection(contracts.indexOf(game.contract))

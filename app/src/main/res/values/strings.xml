@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">GameScore</string>
-    <string name="game1">Tarot</string>
-    <string name="game2">Belote</string>
-    <string name="game3">Wist</string>
-    <string name="game4">Dés</string>
+    <string name="game_default">Name Game</string>
+    <string name="game_tarot">Tarot</string>
+    <string name="game_belote">Belote</string>
+    <string name="game_wist">Wist</string>
+    <string name="game_dice">Dés</string>
 
+<!--    PLAYERS     -->
     <string name="player">PL</string>
     <string name="score">0</string>
-
     <string name="J1">J1</string>
     <string name="J2">J2</string>
     <string name="J3">J3</string>
@@ -15,9 +16,17 @@
     <string name="J5">J5</string>
     <string name="hint_name">Nom Joueur</string>
 
+<!--    TAROT     -->
     <string name="title_nb_players">Nombre de Joueurs</string>
     <string name="nb_players_tarot_1">4</string>
     <string name="nb_players_tarot_2">5</string>
+    <string name="description_add_game">Add Game</string>
+<!--    BELOTE     -->
+    <string name="title_type_belote">Type de jeu</string>
+    <string name="type_belote_1">Normale</string>
+    <string name="type_belote_2">Coinchée</string>
+    <string name="team_1">Equipe 1</string>
+    <string name="team_2">Equipe 2</string>
 
     <string name="long_click_hint">Appuyez longtemps pour modifier</string>
     <string name="question_quit">Voulez-vous quitter ?</string>

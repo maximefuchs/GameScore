@@ -1,8 +1,8 @@
-package com.example.gamescore
+package com.example.gamescore.tarot
 
 import java.io.Serializable
 
-class Game : Serializable {
+class GameTarot : Serializable {
     constructor()
     constructor(game_id: Int, nb_players: Int, player_take: Int, contract: String, teammate: Int, success: Boolean, difference : Int, bonus: Int, score: List<Int>) {
         this.game_id = game_id
