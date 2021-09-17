@@ -27,6 +27,7 @@
     <string name="type_belote_2">Coinchée</string>
     <string name="team_1">Equipe 1</string>
     <string name="team_2">Equipe 2</string>
+    <string name="placeholder_team">%s + %s</string>
 
     <string name="long_click_hint">Appuyez longtemps pour modifier</string>
     <string name="question_quit">Voulez-vous quitter ?</string>

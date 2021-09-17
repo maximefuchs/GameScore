@@ -2,9 +2,7 @@ package com.example.gamescore.belote
 
 import android.os.Bundle
 import com.example.gamescore.GameActivity
-import com.example.gamescore.NameFragment
 import com.example.gamescore.R
-import com.example.gamescore.ScoreFragment
 import com.example.gamescore.tarot.GameTarot
 import kotlinx.android.synthetic.main.activity_game.*
 import java.util.ArrayList
@@ -39,7 +37,7 @@ class BeloteActivity : GameActivity() {
 
     fun startGame(list_names: List<String>){
         names = list_names
-        val f = ScoreFragment()
+        val f = ScoreBeloteFragment()
         listGames = ArrayList<GameTarot>()
         f.listPlayers = names
         f.listGames = listGames

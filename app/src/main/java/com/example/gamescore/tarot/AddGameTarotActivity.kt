@@ -73,8 +73,11 @@ class AddGameTarotActivity : AppCompatActivity() {
         if (edit)
         {
             game = b.getSerializable("lastGame") as GameTarot
+            if (game.nb_players == 5){
+                game = b.getSerializable("lastGame") as GameTarot5
+                spinner_called.setSelection(game.teammate)
+            }
             spinner_preneur.setSelection(game.player_take)
-            spinner_called.setSelection(game.teammate)
             spinner_contrat.setSelection(contracts.indexOf(game.contract))
             ecart_score = changeEcart(game.difference)
             party_is_won = changeResult(game.success)

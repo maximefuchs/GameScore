@@ -32,7 +32,6 @@ class NameFragmentBelote : NameFragment() {
             act.startGame(l)
         }
 
-
         return v
     }
 
