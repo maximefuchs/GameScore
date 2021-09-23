@@ -1,160 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:isScrollContainer="true"
+    android:orientation="vertical"
+    android:padding="35sp"
     tools:context=".NameFragment">
+
+    <TextView
+        android:id="@+id/TV_team1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/team_1"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:isScrollContainer="true"
-        android:layout_gravity="center"
-        android:padding="35sp">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/team_1"
-            android:textSize="20sp"
+            android:padding="20dp"
+            android:text="@string/J1"
             android:textColor="#FFF"
-            android:layout_margin="5dp"
-            android:id="@+id/TV_team1"
-            android:visibility="gone"/>
+            android:textSize="30sp" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/nameP1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/J1"
-                android:textColor="#FFF"
-                android:padding="20dp"
-                android:textSize="30sp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_name"
-                android:textColor="#FFF"
-                android:textSize="30sp"
-                android:maxLines="1"
-                android:inputType="textCapWords"
-                android:id="@+id/nameP1"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/J2"
-                android:textColor="#FFF"
-                android:padding="20dp"
-                android:textSize="30sp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_name"
-                android:textColor="#FFF"
-                android:textSize="30sp"
-                android:maxLines="1"
-                android:inputType="textCapWords"
-                android:id="@+id/nameP2"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/team_2"
-            android:textSize="20sp"
+            android:autofillHints="name"
+            android:hint="@string/hint_name"
+            android:inputType="textCapWords"
+            android:maxLines="1"
             android:textColor="#FFF"
-            android:layout_margin="5dp"
-            android:id="@+id/TV_team2"
-            android:visibility="gone"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/J3"
-                android:textColor="#FFF"
-                android:padding="20dp"
-                android:textSize="30sp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_name"
-                android:textColor="#FFF"
-                android:textSize="30sp"
-                android:maxLines="1"
-                android:inputType="textCapWords"
-                android:id="@+id/nameP3"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/J4"
-                android:textColor="#FFF"
-                android:padding="20dp"
-                android:textSize="30sp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_name"
-                android:textColor="#FFF"
-                android:textSize="30sp"
-                android:maxLines="1"
-                android:inputType="textCapWords"
-                android:id="@+id/nameP4"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/llP5"
-            android:visibility="gone">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/J5"
-                android:textColor="#FFF"
-                android:padding="20dp"
-                android:textSize="30sp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_name"
-                android:textColor="#FFF"
-                android:textSize="30sp"
-                android:maxLines="1"
-                android:inputType="textCapWords"
-                android:id="@+id/nameP5"/>
-        </LinearLayout>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/checked"
-            android:padding="10sp"
-            android:background="@drawable/background_games"
-            android:textSize="30sp"
-            android:layout_marginTop="25dp"
-            android:layout_gravity="center"
-            android:id="@+id/ok_btn"/>
-
+            android:textSize="30sp" />
     </LinearLayout>
 
-</ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="@string/J2"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/nameP2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/hint_name"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/TV_team2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="@string/team_2"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="@string/J3"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/nameP3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/hint_name"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LLP4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="@string/J4"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/nameP4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/hint_name"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llP5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="@string/J5"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/nameP5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="@string/hint_name"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ok_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/background_games"
+        android:contentDescription="@string/validate_button"
+        android:padding="10sp"
+        android:src="@drawable/checked"
+        android:textSize="30sp" />
+
+</LinearLayout>

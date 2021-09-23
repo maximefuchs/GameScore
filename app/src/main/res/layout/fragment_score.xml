@@ -1,131 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimary"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".tarot.ScoreTarotFragment">
 
     <LinearLayout
+        android:id="@+id/LL_tarot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/P1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/LL_tarot"
-            android:visibility="gone">
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/player"
+            android:textAllCaps="true"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textSize="30sp"
-                android:id="@+id/P1"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="#FFF"
-                android:text="@string/player"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textSize="30sp"
-                android:id="@+id/P2"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="#FFF"
-                android:text="@string/player"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textSize="30sp"
-                android:id="@+id/P3"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="#FFF"
-                android:text="@string/player"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textSize="30sp"
-                android:id="@+id/P4"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="#FFF"
-                android:text="@string/player"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textSize="30sp"
-                android:id="@+id/P5"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="#FFF"
-                android:text="@string/player"
-                android:visibility="gone"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/P2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/LL_belote"
-            android:visibility="gone">
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/player"
+            android:textAllCaps="true"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textSize="30sp"
-                android:id="@+id/T1"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="#FFF"
-                android:text="@string/player"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textSize="30sp"
-                android:id="@+id/T2"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="#FFF"
-                android:text="@string/player"/>
+        <TextView
+            android:id="@+id/P3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/player"
+            android:textAllCaps="true"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/P4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/player"
+            android:textAllCaps="true"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
 
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/LV_games"/>
+        <TextView
+            android:id="@+id/P5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/player"
+            android:textAllCaps="true"
+            android:textColor="#FFF"
+            android:textSize="30sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/LL_belote"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_games"
-        android:padding="10dp"
-        android:src="@drawable/cards_plus"
-        android:layout_gravity="end|bottom"
-        android:id="@+id/add_game"
-        android:layout_margin="30dp"
-        android:contentDescription="@string/description_add_game" />
+        android:orientation="horizontal"
+        android:visibility="gone">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/T1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/player"
+            android:textAllCaps="true"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/T2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/player"
+            android:textAllCaps="true"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RV_games"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager" />
+
+</LinearLayout>
+
+
+    <!--    <ImageButton-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@drawable/background_games"-->
+    <!--        android:padding="10dp"-->
+    <!--        android:src="@drawable/cards_plus"-->
+    <!--        android:layout_gravity="end|bottom"-->
+    <!--        android:id="@+id/add_game"-->
+    <!--        android:layout_margin="30dp"-->
+    <!--        android:contentDescription="@string/description_add_game" />-->
+

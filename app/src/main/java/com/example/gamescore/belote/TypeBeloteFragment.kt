@@ -19,10 +19,10 @@ class TypeBeloteFragment : Fragment() {
         val act = activity as BeloteActivity
 
         v.normale.setOnClickListener {
-            act.getName(TypeGame.NORMALE)
+            act.typeOfGame(TypeGame.NORMALE)
         }
         v.coinchee.setOnClickListener {
-            act.getName(TypeGame.COINCHEE)
+            act.typeOfGame(TypeGame.COINCHEE)
         }
 
         return v

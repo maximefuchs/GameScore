@@ -1,47 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:orientation="vertical"
+    android:padding="50dp"
     tools:context=".NbPlayersFragment">
 
 
-    <LinearLayout
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text = "@string/title_nb_players"
-            android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
-            android:textSize="30sp"
-            android:textColor="#FFF"/>
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:text="@string/title_nb_players"
+        android:textColor="#FFF"
+        android:textSize="30sp" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fourPlayers"
-            android:text="@string/nb_players_tarot_1"
-            android:textSize="60sp"
-            android:padding="30sp"
-            android:layout_marginBottom="40sp"
-            android:background="@drawable/background_games"/>
+    <Button
+        android:id="@+id/btn_option1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40sp"
+        android:background="@drawable/background_games"
+        android:padding="30sp"
+        android:text="@string/nb_players_tarot_1"
+        android:textSize="60sp" />
 
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fivePlayers"
-            android:text="@string/nb_players_tarot_2"
-            android:textSize="60sp"
-            android:padding="30sp"
-            android:background="@drawable/background_games"/>
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_option2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_games"
+        android:padding="30sp"
+        android:text="@string/nb_players_tarot_2"
+        android:textSize="60sp" />
 
 
-
-</FrameLayout>
+</LinearLayout>

@@ -6,9 +6,9 @@
     <string name="game_wist">Wist</string>
     <string name="game_dice">Dés</string>
 
-<!--    PLAYERS     -->
+    <!--    PLAYERS     -->
     <string name="player">PL</string>
-    <string name="score">0</string>
+    <string name="score_init">0</string>
     <string name="J1">J1</string>
     <string name="J2">J2</string>
     <string name="J3">J3</string>
@@ -16,24 +16,11 @@
     <string name="J5">J5</string>
     <string name="hint_name">Nom Joueur</string>
 
-<!--    TAROT     -->
+    <!--    TAROT     -->
     <string name="title_nb_players">Nombre de Joueurs</string>
     <string name="nb_players_tarot_1">4</string>
     <string name="nb_players_tarot_2">5</string>
     <string name="description_add_game">Add Game</string>
-<!--    BELOTE     -->
-    <string name="title_type_belote">Type de jeu</string>
-    <string name="type_belote_1">Normale</string>
-    <string name="type_belote_2">Coinchée</string>
-    <string name="team_1">Equipe 1</string>
-    <string name="team_2">Equipe 2</string>
-    <string name="placeholder_team">%s + %s</string>
-
-    <string name="long_click_hint">Appuyez longtemps pour modifier</string>
-    <string name="question_quit">Voulez-vous quitter ?</string>
-    <string name="yes">Oui</string>
-    <string name="no">Non</string>
-
     <string-array name="contrats">
         <item>Petite</item>
         <item>Pousse</item>
@@ -41,6 +28,43 @@
         <item>Garde Sans</item>
         <item>Garde Contre</item>
     </string-array>
+    <!--    BELOTE     -->
+    <string name="title_type_belote">Type de jeu</string>
+    <string name="type_belote_1">Normale</string>
+    <string name="type_belote_2">Coinchée</string>
+    <string name="nb_players_belote_1">3</string>
+    <string name="nb_players_belote_2">4</string>
+    <string name="team_1">Equipe 1</string>
+    <string name="team_2">Equipe 2</string>
+    <string name="placeholder_team">%s + %s</string>
+    <string-array name="coinchee">
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+        <item>110</item>
+        <item>120</item>
+        <item>130</item>
+        <item>140</item>
+        <item>150</item>
+        <item>160</item>
+        <item>250</item>
+    </string-array>
+    <string name="hintBeloteScore">0 - 162</string>
+
+    <string name="long_click_hint">Appuyez longtemps pour modifier</string>
+    <string name="question_quit">Voulez-vous quitter ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="validate_button">Validate</string>
+    <string name="lose_button">lose button</string>
+    <string name="win_button">win button</string>
+    <string name="score">Score</string>
+    <string name="icon_offense">icon offense</string>
+    <string name="icon_contract">icon contract</string>
+    <string name="bonus">Bonus</string>
+    <string name="bonus_offense">Attaque</string>
+    <string name="bonus_defense">Défense</string>
 </resources>
