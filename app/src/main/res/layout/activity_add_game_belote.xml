@@ -2,10 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLoayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     android:background="@color/colorPrimary"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".belote.AddGameBeloteActivity">
 
     <LinearLayout
@@ -32,32 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/contrat_coinchee"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:contentDescription="@string/icon_contract"
-                android:src="@drawable/contract" />
-
-            <Spinner
-                android:id="@+id/spinner_contrat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:entries="@array/coinchee"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp" />
 
@@ -94,46 +71,59 @@
                 android:src="@drawable/medal" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/score"
-            android:textSize="30sp" />
-
         <LinearLayout
+            android:id="@+id/LL_isCoinchee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:orientation="horizontal">
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-            <EditText
-                android:id="@+id/scoreT1"
-                android:layout_width="0px"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autofillHints="0"
-                android:gravity="center"
-                android:hint="@string/hintBeloteScore"
-                android:inputType="number" />
+                android:layout_margin="10dp"
+                android:text="@string/coinchee"
+                android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/scoreT2"
-                android:layout_width="0px"
+            <CheckBox
+                android:id="@+id/CBisCoinchee"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autofillHints="0"
-                android:gravity="center"
-                android:hint="@string/hintBeloteScore"
-                android:inputType="number" />
+                android:layout_margin="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL_contrat_coinchee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:contentDescription="@string/icon_contract"
+                android:src="@drawable/contract" />
+
+            <Spinner
+                android:id="@+id/spinner_contrat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:entries="@array/coinchee"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp" />
 
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bonus"
+            android:text="@string/score"
             android:textSize="30sp" />
-
         <LinearLayout
             android:id="@+id/LL_OandD"
             android:layout_width="match_parent"
@@ -160,6 +150,53 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/scoreT1"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints="0"
+                android:gravity="center"
+                android:hint="@string/hintBeloteScore"
+                android:inputType="number"
+                android:nextFocusRight="@id/rootLoayout" />
+
+            <EditText
+                android:id="@+id/scoreT2"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints="0"
+                android:gravity="center"
+                android:hint="@string/hintBeloteScore"
+                android:inputType="number"
+                android:nextFocusRight="@id/rootLoayout" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/score_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_fill_score"
+            android:textColor="@color/colorPrimaryLightUp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/TV_bonus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/bonus"
+            android:textSize="30sp" />
+
+
+        <LinearLayout
+            android:id="@+id/LL_bonus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

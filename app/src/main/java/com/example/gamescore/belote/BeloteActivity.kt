@@ -2,14 +2,10 @@ package com.example.gamescore.belote
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.gamescore.*
-import com.example.gamescore.tarot.AddGameTarotActivity
-import com.example.gamescore.tarot.GameTarot
-import com.example.gamescore.tarot.GameTarot5
-import com.example.gamescore.tarot.ScoreTarotFragment
 import kotlinx.android.synthetic.main.activity_game.*
+import kotlin.math.abs
 import java.util.ArrayList
 
 enum class TypeGame {
@@ -19,7 +15,7 @@ enum class TypeGame {
 
 class BeloteActivity : GameActivity() {
 
-    var gameType = TypeGame.NORMALE
+    private var gameType = TypeGame.NORMALE
     var nbPlayers = 4
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,23 +25,26 @@ class BeloteActivity : GameActivity() {
 
         supportFragmentManager.beginTransaction().replace(
             R.id.container,
-            TypeBeloteFragment()
+            NbPlayersBeloteFragment()
         ).commit()
 
         add_game.setOnClickListener { addBeloteGame() }
     }
 
+    fun getTypeOfGame() {
+//        nbPlayers = 4
+        supportFragmentManager.beginTransaction().replace(
+            R.id.container,
+            TypeBeloteFragment()
+        ).commit()
+    }
+
     fun typeOfGame(game_of_type: TypeGame) {
         gameType = game_of_type
-        if (gameType == TypeGame.NORMALE)
-            supportFragmentManager.beginTransaction().replace(
-                R.id.container,
-                NbPlayersFragment()
-            ).commit()
-        else
-            getName(4)
+        getName(4)
     }
-    fun getName(nbOfPlayers : Int) {
+
+    fun getName(nbOfPlayers: Int) {
         nbPlayers = nbOfPlayers
         supportFragmentManager.beginTransaction().replace(
             R.id.container,
@@ -54,21 +53,22 @@ class BeloteActivity : GameActivity() {
     }
 
     fun startGame(list_names: List<String>) {
+        hideKeyBoard()
         names = list_names
         val f = ScoreBeloteFragment()
         listGames = ArrayList<Game>()
         f.listPlayers = names
         f.listGames = listGames
         supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
-        add_game.visibility = View.VISIBLE
     }
 
-    fun addBeloteGame() {
+    private fun addBeloteGame() {
         val intent = Intent(this, AddGameBeloteActivity::class.java)
         val bundle = Bundle()
         bundle.putBoolean("edit", false)
         bundle.putStringArrayList("players", ArrayList(names))
         intent.putExtras(bundle)
+        intent.putExtra("isCoinchee", gameType == TypeGame.COINCHEE)
         resultLauncher.launch(intent)
     }
 
@@ -79,62 +79,92 @@ class BeloteActivity : GameActivity() {
         bundle.putStringArrayList("players", ArrayList(names))
         bundle.putSerializable("lastGame", listGames[game_id])
         intent.putExtras(bundle)
+        intent.putExtra("isCoinchee", gameType == TypeGame.COINCHEE)
         resultLauncher.launch(intent)
         return true
     }
 
 
-    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-    { result ->
-        if (result.resultCode == Request.ADDGAME.value) {
-            val b: Bundle = result.data?.extras!!
-            val preneur = b.getInt("preneur")
-            val result = b.getBoolean("result")
-            val ecart = b.getInt("ecart")
-            var bonusT1 = b.getInt("bonusT1")
-            var bonusT2 = b.getInt("bonusT2")
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        { res ->
+            if (res.resultCode == Request.ADDGAME.value) {
+                val b: Bundle = res.data?.extras!!
+                val preneur = b.getInt("preneur")
+                val result = b.getBoolean("result")
+                val ecart = b.getInt("ecart")
+                var bonusT1 = b.getInt("bonusT1")
+                var bonusT2 = b.getInt("bonusT2")
 
-            val g: GameBelote
-            var game_id = 0
-            val newScore: MutableList<Int>
-            if (listGames.size > 0) {
-                newScore = listGames.last().score.toMutableList()
-                game_id = listGames.last().game_id + 1
-            } else {
-                if (nbPlayers == 3) newScore = mutableListOf<Int>(0, 0, 0)
-                else newScore = mutableListOf<Int>(0, 0)
-            }
-            val s = if (ecart == 250) 250 else (162 + ecart) / 2
-            var contrat: Int = 80
-            if (gameType == TypeGame.COINCHEE && result) {
-                contrat = b.getString("contrat")!!.toInt()
-                if (preneur == 0 && result) bonusT1 += contrat
-                if (preneur == 1 && result) bonusT2 += contrat
-            }
-            var totalPoints = if (ecart == 250) 250 else 162
-            if (nbPlayers == 4) {
-                for (i in 0..1) {
-                    if (result) {
-                        newScore[i] =
-                            newScore[i] + (if (preneur == i) s + bonusT1 else totalPoints - s + bonusT2)
-                    } else
-                        newScore[i] =
-                            newScore[i] + (if (preneur == i) 0 + bonusT1 else totalPoints + bonusT2)
-                }
-
-                if (gameType == TypeGame.COINCHEE) {
-                    g = GameBeloteCoinchee(
-                        game_id,
-                        preneur,
-                        result,
-                        contrat,
-                        ecart,
-                        bonusT1,
-                        bonusT2,
-                        newScore
-                    )
+                val g: GameBelote
+                val game_id: Int
+                val newScore: MutableList<Int>
+                if (listGames.size > 0) {
+                    newScore = listGames.last().score.toMutableList()
+                    game_id = listGames.last().game_id + 1
                 } else {
-                    g = GameBelote(
+                    game_id = 0
+                    newScore = if (nbPlayers == 3) mutableListOf(0, 0, 0) else mutableListOf(0, 0)
+                }
+                val s = if (abs(ecart) == 250) 250 else (162 + ecart) / 2
+                var totalPoints = if (abs(ecart) == 250) 250 else 162
+                var contrat = 80
+                var isCoinchee = false
+                if (gameType == TypeGame.COINCHEE && result) {
+                    contrat = b.getInt("contrat")
+                    isCoinchee = b.getBoolean("coinchee")
+                    // if coinchee, double contract value
+                    if (preneur == 0 && result) bonusT1 += if (isCoinchee) 2 * contrat else contrat
+                    if (preneur == 1 && result) bonusT2 += if (isCoinchee) 2 * contrat else contrat
+                    if(isCoinchee && !result) totalPoints *= 2 // double reward for defense if defeat when coinchee
+                }
+                if (nbPlayers == 4) {
+                    for (i in 0..1) {
+                        val bonus = if (i == 0) bonusT1 else bonusT2
+                        if (result)
+                            newScore[i] =
+                                newScore[i] + (if (preneur == i) s + bonus else totalPoints - s + bonus)
+                        else
+                            newScore[i] =
+                                newScore[i] + (if (preneur == i) 0 + bonus else totalPoints + bonus)
+                    }
+
+                    if (gameType == TypeGame.COINCHEE) {
+                        g = GameBeloteCoinchee(
+                            game_id,
+                            preneur,
+                            result,
+                            contrat,
+                            ecart,
+                            bonusT1,
+                            bonusT2,
+                            isCoinchee,
+                            newScore
+                        )
+                    }
+                    else {
+                        g = GameBelote(
+                            game_id,
+                            preneur,
+                            result,
+                            ecart,
+                            bonusT1,
+                            bonusT2,
+                            newScore
+                        )
+                    }
+                }
+                else {
+                    if (!result) totalPoints /= 2
+                    for (i in 0..2) {
+                        if (result)
+                            newScore[i] =
+                                newScore[i] + (if (preneur == i) s + bonusT1 else totalPoints - s + bonusT2)
+                        else
+                            newScore[i] =
+                                newScore[i] + (if (preneur == i) 0 + bonusT1 else totalPoints + bonusT2)
+                    }
+                    g = GameBelote3(
                         game_id,
                         preneur,
                         result,
@@ -144,104 +174,88 @@ class BeloteActivity : GameActivity() {
                         newScore
                     )
                 }
-            } else {
-                if (!result) totalPoints /= 2
-                for (i in 0..2) {
-                    if (result)
-                        newScore[i] =
-                            newScore[i] + (if (preneur == i) s + bonusT1 else totalPoints - s + bonusT2)
-                    else
-                        newScore[i] =
-                            newScore[i] + (if (preneur == i) 0 + bonusT1 else totalPoints + bonusT2)
-                }
-                g = GameBelote3(
-                    game_id,
-                    preneur,
-                    result,
-                    ecart,
-                    bonusT1,
-                    bonusT2,
-                    newScore
-                )
+                listGames.add(g)
+
+                val f = ScoreBeloteFragment()
+                f.listPlayers = names
+                f.listGames = listGames
+                supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
             }
-            listGames.add(g)
 
-            val f = ScoreBeloteFragment()
-            f.listPlayers = names
-            f.listGames = listGames
-            supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+            if (res.resultCode == Request.EDITGAME.value) {
+                val b: Bundle = res.data?.extras!!
+                val preneur = b.getInt("preneur")
+                val result = b.getBoolean("result")
+                val ecart = b.getInt("ecart")
+                val bonusT1 = b.getInt("bonusT1")
+                val bonusT2 = b.getInt("bonusT2")
+
+                val g: GameBelote
+                if (nbPlayers == 4) {
+                    if (gameType == TypeGame.NORMALE)
+                        g = listGames[b.getInt("game_id")] as GameBelote
+                    else { // coinchee
+                        g = listGames[b.getInt("game_id")] as GameBeloteCoinchee
+                        g.contrat = b.getInt("contrat")
+                        g.coinchee = b.getBoolean("coinchee")
+                    }
+                } else
+                    g = listGames[b.getInt("game_id")] as GameBelote3
+                g.taker = preneur
+                g.success = result
+                g.difference = ecart
+                g.bonusTeam1 = bonusT1
+                g.bonusTeam2 = bonusT2
+
+
+                val newScore = if (nbPlayers == 4) mutableListOf(0, 0) else mutableListOf(0, 0, 0)
+                for (game_id in 0 until listGames.size) {
+                    val gi: GameBelote = listGames[game_id] as GameBelote
+                    val ecart_i = gi.difference
+                    val s = if (abs(ecart_i) == 250) 250 else (162 + ecart_i) / 2
+                    var totalPoints = if (abs(ecart_i) == 250) 250 else 162
+
+                    var bonusT1_i = gi.bonusTeam1
+                    var bonusT2_i = gi.bonusTeam2
+
+                    if (gameType == TypeGame.COINCHEE) {
+                        val giCoinchee = (listGames[game_id] as GameBeloteCoinchee)
+                        val contrat = giCoinchee.contrat
+                        val isCoinchee = giCoinchee.coinchee
+                        // if coinchee, double contract value
+                        if (gi.taker == 0 && gi.success) bonusT1_i += if (isCoinchee) 2 * contrat else contrat
+                        if (gi.taker == 1 && gi.success) bonusT2_i += if (isCoinchee) 2 * contrat else contrat
+                        if(isCoinchee && !gi.success) totalPoints *= 2 // double reward for defense if defeat when coinchee
+                    }
+
+                    if (nbPlayers == 4) {
+                        for (i in 0..1) {
+                            val bonus = if (i == 0) bonusT1_i else bonusT2_i
+                            if (gi.success)
+                                newScore[i] =
+                                    newScore[i] + (if (gi.taker == i) s + bonus else totalPoints - s + bonus)
+                            else
+                                newScore[i] =
+                                    newScore[i] + (if (gi.taker == i) 0 + bonus else totalPoints + bonus)
+                        }
+                    } else { // nbPlayers == 3
+                        if (!gi.success) totalPoints /= 2
+                        for (i in 0..2) {
+                            if (gi.success)
+                                newScore[i] =
+                                    newScore[i] + (if (gi.taker == i) s + bonusT1_i else totalPoints - s + bonusT2_i)
+                            else
+                                newScore[i] =
+                                    newScore[i] + (if (gi.taker == i) 0 + bonusT1_i else totalPoints + bonusT2_i)
+                        }
+                    }
+                    gi.score = newScore.toMutableList()
+                }
+
+                val f = ScoreBeloteFragment()
+                f.listPlayers = names
+                f.listGames = listGames
+                supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+            }
         }
-
-//        if (result.resultCode == Request.EDITGAME.value) {
-//            val b: Bundle = result.data?.extras!!
-//            val preneur = b.getInt("preneur")
-//            val contrat = b.getString("contrat")!!
-//            val result = b.getBoolean("result")
-//            val ecart = b.getInt("ecart")
-//            val bonus = b.getInt("bonus")
-//
-//            val g: GameTarot
-//            if (names.size == 4)
-//                g = listGames[b.getInt("game_id")] as GameTarot
-//            else {
-//                g = listGames[b.getInt("game_id")] as GameTarot5
-//                g.teammate = b.getInt("appel")
-//            }
-//            g.player_take = preneur
-//            g.contract = contrat
-//            g.success = result
-//            g.difference = ecart
-//            g.bonus = bonus
-//
-//
-//            val newScore: MutableList<Int>
-//            if (names.size == 4) newScore = mutableListOf<Int>(0, 0, 0, 0)
-//            else newScore = mutableListOf<Int>(0, 0, 0, 0, 0)
-//            for (game_id in 0..listGames.size - 1) {
-//                var gi: GameTarot = listGames[game_id] as GameTarot
-//                val valContrat = contrats[gi.contract]
-//                var toAdd = valContrat?.plus(gi.difference)
-//                if (!gi.success) toAdd = -toAdd!!
-//                if (names.size == 4) {
-//                    for (i in 0..3) {
-//                        if (i == gi.player_take) newScore[i] = newScore[i] + 3 * toAdd!!
-//                        else newScore[i] = newScore[i] - toAdd!!
-//
-//                        if (gi.bonus != -1) // -1 means no bonus
-//                        {
-//                            if (i == gi.bonus) newScore[i] = newScore[i] + 30
-//                            else newScore[i] = newScore[i] - 10
-//                        }
-//                    }
-//                } else {
-//                    gi = listGames[game_id] as GameTarot5
-//                    val appel = gi.teammate
-//                    val preneur_i = gi.player_take
-//                    for (i in 0..4) {
-//                        if (appel == preneur_i) {
-//                            if (i == preneur_i) newScore[i] = newScore[i] + 4 * toAdd!!
-//                            else newScore[i] = newScore[i] - toAdd!!
-//                        } else {
-//                            if (i == preneur_i) newScore[i] = newScore[i] + 2 * toAdd!!
-//                            else if (i == appel) newScore[i] = newScore[i] + toAdd!!
-//                            else newScore[i] = newScore[i] - toAdd!!
-//                        }
-//
-//                        if (gi.bonus != -1) // -1 means no bonus
-//                        {
-//                            if (i == gi.bonus) newScore[i] = newScore[i] + 40
-//                            else newScore[i] = newScore[i] - 10
-//                        }
-//                    }
-//                }
-//                gi.score = newScore.toMutableList()
-//            }
-//
-//            val f = ScoreTarotFragment()
-//            f.listPlayers = names
-//            f.listGames = listGames
-//            supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
-//
-//        }
-    }
 }

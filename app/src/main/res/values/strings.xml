@@ -49,7 +49,9 @@
         <item>160</item>
         <item>250</item>
     </string-array>
-    <string name="hintBeloteScore">0 - 162</string>
+    <string name="hintBeloteScore">0 – 162</string>
+    <string name="topScoreBelote">162</string>
+
 
     <string name="long_click_hint">Appuyez longtemps pour modifier</string>
     <string name="question_quit">Voulez-vous quitter ?</string>
@@ -67,4 +69,7 @@
     <string name="bonus">Bonus</string>
     <string name="bonus_offense">Attaque</string>
     <string name="bonus_defense">Défense</string>
+    <string name="hint_fill_score">Reseignez le score</string>
+    <string name="score_invalid">Score invalide</string>
+    <string name="coinchee">Coinchée</string>
 </resources>

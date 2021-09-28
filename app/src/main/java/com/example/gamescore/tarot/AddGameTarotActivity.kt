@@ -6,17 +6,21 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
+import com.example.gamescore.AddGameActivity
 import com.example.gamescore.R
 import com.example.gamescore.Request
 import kotlinx.android.synthetic.main.activity_add_game_tarot.*
 import java.util.*
 
-class AddGameTarotActivity : AppCompatActivity() {
+class AddGameTarotActivity : AddGameActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_game_tarot)
         var game : GameTarot
-        var game_id : Int = 0
+        var game_id = 0
+
+        winBtn = btnWin
+        loseBtn = btnLose
 
         val b = intent.extras!!
         val players = b.getStringArrayList("players") as ArrayList<String>
@@ -129,21 +133,5 @@ class AddGameTarotActivity : AppCompatActivity() {
             )
         )
         return score_id
-    }
-
-    private fun changeResult(is_won: Boolean): Boolean {
-        btnLose.setBackgroundColor(
-            ContextCompat.getColor(
-                applicationContext,
-                if (is_won) R.color.colorPrimaryLight else R.color.colorDefeat
-            )
-        )
-        btnWin.setBackgroundColor(
-            ContextCompat.getColor(
-                applicationContext,
-                if (is_won) R.color.colorVictory else R.color.colorPrimaryLight
-            )
-        )
-        return is_won;
     }
 }

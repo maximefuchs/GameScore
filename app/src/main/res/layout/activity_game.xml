@@ -11,15 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@drawable/background_games"
         android:contentDescription="@string/description_add_game"
         android:padding="10dp"
         android:src="@drawable/cards_plus"
         android:visibility="gone"
-        app:fabCustomSize="110dp"
+        app:fabCustomSize="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="80dp" />
+        app:maxImageSize="50dp" />
 
     <ScrollView
         android:layout_width="match_parent"

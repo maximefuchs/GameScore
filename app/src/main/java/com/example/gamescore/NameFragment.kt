@@ -17,6 +17,10 @@ open class NameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_name, container, false)
+        val v = inflater.inflate(R.layout.fragment_name, container, false)
+        v.nameP1.requestFocus()
+        val act = activity as GameActivity
+        act.showKeyBoard(v.nameP1)
+        return v
     }
 }

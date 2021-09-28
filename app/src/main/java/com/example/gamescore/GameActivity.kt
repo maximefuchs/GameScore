@@ -12,7 +12,8 @@ import java.util.ArrayList
 
 enum class Request(val value: Int) {
     ADDGAME(0),
-    EDITGAME(1);
+    EDITGAME(1),
+    CANCEL(2);
 
     companion object {
         fun fromInt(value: Int) = Request.values().first { it.value == value }
@@ -30,12 +31,16 @@ open class GameActivity : AppCompatActivity() {
 
         // quitting
         btnQuit.setOnClickListener { finish() }
-        btnNoQuit.setOnClickListener { RLquit.visibility = View.GONE }
+        btnNoQuit.setOnClickListener {
+            RLquit.visibility = View.GONE
+            add_game.visibility = View.VISIBLE
+        }
 
     }
 
     override fun onBackPressed() {
         RLquit.visibility = View.VISIBLE
+        add_game.visibility = View.GONE
     }
 
     fun hideKeyBoard() {
@@ -45,5 +50,11 @@ open class GameActivity : AppCompatActivity() {
                 getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+
+    fun showKeyBoard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
     }
 }

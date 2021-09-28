@@ -14,20 +14,20 @@ class NbPlayersBeloteFragment : NbPlayersFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val v = super.onCreateView(inflater, container, savedInstanceState)!!
         val threeP = v.btn_option1
         threeP.setText(R.string.nb_players_belote_1)
         val fourP = v.btn_option2
-        fourP.setText(R.string.nb_players_belote_1)
+        fourP.setText(R.string.nb_players_belote_2)
         val act = activity as BeloteActivity
 
         threeP.setOnClickListener {
             act.getName(3)
         }
         fourP.setOnClickListener {
-            act.getName(4)
+            act.getTypeOfGame()
         }
 
         return v

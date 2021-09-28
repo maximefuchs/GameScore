@@ -49,17 +49,15 @@ class TarotActivity : GameActivity() {
         f.listPlayers = names
         f.listGames = listGames
         supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
-        add_game.visibility = View.VISIBLE
     }
 
-    fun addTarotGame() {
+    private fun addTarotGame() {
         val intent = Intent(this, AddGameTarotActivity::class.java)
         val bundle = Bundle()
         bundle.putBoolean("edit", false)
         bundle.putStringArrayList("players", ArrayList(names))
         intent.putExtras(bundle)
         resultLauncher.launch(intent)
-//        startActivityForResult(intent, Request.ADDGAME.value)
     }
 
     fun editTarotGame(game_id: Int): Boolean {
@@ -70,7 +68,6 @@ class TarotActivity : GameActivity() {
         bundle.putSerializable("lastGame", listGames[game_id])
         intent.putExtras(bundle)
         resultLauncher.launch(intent)
-//        startActivityForResult(intent, Request.EDITGAME.value)
         return true
     }
 
@@ -199,15 +196,15 @@ class TarotActivity : GameActivity() {
                     }
                 } else {
                     gi = listGames[game_id] as GameTarot5
-                    val appel = gi.teammate
+                    val appel_i = gi.teammate
                     val preneur_i = gi.player_take
                     for (i in 0..4) {
-                        if (appel == preneur_i) {
+                        if (appel_i == preneur_i) {
                             if (i == preneur_i) newScore[i] = newScore[i] + 4 * toAdd!!
                             else newScore[i] = newScore[i] - toAdd!!
                         } else {
                             if (i == preneur_i) newScore[i] = newScore[i] + 2 * toAdd!!
-                            else if (i == appel) newScore[i] = newScore[i] + toAdd!!
+                            else if (i == appel_i) newScore[i] = newScore[i] + toAdd!!
                             else newScore[i] = newScore[i] - toAdd!!
                         }
 

@@ -24,12 +24,18 @@ class NameFragmentTarot : NameFragment() {
 
         v.ok_btn.setOnClickListener {
             val l = mutableListOf<String>()
-            l.add(nameP1.text.toString())
-            l.add(nameP2.text.toString())
-            l.add(nameP3.text.toString())
-            l.add(nameP4.text.toString())
-            if (act.nbPlayers == 5)
-                l.add(nameP5.text.toString())
+            if (nameP1.text.isEmpty()) l.add("1")
+            else l.add(nameP1.text.toString())
+            if (nameP2.text.isEmpty()) l.add("2")
+            else l.add(nameP2.text.toString())
+            if (nameP3.text.isEmpty()) l.add("3")
+            else l.add(nameP3.text.toString())
+            if (nameP4.text.isEmpty()) l.add("4")
+            else l.add(nameP4.text.toString())
+            if (act.nbPlayers == 5) {
+                if (nameP5.text.isEmpty()) l.add("5")
+                else l.add(nameP5.text.toString())
+            }
             act.startGame(l)
         }
         return v
