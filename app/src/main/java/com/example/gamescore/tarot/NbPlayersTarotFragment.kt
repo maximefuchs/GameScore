@@ -20,7 +20,7 @@ class NbPlayersTarotFragment : NbPlayersFragment() {
         val fourP = v.btn_option1
         fourP.setText(R.string.nb_players_tarot_1)
         val fiveP = v.btn_option2
-        fiveP.setText(R.string.nb_players_tarot_1)
+        fiveP.setText(R.string.nb_players_tarot_2)
         val act = activity as TarotActivity
 
         fourP.setOnClickListener {

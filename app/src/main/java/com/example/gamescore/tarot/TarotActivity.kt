@@ -1,9 +1,7 @@
 package com.example.gamescore.tarot
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.gamescore.*
 import kotlinx.android.synthetic.main.activity_game.*
@@ -24,21 +22,13 @@ class TarotActivity : GameActivity() {
         context = this
         FrameTitle.text = resources.getText(R.string.game_tarot)
 
-        supportFragmentManager.beginTransaction().replace(
-            R.id.container,
-            NbPlayersFragment()
-        )
-            .commit()
-
-        add_game.setOnClickListener {addTarotGame()}
+        fragmentTransition(R.id.container,NbPlayersTarotFragment())
+        add_game.setOnClickListener { addTarotGame() }
     }
 
     fun getName(nb_players: Int) {
         nbPlayers = nb_players
-        supportFragmentManager.beginTransaction().replace(
-            R.id.container,
-            NameFragmentTarot()
-        ).commit()
+        fragmentTransition(R.id.container,NameFragmentTarot())
     }
 
     fun startGame(list_names: List<String>) {
@@ -48,7 +38,7 @@ class TarotActivity : GameActivity() {
         listGames = ArrayList<Game>()
         f.listPlayers = names
         f.listGames = listGames
-        supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+        fragmentTransition(R.id.container,f)
     }
 
     private fun addTarotGame() {
@@ -73,9 +63,9 @@ class TarotActivity : GameActivity() {
 
 
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-    { result ->
-        if (result.resultCode == Request.ADDGAME.value) {
-            val b: Bundle = result.data?.extras!!
+    { res ->
+        if (res.resultCode == Request.ADDGAME.value) {
+            val b: Bundle = res.data?.extras!!
             val preneur = b.getInt("preneur")
             val contrat = b.getString("contrat")!!
             val valContrat = contrats[contrat]!!
@@ -153,8 +143,8 @@ class TarotActivity : GameActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
         }
 
-        if (result.resultCode == Request.EDITGAME.value) {
-            val b: Bundle = result.data?.extras!!
+        if (res.resultCode == Request.EDITGAME.value) {
+            val b: Bundle = res.data?.extras!!
             val preneur = b.getInt("preneur")
             val contrat = b.getString("contrat")!!
             val result = b.getBoolean("result")

@@ -23,20 +23,13 @@ class BeloteActivity : GameActivity() {
         context = this
         FrameTitle.text = resources.getText(R.string.game_belote)
 
-        supportFragmentManager.beginTransaction().replace(
-            R.id.container,
-            NbPlayersBeloteFragment()
-        ).commit()
-
+        fragmentTransition(R.id.container,NbPlayersBeloteFragment())
         add_game.setOnClickListener { addBeloteGame() }
     }
 
     fun getTypeOfGame() {
 //        nbPlayers = 4
-        supportFragmentManager.beginTransaction().replace(
-            R.id.container,
-            TypeBeloteFragment()
-        ).commit()
+        fragmentTransition(R.id.container,TypeBeloteFragment())
     }
 
     fun typeOfGame(game_of_type: TypeGame) {
@@ -46,10 +39,7 @@ class BeloteActivity : GameActivity() {
 
     fun getName(nbOfPlayers: Int) {
         nbPlayers = nbOfPlayers
-        supportFragmentManager.beginTransaction().replace(
-            R.id.container,
-            NameFragmentBelote()
-        ).commit()
+        fragmentTransition(R.id.container,NameFragmentBelote())
     }
 
     fun startGame(list_names: List<String>) {
@@ -59,7 +49,7 @@ class BeloteActivity : GameActivity() {
         listGames = ArrayList<Game>()
         f.listPlayers = names
         f.listGames = listGames
-        supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+        fragmentTransition(R.id.container,f)
     }
 
     private fun addBeloteGame() {
