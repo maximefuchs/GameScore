@@ -1,7 +1,6 @@
 package com.example.gamescore.tarot
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -17,7 +16,7 @@ class AddGameTarotActivity : AddGameActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_game_tarot)
         var game : GameTarot
-        var game_id = 0
+        var gameId = 0
 
         winBtn = btnWin
         loseBtn = btnLose
@@ -34,42 +33,27 @@ class AddGameTarotActivity : AddGameActivity() {
         val adapterPreneur = ArrayAdapter(this, R.layout.spinner_item, players)
         spinner_preneur.adapter = adapterPreneur
 
-//        spinner_preneur.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onNothingSelected(parent: AdapterView<*>?) {}
-//            override fun onItemSelected(
-//                parent: AdapterView<*>?,
-//                view: View?,
-//                position: Int,
-//                id: Long
-//            ) {
-//                var players_minus_one = ArrayList(players.map { it })
-//                players_minus_one.removeAt(position)
-//                val adapterCalled = ArrayAdapter(context, R.layout.spinner_item, players_minus_one)
-//                spinner_called.adapter = adapterCalled
-//            }
-//        }
-
         val adapterCalled = ArrayAdapter(context, R.layout.spinner_item, players)
         spinner_called.adapter = adapterCalled
 
-        val players_none = ArrayList(players.map { it }) // create copy
-        players_none.add(0, " - ")
-        val adapterBonus = ArrayAdapter(this, R.layout.spinner_item, players_none)
+        val playersNone = ArrayList(players.map { it }) // create copy
+        playersNone.add(0, " - ")
+        val adapterBonus = ArrayAdapter(this, R.layout.spinner_item, playersNone)
         spinner_bonus.adapter = adapterBonus
 
         val contracts = resources.getStringArray(R.array.contrats)
         val adapterContrat = ArrayAdapter(this, R.layout.spinner_item, contracts)
         spinner_contrat.adapter = adapterContrat
 
-        var ecart_score = changeEcart(0)
-        btn0.setOnClickListener { ecart_score = changeEcart(0) }
-        btn10.setOnClickListener { ecart_score = changeEcart(10) }
-        btn20.setOnClickListener { ecart_score = changeEcart(20) }
-        btn30.setOnClickListener { ecart_score = changeEcart(30) }
+        var ecartScore = changeEcart(0)
+        btn0.setOnClickListener { ecartScore = changeEcart(0) }
+        btn10.setOnClickListener { ecartScore = changeEcart(10) }
+        btn20.setOnClickListener { ecartScore = changeEcart(20) }
+        btn30.setOnClickListener { ecartScore = changeEcart(30) }
 
-        var party_is_won = changeResult(true)
-        btnLose.setOnClickListener { party_is_won = changeResult(false) }
-        btnWin.setOnClickListener { party_is_won = changeResult(true) }
+        var partyIsWon = changeResult(true)
+        btnLose.setOnClickListener { partyIsWon = changeResult(false, ecartScore) }
+        btnWin.setOnClickListener { partyIsWon = changeResult(true, ecartScore) }
 
         if (edit)
         {
@@ -80,10 +64,10 @@ class AddGameTarotActivity : AddGameActivity() {
             }
             spinner_preneur.setSelection(game.player_take)
             spinner_contrat.setSelection(contracts.indexOf(game.contract))
-            ecart_score = changeEcart(game.difference)
-            party_is_won = changeResult(game.success)
+            ecartScore = changeEcart(game.difference)
+            partyIsWon = changeResult(game.success)
             spinner_bonus.setSelection(game.bonus + 1)
-            game_id = game.game_id
+            gameId = game.game_id
         }
 
 
@@ -97,10 +81,10 @@ class AddGameTarotActivity : AddGameActivity() {
             if (players.size == 5)
                 intent.putExtra("appel", players.indexOf(spinner_called.selectedItem.toString()))
             intent.putExtra("contrat", spinner_contrat.selectedItem.toString())
-            intent.putExtra("result", party_is_won)
-            intent.putExtra("ecart", ecart_score)
+            intent.putExtra("result", partyIsWon)
+            intent.putExtra("ecart", ecartScore)
             if(edit)
-                intent.putExtra("game_id",game_id)
+                intent.putExtra("game_id",gameId)
             setResult(if(edit) Request.EDITGAME.value else Request.ADDGAME.value, intent)
             finish()
         }
@@ -133,5 +117,17 @@ class AddGameTarotActivity : AddGameActivity() {
             )
         )
         return score_id
+    }
+
+    private fun changeResult(is_won: Boolean, score_id: Int): Boolean {
+        this.changeResult(is_won)
+        var button = if (score_id == 0) btn0 else if (score_id == 10) btn10 else if (score_id == 20) btn20 else btn30
+        button.setBackgroundColor(
+            ContextCompat.getColor(
+                applicationContext,
+                colorForScore
+            )
+        )
+        return is_won
     }
 }

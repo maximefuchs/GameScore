@@ -11,8 +11,9 @@ import androidx.core.content.ContextCompat
 open class AddGameActivity : AppCompatActivity() {
     lateinit var loseBtn : ImageButton
     lateinit var winBtn : ImageButton
+    var colorForScore = R.color.colorVictoryUp
 
-    fun changeResult(is_won: Boolean): Boolean {
+    open fun changeResult(is_won: Boolean): Boolean {
         loseBtn.setBackgroundColor(
             ContextCompat.getColor(
                 applicationContext,
@@ -25,6 +26,7 @@ open class AddGameActivity : AppCompatActivity() {
                 if (is_won) R.color.colorVictory else R.color.colorPrimaryLight
             )
         )
+        colorForScore = if (is_won) R.color.colorVictoryUp else R.color.colorDefeatUp
         return is_won;
     }
 

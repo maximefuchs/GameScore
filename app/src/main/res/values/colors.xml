@@ -3,6 +3,8 @@
     <color name="colorPrimary">#2B6D2B</color>
     <color name="colorPrimaryDark">#0c4d08</color>
     <color name="colorPrimaryLightUp">#7bd48a</color>
+    <color name="colorVictoryUp">#7bd48a</color>
+    <color name="colorDefeatUp">#eb9da7</color>
     <color name="colorPrimaryLight">#5c965c</color>
     <color name="colorAccent">#FFF</color>
     <color name="colorFlash">#03DAC5</color>
