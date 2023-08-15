@@ -95,25 +95,25 @@ class AddGameTarotActivity : AddGameActivity() {
         btn0.setBackgroundColor(
             ContextCompat.getColor(
                 applicationContext,
-                if (score_id == 0) R.color.colorPrimaryLightUp else R.color.colorPrimaryLight
+                if (score_id == 0) colorForScore else R.color.colorPrimaryLight
             )
         )
         btn10.setBackgroundColor(
             ContextCompat.getColor(
                 applicationContext,
-                if (score_id == 10) R.color.colorPrimaryLightUp else R.color.colorPrimaryLight
+                if (score_id == 10) colorForScore else R.color.colorPrimaryLight
             )
         )
         btn20.setBackgroundColor(
             ContextCompat.getColor(
                 applicationContext,
-                if (score_id == 20) R.color.colorPrimaryLightUp else R.color.colorPrimaryLight
+                if (score_id == 20) colorForScore else R.color.colorPrimaryLight
             )
         )
         btn30.setBackgroundColor(
             ContextCompat.getColor(
                 applicationContext,
-                if (score_id == 30) R.color.colorPrimaryLightUp else R.color.colorPrimaryLight
+                if (score_id == 30) colorForScore else R.color.colorPrimaryLight
             )
         )
         return score_id
