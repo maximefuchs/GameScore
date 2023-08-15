@@ -3,6 +3,7 @@ package com.example.gamescore.tarot
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import com.example.gamescore.AddGameActivity
@@ -33,8 +34,32 @@ class AddGameTarotActivity : AddGameActivity() {
         val adapterPreneur = ArrayAdapter(this, R.layout.spinner_item, players)
         spinner_preneur.adapter = adapterPreneur
 
-        val adapterCalled = ArrayAdapter(context, R.layout.spinner_item, players)
-        spinner_called.adapter = adapterCalled
+        if (players.size == 5) {
+            var updatedPlayers = players.clone() as ArrayList<String>
+            updatedPlayers[0] = context.getString(R.string.player_alone)
+
+            val adapterCalled = ArrayAdapter(context, R.layout.spinner_item, updatedPlayers)
+            spinner_called.adapter = adapterCalled
+
+            spinner_preneur.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    updatedPlayers = players.clone() as ArrayList<String>
+                    updatedPlayers[position] = context.getString(R.string.player_alone)
+                    spinner_called.adapter =
+                        ArrayAdapter(context, R.layout.spinner_item, updatedPlayers)
+
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    // nothing, but function needs to be override
+                }
+            }
+        }
 
         val playersNone = ArrayList(players.map { it }) // create copy
         playersNone.add(0, " - ")
@@ -73,13 +98,13 @@ class AddGameTarotActivity : AddGameActivity() {
 
         btnValider.setOnClickListener {
             val intent = Intent()
-            intent.putExtra("preneur", players.indexOf(spinner_preneur.selectedItem.toString()))
+            intent.putExtra("preneur",spinner_preneur.selectedItemPosition)
             if (spinner_bonus.selectedItemPosition != 0)
-                intent.putExtra("bonus", players.indexOf(spinner_bonus.selectedItem.toString()))
+                intent.putExtra("bonus",spinner_bonus.selectedItemPosition)
             else // no bonus
                 intent.putExtra("bonus", -1)
             if (players.size == 5)
-                intent.putExtra("appel", players.indexOf(spinner_called.selectedItem.toString()))
+                intent.putExtra("appel",spinner_called.selectedItemPosition)
             intent.putExtra("contrat", spinner_contrat.selectedItem.toString())
             intent.putExtra("result", partyIsWon)
             intent.putExtra("ecart", ecartScore)
