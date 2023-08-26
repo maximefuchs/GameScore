@@ -32,22 +32,27 @@ class ScoreTarotFragment : ScoreFragment() {
             v.P5.text = listPlayers[4].take(2)
         }
 
-        if(listGames.size > 0)
+        val act = activity as TarotActivity
+        if (listGames.size > 0) {
             Log.w("LIST", listGames[0].toString())
+            if (!listGames.last().restart) {
+                val lastGame = listGames.last() as GameTarot
+                lastGame.saveGameToSharedPreferences(act.context)
+            }
+        }
 
         // TODO: make this feature more visible
-        val act = activity as TarotActivity
-        val onItemClick = { _ : Game ->
+        val onItemClick = { _: Game ->
             Toast.makeText(
                 act.context,
                 act.resources.getString(R.string.long_click_hint),
                 Toast.LENGTH_SHORT
             ).show()
         }
-        val onItemLongClick = {position : Int ->
+        val onItemLongClick = { position: Int ->
             act.editTarotGame(position)
         }
-        val adapter = TarotListAdapter(listGames, onItemClick,onItemLongClick)
+        val adapter = TarotListAdapter(listGames, onItemClick, onItemLongClick)
         v.RV_games.adapter = adapter
 
         return v

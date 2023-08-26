@@ -32,21 +32,25 @@ class TarotActivity : GameActivity() {
         if (gameId != -1) {
             val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers",4)
             val score = mutableListOf<Int>()
-            for (i in 0..numberOfPlayers)
-                score.add(sharedPreferences.getInt("playerScore_$i",0))
-            // TODO: get name
             val listNames = mutableListOf<String>()
+            for (i in 0..numberOfPlayers) {
+                score.add(sharedPreferences.getInt("playerScore_$i",0))
+                sharedPreferences.getString("Name_$i",i.toString())?.let { listNames.add(it) }
+            }
 
             btnNoSaved.setOnClickListener(){
+                RLsaved.visibility = View.GONE
                 fragmentTransition(R.id.container, NbPlayersTarotFragment())
                 add_game.setOnClickListener { addTarotGame() }
             }
             btnSaved.setOnClickListener(){
+                RLsaved.visibility = View.GONE
                 val f = ScoreTarotFragment()
                 val game = Game()
                 game.gameId = gameId
                 game.nbPlayers = numberOfPlayers
                 game.score = score
+                game.restart = true
                 listGames = ArrayList<Game>()
                 listGames.add(game)
                 f.listPlayers = listNames
@@ -68,6 +72,15 @@ class TarotActivity : GameActivity() {
 
     fun startGame(list_names: List<String>) {
         hideKeyBoard()
+
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
+        list_names.forEachIndexed { index, value ->
+            editor.putString("Name_$index", value)
+        }
+        editor.apply()
+
         names = list_names
         val f = ScoreTarotFragment()
         listGames = ArrayList<Game>()
