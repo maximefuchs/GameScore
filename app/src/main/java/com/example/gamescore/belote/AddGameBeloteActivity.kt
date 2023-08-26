@@ -99,7 +99,7 @@ class AddGameBeloteActivity : AddGameActivity() {
                 bonus_T2.value = 0
             } else {
                 game = b.getSerializable("lastGame") as GameBelote
-                if (game.nb_players == 3)
+                if (game.nbPlayers == 3)
                     game = b.getSerializable("lastGame") as GameBelote3
                 bonus_T1.value = game.bonusTeam1 / 10
                 bonus_T2.value = game.bonusTeam2 / 10
@@ -128,7 +128,7 @@ class AddGameBeloteActivity : AddGameActivity() {
             spinner_preneur.setSelection(game.taker)
             partyWon = changeResult(game.success)
 
-            gameId = game.game_id
+            gameId = game.gameId
         }
 
         spinner_preneur.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

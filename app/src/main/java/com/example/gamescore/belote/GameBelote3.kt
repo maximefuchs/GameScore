@@ -1,14 +1,11 @@
 package com.example.gamescore.belote
 
-import com.example.gamescore.Game
-import java.io.Serializable
-
 class GameBelote3 : GameBelote {
     constructor()
 
     constructor(game_id: Int, taker: Int, success: Boolean, difference : Int, bonus1: Int, bonus2: Int, score: List<Int>) {
-        this.game_id = game_id
-        this.nb_players = 3
+        this.gameId = game_id
+        this.nbPlayers = 3
         this.taker = taker
         this.difference = difference
         this.success = success

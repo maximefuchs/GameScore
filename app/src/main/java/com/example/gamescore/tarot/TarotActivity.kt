@@ -1,7 +1,10 @@
 package com.example.gamescore.tarot
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.gamescore.*
 import kotlinx.android.synthetic.main.activity_game.*
@@ -22,13 +25,45 @@ class TarotActivity : GameActivity() {
         context = this
         FrameTitle.text = resources.getText(R.string.game_tarot)
 
-        fragmentTransition(R.id.container,NbPlayersTarotFragment())
-        add_game.setOnClickListener { addTarotGame() }
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
+        val gameId = sharedPreferences.getInt("id", -1)
+
+        if (gameId != -1) {
+            val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers",4)
+            val score = mutableListOf<Int>()
+            for (i in 0..numberOfPlayers)
+                score.add(sharedPreferences.getInt("playerScore_$i",0))
+            // TODO: get name
+            val listNames = mutableListOf<String>()
+
+            btnNoSaved.setOnClickListener(){
+                fragmentTransition(R.id.container, NbPlayersTarotFragment())
+                add_game.setOnClickListener { addTarotGame() }
+            }
+            btnSaved.setOnClickListener(){
+                val f = ScoreTarotFragment()
+                val game = Game()
+                game.gameId = gameId
+                game.nbPlayers = numberOfPlayers
+                game.score = score
+                listGames = ArrayList<Game>()
+                listGames.add(game)
+                f.listPlayers = listNames
+                f.listGames = listGames
+                fragmentTransition(R.id.container, f)
+            }
+            RLsaved.visibility = View.VISIBLE
+
+        } else {
+            fragmentTransition(R.id.container, NbPlayersTarotFragment())
+            add_game.setOnClickListener { addTarotGame() }
+        }
     }
 
     fun getName(nb_players: Int) {
         nbPlayers = nb_players
-        fragmentTransition(R.id.container,NameFragmentTarot())
+        fragmentTransition(R.id.container, NameFragmentTarot())
     }
 
     fun startGame(list_names: List<String>) {
@@ -38,7 +73,7 @@ class TarotActivity : GameActivity() {
         listGames = ArrayList<Game>()
         f.listPlayers = names
         f.listGames = listGames
-        fragmentTransition(R.id.container,f)
+        fragmentTransition(R.id.container, f)
     }
 
     private fun addTarotGame() {
@@ -80,7 +115,7 @@ class TarotActivity : GameActivity() {
             val newScore: MutableList<Int>
             if (listGames.size > 0) {
                 newScore = listGames.last().score.toMutableList()
-                game_id = listGames.last().game_id + 1
+                game_id = listGames.last().gameId + 1
             } else {
                 if (names.size == 4) newScore = mutableListOf<Int>(0, 0, 0, 0)
                 else newScore = mutableListOf<Int>(0, 0, 0, 0, 0)
@@ -158,7 +193,7 @@ class TarotActivity : GameActivity() {
                 g = listGames[b.getInt("game_id")] as GameTarot5
                 g.teammate = b.getInt("appel")
             }
-            g.player_take = preneur
+            g.playerTake = preneur
             g.contract = contrat
             g.success = result
             g.difference = ecart
@@ -175,7 +210,7 @@ class TarotActivity : GameActivity() {
                 if (!gi.success) toAdd = -toAdd!!
                 if (names.size == 4) {
                     for (i in 0..3) {
-                        if (i == gi.player_take) newScore[i] = newScore[i] + 3 * toAdd!!
+                        if (i == gi.playerTake) newScore[i] = newScore[i] + 3 * toAdd!!
                         else newScore[i] = newScore[i] - toAdd!!
 
                         if (gi.bonus != -1) // -1 means no bonus
@@ -187,7 +222,7 @@ class TarotActivity : GameActivity() {
                 } else {
                     gi = listGames[game_id] as GameTarot5
                     val appel_i = gi.teammate
-                    val preneur_i = gi.player_take
+                    val preneur_i = gi.playerTake
                     for (i in 0..4) {
                         if (appel_i == preneur_i) {
                             if (i == preneur_i) newScore[i] = newScore[i] + 4 * toAdd!!

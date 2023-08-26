@@ -1,14 +1,15 @@
 package com.example.gamescore.tarot
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.example.gamescore.Game
-import java.io.Serializable
 
 open class GameTarot : Game {
     constructor()
     constructor(game_id: Int, player_take: Int, contract: String, success: Boolean, difference : Int, bonus: Int, score: List<Int>) {
-        this.game_id = game_id
-        this.nb_players = 4
-        this.player_take = player_take
+        this.gameId = game_id
+        this.nbPlayers = 4
+        this.playerTake = player_take
         this.contract = contract
         this.difference = difference
         this.success = success
@@ -16,14 +17,46 @@ open class GameTarot : Game {
         this.score = score
     }
 
-    var player_take: Int = 0
+    var playerTake: Int = 0
     var contract : String = "Garde"
     var success : Boolean = true
     var difference: Int = 0
     var bonus: Int = -1
 
     override fun toString(): String {
-        return super.toString() + "| Tarot | nb_players=$nb_players, player_take=$player_take, contract='$contract', score=$score "
+        return super.toString() + "| Tarot | nb_players=$nbPlayers, player_take=$playerTake, contract='$contract', score=$score "
     }
+
+    fun saveGameToSharedPreferences(context: Context) {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
+        editor.putInt("id", gameId)
+        editor.putInt("numberOfPlayers", nbPlayers)
+        score.forEachIndexed { index, value ->
+            editor.putInt("playerScore_$index", value)
+        }
+        editor.apply()
+    }
+
+//    fun getGameFromSharedPreferences(context: Context): Game? {
+//        val sharedPreferences: SharedPreferences = context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
+//        val gameData = sharedPreferences.getString("Game$gameId", null)
+//        val gameId = sharedPreferences.getInt("id",-1)
+//
+//        if (gameId != -1) {
+//
+//            val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers",4)
+//            val parts = gameData.split("|")
+//            val playerScores = parts[0].split(",").map { it.toInt() }
+//            val numberOfPlayers = parts[1].toInt()
+//
+//            val game = Game(gameId, numberOfPlayers)
+//            game.playerScores.addAll(playerScores)
+//            return game
+//        }
+//
+//        return null
+//    }
 
 }

@@ -56,18 +56,23 @@ open class GameActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        LLquit.translationY = offSetQuit
-        ObjectAnimator.ofFloat(LLquit, "translationY", 0f).apply {
-            duration = animDelay
-            start()
+        if (RLquit.visibility == View.VISIBLE) {
+            finish()
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        } else {
+            LLquit.translationY = offSetQuit
+            ObjectAnimator.ofFloat(LLquit, "translationY", 0f).apply {
+                duration = animDelay
+                start()
+            }
+            RLquit.alpha = 0f
+            ObjectAnimator.ofFloat(RLquit, "alpha", 1f).apply {
+                duration = animDelay
+                start()
+            }
+            RLquit.visibility = View.VISIBLE
+            add_game.visibility = View.GONE
         }
-        RLquit.alpha = 0f
-        ObjectAnimator.ofFloat(RLquit, "alpha", 1f).apply {
-            duration = animDelay
-            start()
-        }
-        RLquit.visibility = View.VISIBLE
-        add_game.visibility = View.GONE
     }
 
     fun hideKeyBoard() {

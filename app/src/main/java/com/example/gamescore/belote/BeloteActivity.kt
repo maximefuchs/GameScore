@@ -91,7 +91,7 @@ class BeloteActivity : GameActivity() {
                 val newScore: MutableList<Int>
                 if (listGames.size > 0) {
                     newScore = listGames.last().score.toMutableList()
-                    game_id = listGames.last().game_id + 1
+                    game_id = listGames.last().gameId + 1
                 } else {
                     game_id = 0
                     newScore = if (nbPlayers == 3) mutableListOf(0, 0, 0) else mutableListOf(0, 0)

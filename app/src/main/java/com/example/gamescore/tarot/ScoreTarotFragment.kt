@@ -21,10 +21,8 @@ class ScoreTarotFragment : ScoreFragment() {
     ): View {
         // Inflate the layout for this fragment
         val v = super.onCreateView(inflater, container, savedInstanceState)!!
-        val act = activity as TarotActivity
         v.LL_tarot.visibility = View.VISIBLE
-        val nbPlayers = act.nbPlayers
-        listPlayers = act.names
+        val nbPlayers = listPlayers.size
         v.P1.text = listPlayers[0].take(2)
         v.P2.text = listPlayers[1].take(2)
         v.P3.text = listPlayers[2].take(2)
@@ -37,6 +35,8 @@ class ScoreTarotFragment : ScoreFragment() {
         if(listGames.size > 0)
             Log.w("LIST", listGames[0].toString())
 
+        // TODO: make this feature more visible
+        val act = activity as TarotActivity
         val onItemClick = { _ : Game ->
             Toast.makeText(
                 act.context,

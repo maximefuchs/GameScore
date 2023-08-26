@@ -83,16 +83,16 @@ class AddGameTarotActivity : AddGameActivity() {
         if (edit)
         {
             game = b.getSerializable("lastGame") as GameTarot
-            if (game.nb_players == 5){
+            if (game.nbPlayers == 5){
                 game = b.getSerializable("lastGame") as GameTarot5
                 spinner_called.setSelection(game.teammate)
             }
-            spinner_preneur.setSelection(game.player_take)
+            spinner_preneur.setSelection(game.playerTake)
             spinner_contrat.setSelection(contracts.indexOf(game.contract))
             ecartScore = changeEcart(game.difference)
             partyIsWon = changeResult(game.success)
             spinner_bonus.setSelection(game.bonus + 1)
-            gameId = game.game_id
+            gameId = game.gameId
         }
 
 
