@@ -53,16 +53,17 @@ class TarotActivity : GameActivity() {
                 game.restart = true
                 listGames = ArrayList<Game>()
                 listGames.add(game)
+                // TODO: check between parent class variables and variables passed from activity to fragment
+                names = listNames
                 f.listPlayers = listNames
                 f.listGames = listGames
                 fragmentTransition(R.id.container, f)
             }
             RLsaved.visibility = View.VISIBLE
-
         } else {
             fragmentTransition(R.id.container, NbPlayersTarotFragment())
-            add_game.setOnClickListener { addTarotGame() }
         }
+        add_game.setOnClickListener { addTarotGame() }
     }
 
     fun getName(nb_players: Int) {
