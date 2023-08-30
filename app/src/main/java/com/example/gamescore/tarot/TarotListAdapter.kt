@@ -43,7 +43,7 @@ class TarotListAdapter(private var games: ArrayList<Game>,
         viewHolder.tvP2.text = games[position].score[1].toString()
         viewHolder.tvP3.text = games[position].score[2].toString()
         viewHolder.tvP4.text = games[position].score[3].toString()
-        if (games[position] is GameTarot5) {
+        if (games[position].nbPlayers == 5) {
             viewHolder.tvP5.visibility = View.VISIBLE
             viewHolder.tvP5.text = games[position].score[4].toString()
         }

@@ -33,7 +33,7 @@ class TarotActivity : GameActivity() {
             val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers",4)
             val score = mutableListOf<Int>()
             val listNames = mutableListOf<String>()
-            for (i in 0..numberOfPlayers) {
+            for (i in 0 until numberOfPlayers) {
                 score.add(sharedPreferences.getInt("playerScore_$i",0))
                 sharedPreferences.getString("Name_$i",i.toString())?.let { listNames.add(it) }
             }
