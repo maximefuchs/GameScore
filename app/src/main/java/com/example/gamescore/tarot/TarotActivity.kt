@@ -1,11 +1,16 @@
 package com.example.gamescore.tarot
 
+import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.gamescore.*
 import kotlinx.android.synthetic.main.activity_game.*
 import java.util.*
+import android.content.ClipData.Item
+
+
+
 
 class TarotActivity : GameActivity() {
     var nbPlayers: Int = 0
@@ -31,7 +36,7 @@ class TarotActivity : GameActivity() {
         fragmentTransition(R.id.container,NameFragmentTarot())
     }
 
-    fun startGame(list_names: List<String>) {
+    fun startGame(list_names: ArrayList<String>) {
         hideKeyBoard()
         names = list_names
         val f = ScoreTarotFragment()

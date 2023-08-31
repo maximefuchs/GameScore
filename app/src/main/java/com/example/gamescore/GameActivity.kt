@@ -24,7 +24,8 @@ enum class Request(val value: Int) {
 
 open class GameActivity : AppCompatActivity() {
     lateinit var context: Context
-    var names: List<String> = listOf<String>()
+    var names: ArrayList<String> = arrayListOf<String>()
+    private val STATE_NAMES = "names"
     lateinit var listGames: ArrayList<Game>
 
     private val offSetQuit = 150f
@@ -53,6 +54,12 @@ open class GameActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // save state
+        outState.putSerializable(STATE_NAMES,names)
     }
 
     override fun onBackPressed() {
