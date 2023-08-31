@@ -10,8 +10,6 @@ import java.util.*
 import android.content.ClipData.Item
 
 
-
-
 class TarotActivity : GameActivity() {
     var nbPlayers: Int = 0
     var contrats: HashMap<String, Int> = hashMapOf(
@@ -27,13 +25,29 @@ class TarotActivity : GameActivity() {
         context = this
         FrameTitle.text = resources.getText(R.string.game_tarot)
 
-        fragmentTransition(R.id.container,NbPlayersTarotFragment())
+        // If we have a saved state then we can restore it now
+        if (savedInstanceState != null) {
+            names = savedInstanceState.getSerializable(stateNames) as ArrayList<String>;
+            listGames = savedInstanceState.getSerializable(stateGames) as ArrayList<Game>;
+            nbPlayers = names.size
+            startSavedGame()
+        } else {
+            fragmentTransition(R.id.container, NbPlayersTarotFragment())
+        }
+
         add_game.setOnClickListener { addTarotGame() }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // save state
+        outState.putSerializable(stateNames, names)
+        outState.putSerializable(stateGames, listGames)
     }
 
     fun getName(nb_players: Int) {
         nbPlayers = nb_players
-        fragmentTransition(R.id.container,NameFragmentTarot())
+        fragmentTransition(R.id.container, NameFragmentTarot())
     }
 
     fun startGame(list_names: ArrayList<String>) {
@@ -43,7 +57,14 @@ class TarotActivity : GameActivity() {
         listGames = ArrayList<Game>()
         f.listPlayers = names
         f.listGames = listGames
-        fragmentTransition(R.id.container,f)
+        fragmentTransition(R.id.container, f)
+    }
+
+    fun startSavedGame() {
+        val f = ScoreTarotFragment()
+        f.listPlayers = names
+        f.listGames = listGames
+        fragmentTransition(R.id.container, f)
     }
 
     private fun addTarotGame() {

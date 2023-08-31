@@ -25,11 +25,12 @@ enum class Request(val value: Int) {
 open class GameActivity : AppCompatActivity() {
     lateinit var context: Context
     var names: ArrayList<String> = arrayListOf<String>()
-    private val STATE_NAMES = "names"
     lateinit var listGames: ArrayList<Game>
+    val stateNames = "names"
+    val stateGames = "games"
 
     private val offSetQuit = 150f
-    private val animDelay : Long = 200
+    private val animDelay: Long = 200
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,13 +57,8 @@ open class GameActivity : AppCompatActivity() {
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        // save state
-        outState.putSerializable(STATE_NAMES,names)
-    }
-
     override fun onBackPressed() {
+        // TODO: don't reshow when back is pressed again
         LLquit.translationY = offSetQuit
         ObjectAnimator.ofFloat(LLquit, "translationY", 0f).apply {
             duration = animDelay
