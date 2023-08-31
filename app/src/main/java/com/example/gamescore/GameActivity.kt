@@ -51,10 +51,8 @@ open class GameActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (!backPressed) {
             showBackPressedMenu()
-            backPressed = true
         } else {
             hideBackPressedMenu()
-            backPressed = false
         }
     }
 
@@ -71,6 +69,7 @@ open class GameActivity : AppCompatActivity() {
         }
         RLquit.visibility = View.VISIBLE
         add_game.visibility = View.GONE
+        backPressed = true
     }
 
     private fun hideBackPressedMenu() {
@@ -85,6 +84,7 @@ open class GameActivity : AppCompatActivity() {
             RLquit.visibility = View.GONE
             add_game.visibility = View.VISIBLE
         }
+        backPressed = false
     }
 
     fun hideKeyBoard() {
