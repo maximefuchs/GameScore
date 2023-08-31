@@ -31,6 +31,7 @@ open class GameActivity : AppCompatActivity() {
 
     private val offSetQuit = 150f
     private val animDelay: Long = 200
+    private var backPressed: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,23 +43,22 @@ open class GameActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
         }
         btnNoQuit.setOnClickListener {
-            ObjectAnimator.ofFloat(LLquit, "translationY", offSetQuit).apply {
-                duration = animDelay
-                start()
-            }
-            ObjectAnimator.ofFloat(RLquit, "alpha", 0f).apply {
-                duration = animDelay
-                start()
-            }.doOnEnd {
-                RLquit.visibility = View.GONE
-                add_game.visibility = View.VISIBLE
-            }
+            hideBackPressedMenu()
         }
 
     }
 
     override fun onBackPressed() {
-        // TODO: don't reshow when back is pressed again
+        if (!backPressed) {
+            showBackPressedMenu()
+            backPressed = true
+        } else {
+            hideBackPressedMenu()
+            backPressed = false
+        }
+    }
+
+    private fun showBackPressedMenu(){
         LLquit.translationY = offSetQuit
         ObjectAnimator.ofFloat(LLquit, "translationY", 0f).apply {
             duration = animDelay
@@ -71,6 +71,20 @@ open class GameActivity : AppCompatActivity() {
         }
         RLquit.visibility = View.VISIBLE
         add_game.visibility = View.GONE
+    }
+
+    private fun hideBackPressedMenu() {
+        ObjectAnimator.ofFloat(LLquit, "translationY", offSetQuit).apply {
+            duration = animDelay
+            start()
+        }
+        ObjectAnimator.ofFloat(RLquit, "alpha", 0f).apply {
+            duration = animDelay
+            start()
+        }.doOnEnd {
+            RLquit.visibility = View.GONE
+            add_game.visibility = View.VISIBLE
+        }
     }
 
     fun hideKeyBoard() {
