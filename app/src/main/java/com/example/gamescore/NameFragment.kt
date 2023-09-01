@@ -22,7 +22,8 @@ open class NameFragment : Fragment() {
             v.nameP2.setText(act.names[1])
             v.nameP3.setText(act.names[2])
             v.nameP4.setText(act.names[3])
-            v.nameP5.setText(act.names[4])
+            if (act.names.size == 5)
+                v.nameP5.setText(act.names[4])
         }
         v.nameP1.requestFocus()
         act.showKeyBoard(v.nameP1)

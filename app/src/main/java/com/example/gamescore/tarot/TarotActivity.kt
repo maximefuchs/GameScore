@@ -92,13 +92,6 @@ class TarotActivity : GameActivity() {
     }
 
     private fun startSavedGame() {
-        val sharedPreferences: SharedPreferences =
-            context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        names.forEachIndexed { index, value ->
-            editor.putString("Name_$index", value)
-        }
-        editor.apply()
         fragmentTransition(R.id.container, ScoreTarotFragment())
     }
 

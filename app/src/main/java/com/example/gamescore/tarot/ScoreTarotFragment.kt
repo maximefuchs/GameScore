@@ -1,5 +1,7 @@
 package com.example.gamescore.tarot
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -36,7 +38,16 @@ class ScoreTarotFragment : ScoreFragment() {
             Log.w("LIST", listGames[0].toString())
             if (!listGames.last().restart) {
                 val lastGame = listGames.last() as GameTarot
-                lastGame.saveGameToSharedPreferences(act.context)
+                val editor: SharedPreferences.Editor =
+                    act.context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE).edit()
+                lastGame.saveGameToSharedPreferences(editor)
+                if (!act.namesSaved) {
+                    act.names.forEachIndexed { index, value ->
+                        editor.putString("Name_$index", value)
+                    }
+                    editor.apply()
+                    act.namesSaved = true
+                }
             }
         }
 

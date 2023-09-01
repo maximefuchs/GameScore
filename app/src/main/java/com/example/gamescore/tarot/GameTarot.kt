@@ -27,10 +27,7 @@ open class GameTarot : Game {
         return super.toString() + "| Tarot | nb_players=$nbPlayers, player_take=$playerTake, contract='$contract', score=$score "
     }
 
-    fun saveGameToSharedPreferences(context: Context) {
-        val sharedPreferences: SharedPreferences = context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-
+    fun saveGameToSharedPreferences(editor: SharedPreferences.Editor) {
         editor.putInt("id", gameId)
         editor.putInt("numberOfPlayers", nbPlayers)
         score.forEachIndexed { index, value ->

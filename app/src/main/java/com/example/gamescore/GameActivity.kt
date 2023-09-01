@@ -29,6 +29,7 @@ open class GameActivity : AppCompatActivity() {
     private val animDelay: Long = 200
     private var backPressed: Boolean = false
     var showAddGameButton: Boolean = false
+    var namesSaved: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
