@@ -21,19 +21,28 @@ class NameFragmentTarot : NameFragment() {
         if (act.nbPlayers == 5)
             v.llP5.visibility = View.VISIBLE
 
+        if (act.names.size >= 4) {
+            v.nameP1.setText(act.names[0])
+            v.nameP2.setText(act.names[1])
+            v.nameP3.setText(act.names[2])
+            v.nameP4.setText(act.names[3])
+            if (act.nbPlayers == 5 && act.names.size == 5)
+                v.nameP5.setText(act.names[4])
+        }
+
         v.ok_btn.setOnClickListener {
             val list = ArrayList<String>()
-            if (nameP1.text.isEmpty()) list.add("1")
-            else list.add(nameP1.text.toString())
-            if (nameP2.text.isEmpty()) list.add("2")
-            else list.add(nameP2.text.toString())
-            if (nameP3.text.isEmpty()) list.add("3")
-            else list.add(nameP3.text.toString())
-            if (nameP4.text.isEmpty()) list.add("4")
-            else list.add(nameP4.text.toString())
+            if (v.nameP1.text.isEmpty()) list.add("J1")
+            else list.add(v.nameP1.text.toString())
+            if (v.nameP2.text.isEmpty()) list.add("J2")
+            else list.add(v.nameP2.text.toString())
+            if (v.nameP3.text.isEmpty()) list.add("J3")
+            else list.add(v.nameP3.text.toString())
+            if (v.nameP4.text.isEmpty()) list.add("J4")
+            else list.add(v.nameP4.text.toString())
             if (act.nbPlayers == 5) {
-                if (nameP5.text.isEmpty()) list.add("5")
-                else list.add(nameP5.text.toString())
+                if (v.nameP5.text.isEmpty()) list.add("J5")
+                else list.add(v.nameP5.text.toString())
             }
             act.startGame(list)
         }

@@ -44,6 +44,7 @@ class TarotActivity : GameActivity() {
                     score.add(sharedPreferences.getInt("playerScore_$i", 0))
                     sharedPreferences.getString("Name_$i", i.toString())?.let { listNames.add(it) }
                 }
+                names = listNames
 
                 btnNoSaved.setOnClickListener() {
                     RLsaved.visibility = View.GONE
@@ -60,7 +61,6 @@ class TarotActivity : GameActivity() {
                     listGames = ArrayList<Game>()
                     listGames.add(game)
                     // TODO: check between parent class variables and variables passed from activity to fragment
-                    names = listNames
                     fragmentTransition(R.id.container, ScoreTarotFragment())
                 }
                 RLsaved.visibility = View.VISIBLE
