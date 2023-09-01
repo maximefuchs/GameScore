@@ -16,20 +16,31 @@ enum class TypeGame {
 class BeloteActivity : GameActivity() {
 
     private var gameType = TypeGame.NORMALE
-    var nbPlayers = 4
+    val stateType = "type"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context = this
         FrameTitle.text = resources.getText(R.string.game_belote)
 
-        fragmentTransition(R.id.container,NbPlayersBeloteFragment())
+        if (savedInstanceState != null) {
+            if (nbPlayers == 4)
+                gameType = savedInstanceState.getSerializable(stateType) as TypeGame
+            startSavedGame()
+        } else {
+            fragmentTransition(R.id.container, NbPlayersBeloteFragment())
+        }
+
         add_game.setOnClickListener { addBeloteGame() }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState) // save names and games
+        outState.putSerializable(stateType, gameType)
+    }
+
     fun getTypeOfGame() {
-//        nbPlayers = 4
-        fragmentTransition(R.id.container,TypeBeloteFragment())
+        fragmentTransition(R.id.container, TypeBeloteFragment())
     }
 
     fun typeOfGame(game_of_type: TypeGame) {
@@ -39,14 +50,18 @@ class BeloteActivity : GameActivity() {
 
     fun getName(nbOfPlayers: Int) {
         nbPlayers = nbOfPlayers
-        fragmentTransition(R.id.container,NameFragmentBelote())
+        fragmentTransition(R.id.container, NameFragmentBelote())
+    }
+
+    private fun startSavedGame() {
+        fragmentTransition(R.id.container, ScoreBeloteFragment())
     }
 
     fun startGame(list_names: ArrayList<String>) {
         hideKeyBoard()
         names = list_names
         listGames = ArrayList<Game>()
-        fragmentTransition(R.id.container,ScoreBeloteFragment())
+        fragmentTransition(R.id.container, ScoreBeloteFragment())
     }
 
     private fun addBeloteGame() {
@@ -103,7 +118,7 @@ class BeloteActivity : GameActivity() {
                     // if coinchee, double contract value
                     if (preneur == 0 && result) bonusT1 += if (isCoinchee) 2 * contrat else contrat
                     if (preneur == 1 && result) bonusT2 += if (isCoinchee) 2 * contrat else contrat
-                    if(isCoinchee && !result) totalPoints *= 2 // double reward for defense if defeat when coinchee
+                    if (isCoinchee && !result) totalPoints *= 2 // double reward for defense if defeat when coinchee
                 }
                 if (nbPlayers == 4) {
                     for (i in 0..1) {
@@ -128,8 +143,7 @@ class BeloteActivity : GameActivity() {
                             isCoinchee,
                             newScore
                         )
-                    }
-                    else {
+                    } else {
                         g = GameBelote(
                             game_id,
                             preneur,
@@ -140,8 +154,7 @@ class BeloteActivity : GameActivity() {
                             newScore
                         )
                     }
-                }
-                else {
+                } else {
                     if (!result) totalPoints /= 2
                     for (i in 0..2) {
                         if (result)
@@ -163,7 +176,8 @@ class BeloteActivity : GameActivity() {
                 }
                 listGames.add(g)
 
-                supportFragmentManager.beginTransaction().replace(R.id.container, ScoreBeloteFragment()).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, ScoreBeloteFragment()).commit()
             }
 
             if (res.resultCode == Request.EDITGAME.value) {
@@ -209,7 +223,7 @@ class BeloteActivity : GameActivity() {
                         // if coinchee, double contract value
                         if (gi.taker == 0 && gi.success) bonusT1_i += if (isCoinchee) 2 * contrat else contrat
                         if (gi.taker == 1 && gi.success) bonusT2_i += if (isCoinchee) 2 * contrat else contrat
-                        if(isCoinchee && !gi.success) totalPoints *= 2 // double reward for defense if defeat when coinchee
+                        if (isCoinchee && !gi.success) totalPoints *= 2 // double reward for defense if defeat when coinchee
                     }
 
                     if (nbPlayers == 4) {
@@ -236,7 +250,8 @@ class BeloteActivity : GameActivity() {
                     gi.score = newScore.toMutableList()
                 }
 
-                supportFragmentManager.beginTransaction().replace(R.id.container, ScoreBeloteFragment()).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, ScoreBeloteFragment()).commit()
             }
         }
 }

@@ -22,8 +22,9 @@ open class GameActivity : AppCompatActivity() {
     lateinit var context: Context
     var names: ArrayList<String> = arrayListOf()
     lateinit var listGames: ArrayList<Game>
-    val stateNames = "names"
-    val stateGames = "games"
+    var nbPlayers: Int = 4
+    private val stateNames = "names"
+    private val stateGames = "games"
 
     private val offSetQuit = 150f
     private val animDelay: Long = 200
@@ -36,6 +37,13 @@ open class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
+        // If we have a saved state then we can restore it now
+        if (savedInstanceState != null) {
+            names = savedInstanceState.getSerializable(stateNames) as ArrayList<String>
+            listGames = savedInstanceState.getSerializable(stateGames) as ArrayList<Game>
+            nbPlayers = names.size
+        }
+
         // quitting
         btnQuit.setOnClickListener {
             finish()
@@ -45,6 +53,13 @@ open class GameActivity : AppCompatActivity() {
             hideBackPressedMenu()
         }
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // save state
+        outState.putSerializable(stateNames, names)
+        outState.putSerializable(stateGames, listGames)
     }
 
     override fun onBackPressed() {

@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_game.*
 import java.util.*
 
 class TarotActivity : GameActivity() {
-    var nbPlayers: Int = 0
     private var contrats: HashMap<String, Int> = hashMapOf(
         "Petite" to 10,
         "Pousse" to 20,
@@ -27,9 +26,6 @@ class TarotActivity : GameActivity() {
 
         // If we have a saved state then we can restore it now
         if (savedInstanceState != null) {
-            names = savedInstanceState.getSerializable(stateNames) as ArrayList<String>
-            listGames = savedInstanceState.getSerializable(stateGames) as ArrayList<Game>
-            nbPlayers = names.size
             startSavedGame()
         } else {
             val sharedPreferences: SharedPreferences =
@@ -72,13 +68,6 @@ class TarotActivity : GameActivity() {
         add_game.setOnClickListener { addTarotGame() }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        // save state
-        outState.putSerializable(stateNames, names)
-        outState.putSerializable(stateGames, listGames)
-    }
-
     fun getName(nb_players: Int) {
         nbPlayers = nb_players
         fragmentTransition(R.id.container, NameFragmentTarot())
@@ -88,7 +77,7 @@ class TarotActivity : GameActivity() {
         hideKeyBoard()
         names = list_names
         listGames = arrayListOf()
-        startSavedGame()
+        fragmentTransition(R.id.container, ScoreTarotFragment())
     }
 
     private fun startSavedGame() {
