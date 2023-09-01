@@ -16,9 +16,25 @@ open class NameFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_name, container, false)
-        v.nameP1.requestFocus()
         val act = activity as GameActivity
+        if (act.names.size > 0) {
+            v.nameP1.setText(act.names[0])
+            v.nameP2.setText(act.names[1])
+            v.nameP3.setText(act.names[2])
+            v.nameP4.setText(act.names[3])
+            v.nameP5.setText(act.names[4])
+        }
+        v.nameP1.requestFocus()
         act.showKeyBoard(v.nameP1)
+
+        v.erase_btn.setOnClickListener {
+            v.nameP1.setText("")
+            v.nameP2.setText("")
+            v.nameP3.setText("")
+            v.nameP4.setText("")
+            v.nameP5.setText("")
+        }
+
         return v
     }
 }

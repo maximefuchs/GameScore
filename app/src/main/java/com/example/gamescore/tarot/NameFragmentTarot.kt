@@ -20,15 +20,6 @@ class NameFragmentTarot : NameFragment() {
         if (act.nbPlayers == 5)
             v.llP5.visibility = View.VISIBLE
 
-        if (act.names.size >= 4) {
-            v.nameP1.setText(act.names[0])
-            v.nameP2.setText(act.names[1])
-            v.nameP3.setText(act.names[2])
-            v.nameP4.setText(act.names[3])
-            if (act.nbPlayers == 5 && act.names.size == 5)
-                v.nameP5.setText(act.names[4])
-        }
-
         v.ok_btn.setOnClickListener {
             val list = ArrayList<String>()
             if (v.nameP1.text.isEmpty()) list.add("J1")
