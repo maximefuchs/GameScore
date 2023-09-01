@@ -52,7 +52,6 @@ class TarotActivity : GameActivity() {
                 }
                 btnSaved.setOnClickListener() {
                     RLsaved.visibility = View.GONE
-                    val f = ScoreTarotFragment()
                     val game = Game()
                     game.gameId = gameId
                     game.nbPlayers = numberOfPlayers
@@ -62,9 +61,7 @@ class TarotActivity : GameActivity() {
                     listGames.add(game)
                     // TODO: check between parent class variables and variables passed from activity to fragment
                     names = listNames
-                    f.listPlayers = listNames
-                    f.listGames = listGames
-                    fragmentTransition(R.id.container, f)
+                    fragmentTransition(R.id.container, ScoreTarotFragment())
                 }
                 RLsaved.visibility = View.VISIBLE
             } else {
@@ -101,10 +98,7 @@ class TarotActivity : GameActivity() {
             editor.putString("Name_$index", value)
         }
         editor.apply()
-        val f = ScoreTarotFragment()
-        f.listPlayers = names
-        f.listGames = listGames
-        fragmentTransition(R.id.container, f)
+        fragmentTransition(R.id.container, ScoreTarotFragment())
     }
 
     private fun addTarotGame() {
@@ -203,10 +197,7 @@ class TarotActivity : GameActivity() {
             listGames.add(g)
 
 //                Log.w("size", listGames.size.toString())
-            val f = ScoreTarotFragment()
-            f.listPlayers = names
-            f.listGames = listGames
-            supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.container, ScoreTarotFragment()).commit()
         }
 
         if (res.resultCode == Request.EDITGAME.value) {
@@ -274,10 +265,7 @@ class TarotActivity : GameActivity() {
                 gi.score = newScore.toMutableList()
             }
 
-            val f = ScoreTarotFragment()
-            f.listPlayers = names
-            f.listGames = listGames
-            supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.container, ScoreTarotFragment()).commit()
 
         }
     }

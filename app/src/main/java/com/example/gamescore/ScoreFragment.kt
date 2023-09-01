@@ -22,6 +22,8 @@ open class ScoreFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_score, container, false)
         val act = activity as GameActivity
+        listPlayers = act.names
+        listGames = act.listGames
         act.showAddGameButton = true
         act.add_game.visibility = View.VISIBLE
         v.RV_games.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
