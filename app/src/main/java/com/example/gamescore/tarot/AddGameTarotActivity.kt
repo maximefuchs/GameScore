@@ -146,7 +146,7 @@ class AddGameTarotActivity : AddGameActivity() {
 
     private fun changeResult(is_won: Boolean, score_id: Int): Boolean {
         this.changeResult(is_won)
-        var button = if (score_id == 0) btn0 else if (score_id == 10) btn10 else if (score_id == 20) btn20 else btn30
+        val button = if (score_id == 0) btn0 else if (score_id == 10) btn10 else if (score_id == 20) btn20 else btn30
         button.setBackgroundColor(
             ContextCompat.getColor(
                 applicationContext,

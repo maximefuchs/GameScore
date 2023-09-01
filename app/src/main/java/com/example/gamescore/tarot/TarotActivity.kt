@@ -12,7 +12,7 @@ import java.util.*
 
 class TarotActivity : GameActivity() {
     var nbPlayers: Int = 0
-    var contrats: HashMap<String, Int> = hashMapOf(
+    private var contrats: HashMap<String, Int> = hashMapOf(
         "Petite" to 10,
         "Pousse" to 20,
         "Garde" to 40,
@@ -27,8 +27,8 @@ class TarotActivity : GameActivity() {
 
         // If we have a saved state then we can restore it now
         if (savedInstanceState != null) {
-            names = savedInstanceState.getSerializable(stateNames) as ArrayList<String>;
-            listGames = savedInstanceState.getSerializable(stateGames) as ArrayList<Game>;
+            names = savedInstanceState.getSerializable(stateNames) as ArrayList<String>
+            listGames = savedInstanceState.getSerializable(stateGames) as ArrayList<Game>
             nbPlayers = names.size
             startSavedGame()
         } else {
@@ -46,12 +46,12 @@ class TarotActivity : GameActivity() {
                 }
                 names = listNames
 
-                btnNoSaved.setOnClickListener() {
+                btnNoSaved.setOnClickListener {
                     RLsaved.visibility = View.GONE
                     fragmentTransition(R.id.container, NbPlayersTarotFragment())
                     add_game.setOnClickListener { addTarotGame() }
                 }
-                btnSaved.setOnClickListener() {
+                btnSaved.setOnClickListener {
                     RLsaved.visibility = View.GONE
                     val game = Game()
                     game.gameId = gameId
@@ -87,12 +87,13 @@ class TarotActivity : GameActivity() {
     fun startGame(list_names: ArrayList<String>) {
         hideKeyBoard()
         names = list_names
-        listGames = arrayListOf<Game>()
+        listGames = arrayListOf()
         startSavedGame()
     }
 
     private fun startSavedGame() {
-        val sharedPreferences: SharedPreferences = context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         names.forEachIndexed { index, value ->
             editor.putString("Name_$index", value)
@@ -122,151 +123,157 @@ class TarotActivity : GameActivity() {
     }
 
 
-    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-    { res ->
-        if (res.resultCode == Request.ADDGAME.value) {
-            val b: Bundle = res.data?.extras!!
-            val preneur = b.getInt("preneur")
-            val contrat = b.getString("contrat")!!
-            val valContrat = contrats[contrat]!!
-            val result = b.getBoolean("result")
-            val ecart = b.getInt("ecart")
-            val bonus = b.getInt("bonus")
-            var toAdd = valContrat.plus(ecart)
-            if (!result) toAdd = -toAdd
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        { res ->
+            if (res.resultCode == Request.ADDGAME.value) {
+                val b: Bundle = res.data?.extras!!
+                val preneur = b.getInt("preneur")
+                val contrat = b.getString("contrat")!!
+                val valContrat = contrats[contrat]!!
+                val result = b.getBoolean("result")
+                val ecart = b.getInt("ecart")
+                val bonus = b.getInt("bonus")
+                var toAdd = valContrat.plus(ecart)
+                if (!result) toAdd = -toAdd
 
-            val g: GameTarot
-            var game_id = 0
-            val newScore: MutableList<Int>
-            if (listGames.size > 0) {
-                newScore = listGames.last().score.toMutableList()
-                game_id = listGames.last().gameId + 1
-            } else {
-                if (names.size == 4) newScore = mutableListOf<Int>(0, 0, 0, 0)
-                else newScore = mutableListOf<Int>(0, 0, 0, 0, 0)
-            }
-            if (names.size == 4) {
-                for (i in 0..3) {
-                    if (i == preneur) newScore[i] = newScore[i] + 3 * toAdd
-                    else newScore[i] = newScore[i] - toAdd
-
-                    if (bonus != -1) // -1 means no bonus
-                    {
-                        if (i == bonus) newScore[i] = newScore[i] + 30
-                        else newScore[i] = newScore[i] - 10
-                    }
+                val g: GameTarot
+                var gameId = 0
+                val newScore: MutableList<Int>
+                if (listGames.size > 0) {
+                    newScore = listGames.last().score.toMutableList()
+                    gameId = listGames.last().gameId + 1
+                } else {
+                    newScore = if (names.size == 4) mutableListOf(0, 0, 0, 0)
+                    else mutableListOf(0, 0, 0, 0, 0)
                 }
-                g = GameTarot(
-                    game_id,
-                    preneur,
-                    contrat,
-                    result,
-                    ecart,
-                    bonus,
-                    newScore
-                )
-            } else {
-                val appel = b.getInt("appel")
-                for (i in 0..4) {
-                    if (appel == preneur) {
-                        if (i == preneur) newScore[i] = newScore[i] + 4 * toAdd
-                        else newScore[i] = newScore[i] - toAdd
-                    } else {
-                        if (i == preneur) newScore[i] = newScore[i] + 2 * toAdd
-                        else if (i == appel) newScore[i] = newScore[i] + toAdd
-                        else newScore[i] = newScore[i] - toAdd
-                    }
-
-                    if (bonus != -1) // -1 means no bonus
-                    {
-                        if (i == bonus) newScore[i] = newScore[i] + 40
-                        else newScore[i] = newScore[i] - 10
-                    }
-                }
-                g = GameTarot5(
-                    game_id,
-                    preneur,
-                    contrat,
-                    appel,
-                    result,
-                    ecart,
-                    bonus,
-                    newScore
-                )
-            }
-            listGames.add(g)
-
-//                Log.w("size", listGames.size.toString())
-            supportFragmentManager.beginTransaction().replace(R.id.container, ScoreTarotFragment()).commit()
-        }
-
-        if (res.resultCode == Request.EDITGAME.value) {
-            val b: Bundle = res.data?.extras!!
-            val preneur = b.getInt("preneur")
-            val contrat = b.getString("contrat")!!
-            val result = b.getBoolean("result")
-            val ecart = b.getInt("ecart")
-            val bonus = b.getInt("bonus")
-
-            val g: GameTarot
-            if (names.size == 4)
-                g = listGames[b.getInt("game_id")] as GameTarot
-            else {
-                g = listGames[b.getInt("game_id")] as GameTarot5
-                g.teammate = b.getInt("appel")
-            }
-            g.playerTake = preneur
-            g.contract = contrat
-            g.success = result
-            g.difference = ecart
-            g.bonus = bonus
-
-
-            val newScore: MutableList<Int>
-            if (names.size == 4) newScore = mutableListOf<Int>(0, 0, 0, 0)
-            else newScore = mutableListOf<Int>(0, 0, 0, 0, 0)
-            for (game_id in 0..listGames.size - 1) {
-                var gi: GameTarot = listGames[game_id] as GameTarot
-                val valContrat = contrats[gi.contract]
-                var toAdd = valContrat?.plus(gi.difference)
-                if (!gi.success) toAdd = -toAdd!!
                 if (names.size == 4) {
                     for (i in 0..3) {
-                        if (i == gi.playerTake) newScore[i] = newScore[i] + 3 * toAdd!!
-                        else newScore[i] = newScore[i] - toAdd!!
+                        if (i == preneur) newScore[i] = newScore[i] + 3 * toAdd
+                        else newScore[i] = newScore[i] - toAdd
 
-                        if (gi.bonus != -1) // -1 means no bonus
+                        if (bonus != -1) // -1 means no bonus
                         {
-                            if (i == gi.bonus) newScore[i] = newScore[i] + 30
+                            if (i == bonus) newScore[i] = newScore[i] + 30
                             else newScore[i] = newScore[i] - 10
                         }
                     }
+                    g = GameTarot(
+                        gameId,
+                        preneur,
+                        contrat,
+                        result,
+                        ecart,
+                        bonus,
+                        newScore
+                    )
                 } else {
-                    gi = listGames[game_id] as GameTarot5
-                    val appel_i = gi.teammate
-                    val preneur_i = gi.playerTake
+                    val appel = b.getInt("appel")
                     for (i in 0..4) {
-                        if (appel_i == preneur_i) {
-                            if (i == preneur_i) newScore[i] = newScore[i] + 4 * toAdd!!
-                            else newScore[i] = newScore[i] - toAdd!!
+                        if (appel == preneur) {
+                            if (i == preneur) newScore[i] = newScore[i] + 4 * toAdd
+                            else newScore[i] = newScore[i] - toAdd
                         } else {
-                            if (i == preneur_i) newScore[i] = newScore[i] + 2 * toAdd!!
-                            else if (i == appel_i) newScore[i] = newScore[i] + toAdd!!
-                            else newScore[i] = newScore[i] - toAdd!!
+                            when (i) {
+                                preneur -> newScore[i] = newScore[i] + 2 * toAdd
+                                appel -> newScore[i] = newScore[i] + toAdd
+                                else -> newScore[i] = newScore[i] - toAdd
+                            }
                         }
 
-                        if (gi.bonus != -1) // -1 means no bonus
+                        if (bonus != -1) // -1 means no bonus
                         {
-                            if (i == gi.bonus) newScore[i] = newScore[i] + 40
+                            if (i == bonus) newScore[i] = newScore[i] + 40
                             else newScore[i] = newScore[i] - 10
                         }
                     }
+                    g = GameTarot5(
+                        gameId,
+                        preneur,
+                        contrat,
+                        appel,
+                        result,
+                        ecart,
+                        bonus,
+                        newScore
+                    )
                 }
-                gi.score = newScore.toMutableList()
+                listGames.add(g)
+
+//                Log.w("size", listGames.size.toString())
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, ScoreTarotFragment()).commit()
             }
 
-            supportFragmentManager.beginTransaction().replace(R.id.container, ScoreTarotFragment()).commit()
+            if (res.resultCode == Request.EDITGAME.value) {
+                val b: Bundle = res.data?.extras!!
+                val preneur = b.getInt("preneur")
+                val contrat = b.getString("contrat")!!
+                val result = b.getBoolean("result")
+                val ecart = b.getInt("ecart")
+                val bonus = b.getInt("bonus")
 
+                val g: GameTarot
+                if (names.size == 4)
+                    g = listGames[b.getInt("game_id")] as GameTarot
+                else {
+                    g = listGames[b.getInt("game_id")] as GameTarot5
+                    g.teammate = b.getInt("appel")
+                }
+                g.playerTake = preneur
+                g.contract = contrat
+                g.success = result
+                g.difference = ecart
+                g.bonus = bonus
+
+
+                val newScore = if (names.size == 4) mutableListOf(0, 0, 0, 0)
+                else mutableListOf(0, 0, 0, 0, 0)
+                for (game_id in 0 until listGames.size) {
+                    var gi: GameTarot = listGames[game_id] as GameTarot
+                    val valContrat = contrats[gi.contract]
+                    var toAdd = valContrat?.plus(gi.difference)
+                    if (!gi.success) toAdd = -toAdd!!
+                    if (names.size == 4) {
+                        for (i in 0..3) {
+                            if (i == gi.playerTake) newScore[i] = newScore[i] + 3 * toAdd!!
+                            else newScore[i] = newScore[i] - toAdd!!
+
+                            if (gi.bonus != -1) // -1 means no bonus
+                            {
+                                if (i == gi.bonus) newScore[i] = newScore[i] + 30
+                                else newScore[i] = newScore[i] - 10
+                            }
+                        }
+                    } else {
+                        gi = listGames[game_id] as GameTarot5
+                        val appelI = gi.teammate
+                        val preneurI = gi.playerTake
+                        for (i in 0..4) {
+                            if (appelI == preneurI) {
+                                if (i == preneurI) newScore[i] = newScore[i] + 4 * toAdd!!
+                                else newScore[i] = newScore[i] - toAdd!!
+                            } else {
+                                when (i) {
+                                    preneurI -> newScore[i] = newScore[i] + 2 * toAdd!!
+                                    appelI -> newScore[i] = newScore[i] + toAdd!!
+                                    else -> newScore[i] = newScore[i] - toAdd!!
+                                }
+                            }
+
+                            if (gi.bonus != -1) // -1 means no bonus
+                            {
+                                if (i == gi.bonus) newScore[i] = newScore[i] + 40
+                                else newScore[i] = newScore[i] - 10
+                            }
+                        }
+                    }
+                    gi.score = newScore.toMutableList()
+                }
+
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, ScoreTarotFragment()).commit()
+
+            }
         }
-    }
 }

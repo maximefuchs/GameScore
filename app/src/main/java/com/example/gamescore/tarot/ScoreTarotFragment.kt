@@ -9,7 +9,6 @@ import android.widget.Toast
 import com.example.gamescore.R
 import com.example.gamescore.ScoreFragment
 import kotlinx.android.synthetic.main.fragment_score.view.*
-import android.graphics.ColorSpace.Model
 import com.example.gamescore.Game
 
 
@@ -74,10 +73,4 @@ class ScoreTarotFragment : ScoreFragment() {
 
         return v
     }
-
-    interface OnItemClickListener {
-        fun onItemClick(game: Game)
-    }
-
-    companion object {}
 }

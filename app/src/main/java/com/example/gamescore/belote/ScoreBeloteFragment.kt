@@ -52,5 +52,4 @@ class ScoreBeloteFragment : ScoreFragment() {
         return v
     }
 
-    companion object {}
 }

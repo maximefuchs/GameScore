@@ -16,15 +16,11 @@ enum class Request(val value: Int) {
     ADDGAME(0),
     EDITGAME(1),
     CANCEL(2);
-
-    companion object {
-        fun fromInt(value: Int) = Request.values().first { it.value == value }
-    }
 }
 
 open class GameActivity : AppCompatActivity() {
     lateinit var context: Context
-    var names: ArrayList<String> = arrayListOf<String>()
+    var names: ArrayList<String> = arrayListOf()
     lateinit var listGames: ArrayList<Game>
     val stateNames = "names"
     val stateGames = "games"

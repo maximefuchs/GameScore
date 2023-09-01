@@ -1,7 +1,6 @@
 package com.example.gamescore.tarot
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ class NbPlayersTarotFragment : NbPlayersFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         val v = super.onCreateView(inflater, container, savedInstanceState)!!
         val fourP = v.btn_option1

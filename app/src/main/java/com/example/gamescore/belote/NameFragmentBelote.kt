@@ -42,10 +42,4 @@ class NameFragmentBelote : NameFragment() {
 
         return v
     }
-
-    companion object {
-        fun newInstance(): NameFragmentBelote {
-            return NameFragmentBelote()
-        }
-    }
 }

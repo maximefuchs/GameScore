@@ -29,6 +29,4 @@ open class ScoreFragment : Fragment() {
         v.RV_games.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
         return v
     }
-
-    companion object {}
 }
