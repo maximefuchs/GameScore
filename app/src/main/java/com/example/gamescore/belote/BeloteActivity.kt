@@ -42,7 +42,7 @@ class BeloteActivity : GameActivity() {
         fragmentTransition(R.id.container,NameFragmentBelote())
     }
 
-    fun startGame(list_names: List<String>) {
+    fun startGame(list_names: ArrayList<String>) {
         hideKeyBoard()
         names = list_names
         val f = ScoreBeloteFragment()

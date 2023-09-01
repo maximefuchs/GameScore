@@ -25,45 +25,61 @@ class TarotActivity : GameActivity() {
         context = this
         FrameTitle.text = resources.getText(R.string.game_tarot)
 
-        val sharedPreferences: SharedPreferences =
-            context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
-        val gameId = sharedPreferences.getInt("id", -1)
-
-        if (gameId != -1) {
-            val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers",4)
-            val score = mutableListOf<Int>()
-            val listNames = mutableListOf<String>()
-            for (i in 0 until numberOfPlayers) {
-                score.add(sharedPreferences.getInt("playerScore_$i",0))
-                sharedPreferences.getString("Name_$i",i.toString())?.let { listNames.add(it) }
-            }
-
-            btnNoSaved.setOnClickListener(){
-                RLsaved.visibility = View.GONE
-                fragmentTransition(R.id.container, NbPlayersTarotFragment())
-                add_game.setOnClickListener { addTarotGame() }
-            }
-            btnSaved.setOnClickListener(){
-                RLsaved.visibility = View.GONE
-                val f = ScoreTarotFragment()
-                val game = Game()
-                game.gameId = gameId
-                game.nbPlayers = numberOfPlayers
-                game.score = score
-                game.restart = true
-                listGames = ArrayList<Game>()
-                listGames.add(game)
-                // TODO: check between parent class variables and variables passed from activity to fragment
-                names = listNames
-                f.listPlayers = listNames
-                f.listGames = listGames
-                fragmentTransition(R.id.container, f)
-            }
-            RLsaved.visibility = View.VISIBLE
+        // If we have a saved state then we can restore it now
+        if (savedInstanceState != null) {
+            names = savedInstanceState.getSerializable(stateNames) as ArrayList<String>;
+            listGames = savedInstanceState.getSerializable(stateGames) as ArrayList<Game>;
+            nbPlayers = names.size
+            startSavedGame()
         } else {
-            fragmentTransition(R.id.container, NbPlayersTarotFragment())
+            val sharedPreferences: SharedPreferences =
+                context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
+            val gameId = sharedPreferences.getInt("id", -1)
+
+            if (gameId != -1) {
+                val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers", 4)
+                val score = mutableListOf<Int>()
+                val listNames = arrayListOf<String>()
+                for (i in 0 until numberOfPlayers) {
+                    score.add(sharedPreferences.getInt("playerScore_$i", 0))
+                    sharedPreferences.getString("Name_$i", i.toString())?.let { listNames.add(it) }
+                }
+
+                btnNoSaved.setOnClickListener() {
+                    RLsaved.visibility = View.GONE
+                    fragmentTransition(R.id.container, NbPlayersTarotFragment())
+                    add_game.setOnClickListener { addTarotGame() }
+                }
+                btnSaved.setOnClickListener() {
+                    RLsaved.visibility = View.GONE
+                    val f = ScoreTarotFragment()
+                    val game = Game()
+                    game.gameId = gameId
+                    game.nbPlayers = numberOfPlayers
+                    game.score = score
+                    game.restart = true
+                    listGames = ArrayList<Game>()
+                    listGames.add(game)
+                    // TODO: check between parent class variables and variables passed from activity to fragment
+                    names = listNames
+                    f.listPlayers = listNames
+                    f.listGames = listGames
+                    fragmentTransition(R.id.container, f)
+                }
+                RLsaved.visibility = View.VISIBLE
+            } else {
+                fragmentTransition(R.id.container, NbPlayersTarotFragment())
+            }
         }
+
         add_game.setOnClickListener { addTarotGame() }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // save state
+        outState.putSerializable(stateNames, names)
+        outState.putSerializable(stateGames, listGames)
     }
 
     fun getName(nb_players: Int) {
@@ -71,20 +87,21 @@ class TarotActivity : GameActivity() {
         fragmentTransition(R.id.container, NameFragmentTarot())
     }
 
-    fun startGame(list_names: List<String>) {
+    fun startGame(list_names: ArrayList<String>) {
         hideKeyBoard()
+        names = list_names
+        listGames = arrayListOf<Game>()
+        startSavedGame()
+    }
 
+    private fun startSavedGame() {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
-
-        list_names.forEachIndexed { index, value ->
+        names.forEachIndexed { index, value ->
             editor.putString("Name_$index", value)
         }
         editor.apply()
-
-        names = list_names
         val f = ScoreTarotFragment()
-        listGames = ArrayList<Game>()
         f.listPlayers = names
         f.listGames = listGames
         fragmentTransition(R.id.container, f)

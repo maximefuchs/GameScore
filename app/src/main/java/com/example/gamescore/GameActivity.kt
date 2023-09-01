@@ -24,11 +24,16 @@ enum class Request(val value: Int) {
 
 open class GameActivity : AppCompatActivity() {
     lateinit var context: Context
-    var names: List<String> = listOf<String>()
+    var names: ArrayList<String> = arrayListOf<String>()
     lateinit var listGames: ArrayList<Game>
+    val stateNames = "names"
+    val stateGames = "games"
 
     private val offSetQuit = 150f
-    private val animDelay : Long = 200
+    private val animDelay: Long = 200
+    private var backPressed: Boolean = false
+    var showAddGameButton: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,39 +45,49 @@ open class GameActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
         }
         btnNoQuit.setOnClickListener {
-            ObjectAnimator.ofFloat(LLquit, "translationY", offSetQuit).apply {
-                duration = animDelay
-                start()
-            }
-            ObjectAnimator.ofFloat(RLquit, "alpha", 0f).apply {
-                duration = animDelay
-                start()
-            }.doOnEnd {
-                RLquit.visibility = View.GONE
-                add_game.visibility = View.VISIBLE
-            }
+            hideBackPressedMenu()
         }
 
     }
 
     override fun onBackPressed() {
-        if (RLquit.visibility == View.VISIBLE) {
-            finish()
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
+        if (!backPressed) {
+            showBackPressedMenu()
         } else {
-            LLquit.translationY = offSetQuit
-            ObjectAnimator.ofFloat(LLquit, "translationY", 0f).apply {
-                duration = animDelay
-                start()
-            }
-            RLquit.alpha = 0f
-            ObjectAnimator.ofFloat(RLquit, "alpha", 1f).apply {
-                duration = animDelay
-                start()
-            }
-            RLquit.visibility = View.VISIBLE
-            add_game.visibility = View.GONE
+            hideBackPressedMenu()
         }
+    }
+
+    private fun showBackPressedMenu() {
+        LLquit.translationY = offSetQuit
+        ObjectAnimator.ofFloat(LLquit, "translationY", 0f).apply {
+            duration = animDelay
+            start()
+        }
+        RLquit.alpha = 0f
+        ObjectAnimator.ofFloat(RLquit, "alpha", 1f).apply {
+            duration = animDelay
+            start()
+        }
+        RLquit.visibility = View.VISIBLE
+        add_game.visibility = View.GONE
+        backPressed = true
+    }
+
+    private fun hideBackPressedMenu() {
+        ObjectAnimator.ofFloat(LLquit, "translationY", offSetQuit).apply {
+            duration = animDelay
+            start()
+        }
+        ObjectAnimator.ofFloat(RLquit, "alpha", 0f).apply {
+            duration = animDelay
+            start()
+        }.doOnEnd {
+            RLquit.visibility = View.GONE
+            if (showAddGameButton)
+                add_game.visibility = View.VISIBLE
+        }
+        backPressed = false
     }
 
     fun hideKeyBoard() {
