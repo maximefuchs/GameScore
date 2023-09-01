@@ -45,11 +45,8 @@ class BeloteActivity : GameActivity() {
     fun startGame(list_names: ArrayList<String>) {
         hideKeyBoard()
         names = list_names
-        val f = ScoreBeloteFragment()
         listGames = ArrayList<Game>()
-        f.listPlayers = names
-        f.listGames = listGames
-        fragmentTransition(R.id.container,f)
+        fragmentTransition(R.id.container,ScoreBeloteFragment())
     }
 
     private fun addBeloteGame() {
@@ -166,10 +163,7 @@ class BeloteActivity : GameActivity() {
                 }
                 listGames.add(g)
 
-                val f = ScoreBeloteFragment()
-                f.listPlayers = names
-                f.listGames = listGames
-                supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.container, ScoreBeloteFragment()).commit()
             }
 
             if (res.resultCode == Request.EDITGAME.value) {
@@ -242,10 +236,7 @@ class BeloteActivity : GameActivity() {
                     gi.score = newScore.toMutableList()
                 }
 
-                val f = ScoreBeloteFragment()
-                f.listPlayers = names
-                f.listGames = listGames
-                supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.container, ScoreBeloteFragment()).commit()
             }
         }
 }
