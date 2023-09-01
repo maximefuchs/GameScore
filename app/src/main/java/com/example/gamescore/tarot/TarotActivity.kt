@@ -53,14 +53,11 @@ class TarotActivity : GameActivity() {
     fun startGame(list_names: ArrayList<String>) {
         hideKeyBoard()
         names = list_names
-        val f = ScoreTarotFragment()
-        listGames = ArrayList<Game>()
-        f.listPlayers = names
-        f.listGames = listGames
-        fragmentTransition(R.id.container, f)
+        listGames = arrayListOf<Game>()
+        startSavedGame()
     }
 
-    fun startSavedGame() {
+    private fun startSavedGame() {
         val f = ScoreTarotFragment()
         f.listPlayers = names
         f.listGames = listGames

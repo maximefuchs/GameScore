@@ -32,6 +32,8 @@ open class GameActivity : AppCompatActivity() {
     private val offSetQuit = 150f
     private val animDelay: Long = 200
     private var backPressed: Boolean = false
+    var showAddGameButton: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +58,7 @@ open class GameActivity : AppCompatActivity() {
         }
     }
 
-    private fun showBackPressedMenu(){
+    private fun showBackPressedMenu() {
         LLquit.translationY = offSetQuit
         ObjectAnimator.ofFloat(LLquit, "translationY", 0f).apply {
             duration = animDelay
@@ -82,7 +84,8 @@ open class GameActivity : AppCompatActivity() {
             start()
         }.doOnEnd {
             RLquit.visibility = View.GONE
-            add_game.visibility = View.VISIBLE
+            if (showAddGameButton)
+                add_game.visibility = View.VISIBLE
         }
         backPressed = false
     }
