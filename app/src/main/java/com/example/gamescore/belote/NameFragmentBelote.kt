@@ -27,14 +27,14 @@ class NameFragmentBelote : NameFragment() {
 
         v.ok_btn.setOnClickListener {
             val list = ArrayList<String>()
-            if (nameP1.text.isEmpty()) list.add("1")
+            if (nameP1.text.isEmpty()) list.add("J1")
             else list.add(nameP1.text.toString())
-            if (nameP2.text.isEmpty()) list.add("2")
+            if (nameP2.text.isEmpty()) list.add("J2")
             else list.add(nameP2.text.toString())
-            if (nameP3.text.isEmpty()) list.add("3")
+            if (nameP3.text.isEmpty()) list.add("J3")
             else list.add(nameP3.text.toString())
             if (act.nbPlayers == 4) {
-                if (nameP4.text.isEmpty()) list.add("4")
+                if (nameP4.text.isEmpty()) list.add("J4")
                 else list.add(nameP4.text.toString())
             }
             act.startGame(list)

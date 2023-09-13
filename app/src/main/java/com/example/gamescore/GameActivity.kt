@@ -15,7 +15,11 @@ import java.util.ArrayList
 enum class Request(val value: Int) {
     ADDGAME(0),
     EDITGAME(1),
-    CANCEL(2);
+    CANCEL(2)
+}
+
+enum class TypeGameSaved {
+    BELOTE,TAROT
 }
 
 open class GameActivity : AppCompatActivity() {

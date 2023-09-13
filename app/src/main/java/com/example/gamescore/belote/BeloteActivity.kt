@@ -1,7 +1,10 @@
 package com.example.gamescore.belote
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.gamescore.*
 import kotlinx.android.synthetic.main.activity_game.*
@@ -28,7 +31,42 @@ class BeloteActivity : GameActivity() {
                 gameType = savedInstanceState.getSerializable(stateType) as TypeGame
             startSavedGame()
         } else {
-            fragmentTransition(R.id.container, NbPlayersBeloteFragment())
+            val sharedPreferences: SharedPreferences =
+                context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
+            val gameType = sharedPreferences.getString("type", null)
+            val enumGameType = gameType?.let { enumValueOf<TypeGameSaved>(it) }
+
+            if (enumGameType == TypeGameSaved.BELOTE) {
+                val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers", 4)
+                val score = mutableListOf<Int>()
+                val listNames = arrayListOf<String>()
+                for (i in 0 until numberOfPlayers) {
+                    score.add(sharedPreferences.getInt("playerScore_$i", 0))
+                    sharedPreferences.getString("Name_$i", i.toString())?.let { listNames.add(it) }
+                }
+                names = listNames
+
+                btnNoSaved.setOnClickListener {
+                    RLsaved.visibility = View.GONE
+                    fragmentTransition(R.id.container, NbPlayersBeloteFragment())
+                    add_game.setOnClickListener { addBeloteGame() }
+                }
+                btnSaved.setOnClickListener {
+                    RLsaved.visibility = View.GONE
+                    val game = Game()
+                    game.gameId = 0
+                    game.nbPlayers = numberOfPlayers
+                    game.score = score
+                    game.restart = true
+                    listGames = ArrayList<Game>()
+                    listGames.add(game)
+                    // TODO: check between parent class variables and variables passed from activity to fragment
+                    fragmentTransition(R.id.container, ScoreBeloteFragment())
+                }
+                RLsaved.visibility = View.VISIBLE
+            } else {
+                fragmentTransition(R.id.container, NbPlayersBeloteFragment())
+            }
         }
 
         add_game.setOnClickListener { addBeloteGame() }

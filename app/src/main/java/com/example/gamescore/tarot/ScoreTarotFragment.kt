@@ -12,6 +12,7 @@ import com.example.gamescore.R
 import com.example.gamescore.ScoreFragment
 import kotlinx.android.synthetic.main.fragment_score.view.*
 import com.example.gamescore.Game
+import com.example.gamescore.TypeGameSaved
 
 
 class ScoreTarotFragment : ScoreFragment() {
@@ -33,24 +34,8 @@ class ScoreTarotFragment : ScoreFragment() {
             v.P5.text = listPlayers[4].take(2)
         }
 
+        saveLastGame(TypeGameSaved.TAROT)
         val act = activity as TarotActivity
-        if (listGames.size > 0) {
-            Log.w("LIST", listGames[0].toString())
-            if (!listGames.last().restart) {
-                val lastGame = listGames.last() as GameTarot
-                val editor: SharedPreferences.Editor =
-                    act.context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE).edit()
-                lastGame.saveGameToSharedPreferences(editor)
-                if (!act.namesSaved) {
-                    act.names.forEachIndexed { index, value ->
-                        editor.putString("Name_$index", value)
-                    }
-                    editor.apply()
-                    act.namesSaved = true
-                }
-            }
-        }
-
         // TODO: make this feature more visible
         val onItemClick = { game: Game ->
             if (game.restart) {

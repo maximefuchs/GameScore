@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.example.gamescore.Game
 import com.example.gamescore.R
 import com.example.gamescore.ScoreFragment
+import com.example.gamescore.TypeGameSaved
 import kotlinx.android.synthetic.main.fragment_score.view.*
 
 
@@ -35,6 +36,7 @@ class ScoreBeloteFragment : ScoreFragment() {
             v.T3.text = listPlayers[2].take(2)
         }
 
+        saveLastGame(TypeGameSaved.BELOTE)
 
         val onItemClick = { _ : Game ->
             Toast.makeText(

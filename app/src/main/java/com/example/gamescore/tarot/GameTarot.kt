@@ -3,6 +3,7 @@ package com.example.gamescore.tarot
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.gamescore.Game
+import com.example.gamescore.TypeGameSaved
 
 open class GameTarot : Game {
     constructor()
@@ -25,15 +26,6 @@ open class GameTarot : Game {
 
     override fun toString(): String {
         return super.toString() + "| Tarot | nb_players=$nbPlayers, player_take=$playerTake, contract='$contract', score=$score "
-    }
-
-    fun saveGameToSharedPreferences(editor: SharedPreferences.Editor) {
-        editor.putInt("id", gameId)
-        editor.putInt("numberOfPlayers", nbPlayers)
-        score.forEachIndexed { index, value ->
-            editor.putInt("playerScore_$index", value)
-        }
-        editor.apply()
     }
 
 //    fun getGameFromSharedPreferences(context: Context): Game? {

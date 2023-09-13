@@ -30,9 +30,10 @@ class TarotActivity : GameActivity() {
         } else {
             val sharedPreferences: SharedPreferences =
                 context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
-            val gameId = sharedPreferences.getInt("id", -1)
+            val gameType = sharedPreferences.getString("type", null)
+            val enumGameType = gameType?.let { enumValueOf<TypeGameSaved>(it) }
 
-            if (gameId != -1) {
+            if (enumGameType == TypeGameSaved.TAROT) {
                 val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers", 4)
                 val score = mutableListOf<Int>()
                 val listNames = arrayListOf<String>()
@@ -50,7 +51,7 @@ class TarotActivity : GameActivity() {
                 btnSaved.setOnClickListener {
                     RLsaved.visibility = View.GONE
                     val game = Game()
-                    game.gameId = gameId
+                    game.gameId = 0
                     game.nbPlayers = numberOfPlayers
                     game.score = score
                     game.restart = true

@@ -24,9 +24,10 @@ open class NameFragment : Fragment() {
             v.nameP4.setText(act.names[3])
             if (act.names.size == 5)
                 v.nameP5.setText(act.names[4])
+        } else { // dont put focus if names are prefilled
+            v.nameP1.requestFocus()
+            act.showKeyBoard(v.nameP1)
         }
-        v.nameP1.requestFocus()
-        act.showKeyBoard(v.nameP1)
 
         v.erase_btn.setOnClickListener {
             v.nameP1.setText("")
