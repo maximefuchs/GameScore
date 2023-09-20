@@ -1,15 +1,26 @@
 package com.example.gamescore
 
+import android.content.SharedPreferences
 import java.io.Serializable
 
 open class Game() : Serializable {
 
-    var game_id: Int = 0
-    var nb_players: Int = 4
+    var gameId: Int = 0
+    var nbPlayers: Int = 4
     var score: List<Int> = listOf<Int>()
+    var restart : Boolean = false // when we use a saved score
 
     override fun toString(): String {
-        return "|| Game || game_id=$game_id, nb_players=$nb_players, score=$score "
+        return "|| Game || game_id=$gameId, nb_players=$nbPlayers, score=$score "
+    }
+
+    fun saveGameToSharedPreferences(editor: SharedPreferences.Editor, typeGame : TypeGameSaved) {
+        editor.putString("type", typeGame.name)
+        editor.putInt("numberOfPlayers", nbPlayers)
+        score.forEachIndexed { index, value ->
+            editor.putInt("playerScore_$index", value)
+        }
+        editor.apply()
     }
 
 }

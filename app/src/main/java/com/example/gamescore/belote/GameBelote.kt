@@ -1,13 +1,15 @@
 package com.example.gamescore.belote
 
+import android.content.SharedPreferences
 import com.example.gamescore.Game
+import com.example.gamescore.TypeGameSaved
 
 open class GameBelote : Game {
     constructor()
 
     constructor(game_id: Int, taker: Int, success: Boolean, difference : Int, bonus1: Int, bonus2: Int, score: List<Int>) {
-        this.game_id = game_id
-        this.nb_players = 4
+        this.gameId = game_id
+        this.nbPlayers = 4
         this.taker = taker
         this.difference = difference
         this.success = success
@@ -25,5 +27,4 @@ open class GameBelote : Game {
     override fun toString(): String {
         return super.toString() + "| Belote | taker $taker, success $success, difference $difference"
     }
-
 }

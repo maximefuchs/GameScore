@@ -55,7 +55,9 @@
 
 
     <string name="long_click_hint">Appuyez longtemps pour modifier</string>
+    <string name="click_hint_not_possible">Cet élément n\'est pas modifiable</string>
     <string name="question_quit">Voulez-vous quitter ?</string>
+    <string name="question_saved">Voulez-vous reprendre la dernière partie ?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
 

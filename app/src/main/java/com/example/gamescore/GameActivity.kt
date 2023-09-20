@@ -15,29 +15,38 @@ import java.util.ArrayList
 enum class Request(val value: Int) {
     ADDGAME(0),
     EDITGAME(1),
-    CANCEL(2);
+    CANCEL(2)
+}
 
-    companion object {
-        fun fromInt(value: Int) = Request.values().first { it.value == value }
-    }
+enum class TypeGameSaved {
+    BELOTE,TAROT
 }
 
 open class GameActivity : AppCompatActivity() {
     lateinit var context: Context
-    var names: ArrayList<String> = arrayListOf<String>()
+    var names: ArrayList<String> = arrayListOf()
     lateinit var listGames: ArrayList<Game>
-    val stateNames = "names"
-    val stateGames = "games"
+    var nbPlayers: Int = 4
+    private val stateNames = "names"
+    private val stateGames = "games"
 
     private val offSetQuit = 150f
     private val animDelay: Long = 200
     private var backPressed: Boolean = false
     var showAddGameButton: Boolean = false
+    var namesSaved: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
+
+        // If we have a saved state then we can restore it now
+        if (savedInstanceState != null) {
+            names = savedInstanceState.getSerializable(stateNames) as ArrayList<String>
+            listGames = savedInstanceState.getSerializable(stateGames) as ArrayList<Game>
+            nbPlayers = names.size
+        }
 
         // quitting
         btnQuit.setOnClickListener {
@@ -48,6 +57,13 @@ open class GameActivity : AppCompatActivity() {
             hideBackPressedMenu()
         }
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // save state
+        outState.putSerializable(stateNames, names)
+        outState.putSerializable(stateGames, listGames)
     }
 
     override fun onBackPressed() {

@@ -1,5 +1,7 @@
 package com.example.gamescore.tarot
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,8 +11,8 @@ import android.widget.Toast
 import com.example.gamescore.R
 import com.example.gamescore.ScoreFragment
 import kotlinx.android.synthetic.main.fragment_score.view.*
-import android.graphics.ColorSpace.Model
 import com.example.gamescore.Game
+import com.example.gamescore.TypeGameSaved
 
 
 class ScoreTarotFragment : ScoreFragment() {
@@ -21,10 +23,8 @@ class ScoreTarotFragment : ScoreFragment() {
     ): View {
         // Inflate the layout for this fragment
         val v = super.onCreateView(inflater, container, savedInstanceState)!!
-        val act = activity as TarotActivity
         v.LL_tarot.visibility = View.VISIBLE
-        val nbPlayers = act.nbPlayers
-        listPlayers = act.names
+        val nbPlayers = listPlayers.size
         v.P1.text = listPlayers[0].take(2)
         v.P2.text = listPlayers[1].take(2)
         v.P3.text = listPlayers[2].take(2)
@@ -34,28 +34,39 @@ class ScoreTarotFragment : ScoreFragment() {
             v.P5.text = listPlayers[4].take(2)
         }
 
-        if(listGames.size > 0)
-            Log.w("LIST", listGames[0].toString())
-
-        val onItemClick = { _ : Game ->
-            Toast.makeText(
-                act.context,
-                act.resources.getString(R.string.long_click_hint),
-                Toast.LENGTH_SHORT
-            ).show()
+        saveLastGame(TypeGameSaved.TAROT)
+        val act = activity as TarotActivity
+        // TODO: make this feature more visible
+        val onItemClick = { game: Game ->
+            if (game.restart) {
+                Toast.makeText(
+                    act.context,
+                    act.resources.getString(R.string.click_hint_not_possible),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    act.context,
+                    act.resources.getString(R.string.long_click_hint),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
-        val onItemLongClick = {position : Int ->
-            act.editTarotGame(position)
+        val onItemLongClick = { position: Int ->
+            if (listGames[position].restart) {
+                Toast.makeText(
+                    act.context,
+                    act.resources.getString(R.string.click_hint_not_possible),
+                    Toast.LENGTH_SHORT
+                ).show()
+                true // because onItemLongClick is of time (Int) -> Boolean
+            } else {
+                act.editTarotGame(position)
+            }
         }
-        val adapter = TarotListAdapter(listGames, onItemClick,onItemLongClick)
+        val adapter = TarotListAdapter(listGames, onItemClick, onItemLongClick)
         v.RV_games.adapter = adapter
 
         return v
     }
-
-    interface OnItemClickListener {
-        fun onItemClick(game: Game)
-    }
-
-    companion object {}
 }

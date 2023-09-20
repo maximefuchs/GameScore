@@ -83,16 +83,16 @@ class AddGameTarotActivity : AddGameActivity() {
         if (edit)
         {
             game = b.getSerializable("lastGame") as GameTarot
-            if (game.nb_players == 5){
+            if (game.nbPlayers == 5){
                 game = b.getSerializable("lastGame") as GameTarot5
                 spinner_called.setSelection(game.teammate)
             }
-            spinner_preneur.setSelection(game.player_take)
+            spinner_preneur.setSelection(game.playerTake)
             spinner_contrat.setSelection(contracts.indexOf(game.contract))
             ecartScore = changeEcart(game.difference)
             partyIsWon = changeResult(game.success)
             spinner_bonus.setSelection(game.bonus + 1)
-            gameId = game.game_id
+            gameId = game.gameId
         }
 
 
@@ -146,7 +146,7 @@ class AddGameTarotActivity : AddGameActivity() {
 
     private fun changeResult(is_won: Boolean, score_id: Int): Boolean {
         this.changeResult(is_won)
-        var button = if (score_id == 0) btn0 else if (score_id == 10) btn10 else if (score_id == 20) btn20 else btn30
+        val button = if (score_id == 0) btn0 else if (score_id == 10) btn10 else if (score_id == 20) btn20 else btn30
         button.setBackgroundColor(
             ContextCompat.getColor(
                 applicationContext,

@@ -1,13 +1,11 @@
 package com.example.gamescore.belote
 
-import com.example.gamescore.Game
-
 open class GameBeloteCoinchee : GameBelote {
     constructor()
 
     constructor(game_id: Int, taker: Int, success: Boolean, contrat: Int, difference : Int, bonus1: Int, bonus2: Int, isCoinchee : Boolean, score: List<Int>) {
-        this.game_id = game_id
-        this.nb_players = 4
+        this.gameId = game_id
+        this.nbPlayers = 4
         this.taker = taker
         this.difference = difference
         this.success = success

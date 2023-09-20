@@ -1,7 +1,10 @@
 package com.example.gamescore.belote
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.gamescore.*
 import kotlinx.android.synthetic.main.activity_game.*
@@ -16,20 +19,66 @@ enum class TypeGame {
 class BeloteActivity : GameActivity() {
 
     private var gameType = TypeGame.NORMALE
-    var nbPlayers = 4
+    val stateType = "type"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context = this
         FrameTitle.text = resources.getText(R.string.game_belote)
 
-        fragmentTransition(R.id.container,NbPlayersBeloteFragment())
+        if (savedInstanceState != null) {
+            if (nbPlayers == 4)
+                gameType = savedInstanceState.getSerializable(stateType) as TypeGame
+            startSavedGame()
+        } else {
+            val sharedPreferences: SharedPreferences =
+                context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
+            val gameType = sharedPreferences.getString("type", null)
+            val enumGameType = gameType?.let { enumValueOf<TypeGameSaved>(it) }
+
+            if (enumGameType == TypeGameSaved.BELOTE) {
+                val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers", 4)
+                val score = mutableListOf<Int>()
+                val listNames = arrayListOf<String>()
+                for (i in 0 until numberOfPlayers) {
+                    score.add(sharedPreferences.getInt("playerScore_$i", 0))
+                    sharedPreferences.getString("Name_$i", i.toString())?.let { listNames.add(it) }
+                }
+                names = listNames
+
+                btnNoSaved.setOnClickListener {
+                    RLsaved.visibility = View.GONE
+                    fragmentTransition(R.id.container, NbPlayersBeloteFragment())
+                    add_game.setOnClickListener { addBeloteGame() }
+                }
+                btnSaved.setOnClickListener {
+                    RLsaved.visibility = View.GONE
+                    val game = Game()
+                    game.gameId = 0
+                    game.nbPlayers = numberOfPlayers
+                    game.score = score
+                    game.restart = true
+                    listGames = ArrayList<Game>()
+                    listGames.add(game)
+                    // TODO: check between parent class variables and variables passed from activity to fragment
+                    fragmentTransition(R.id.container, ScoreBeloteFragment())
+                }
+                RLsaved.visibility = View.VISIBLE
+            } else {
+                fragmentTransition(R.id.container, NbPlayersBeloteFragment())
+            }
+        }
+
         add_game.setOnClickListener { addBeloteGame() }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState) // save names and games
+        outState.putSerializable(stateType, gameType)
+    }
+
     fun getTypeOfGame() {
-//        nbPlayers = 4
-        fragmentTransition(R.id.container,TypeBeloteFragment())
+        fragmentTransition(R.id.container, TypeBeloteFragment())
     }
 
     fun typeOfGame(game_of_type: TypeGame) {
@@ -39,17 +88,18 @@ class BeloteActivity : GameActivity() {
 
     fun getName(nbOfPlayers: Int) {
         nbPlayers = nbOfPlayers
-        fragmentTransition(R.id.container,NameFragmentBelote())
+        fragmentTransition(R.id.container, NameFragmentBelote())
+    }
+
+    private fun startSavedGame() {
+        fragmentTransition(R.id.container, ScoreBeloteFragment())
     }
 
     fun startGame(list_names: ArrayList<String>) {
         hideKeyBoard()
         names = list_names
-        val f = ScoreBeloteFragment()
         listGames = ArrayList<Game>()
-        f.listPlayers = names
-        f.listGames = listGames
-        fragmentTransition(R.id.container,f)
+        fragmentTransition(R.id.container, ScoreBeloteFragment())
     }
 
     private fun addBeloteGame() {
@@ -91,7 +141,7 @@ class BeloteActivity : GameActivity() {
                 val newScore: MutableList<Int>
                 if (listGames.size > 0) {
                     newScore = listGames.last().score.toMutableList()
-                    game_id = listGames.last().game_id + 1
+                    game_id = listGames.last().gameId + 1
                 } else {
                     game_id = 0
                     newScore = if (nbPlayers == 3) mutableListOf(0, 0, 0) else mutableListOf(0, 0)
@@ -106,7 +156,7 @@ class BeloteActivity : GameActivity() {
                     // if coinchee, double contract value
                     if (preneur == 0 && result) bonusT1 += if (isCoinchee) 2 * contrat else contrat
                     if (preneur == 1 && result) bonusT2 += if (isCoinchee) 2 * contrat else contrat
-                    if(isCoinchee && !result) totalPoints *= 2 // double reward for defense if defeat when coinchee
+                    if (isCoinchee && !result) totalPoints *= 2 // double reward for defense if defeat when coinchee
                 }
                 if (nbPlayers == 4) {
                     for (i in 0..1) {
@@ -131,8 +181,7 @@ class BeloteActivity : GameActivity() {
                             isCoinchee,
                             newScore
                         )
-                    }
-                    else {
+                    } else {
                         g = GameBelote(
                             game_id,
                             preneur,
@@ -143,8 +192,7 @@ class BeloteActivity : GameActivity() {
                             newScore
                         )
                     }
-                }
-                else {
+                } else {
                     if (!result) totalPoints /= 2
                     for (i in 0..2) {
                         if (result)
@@ -166,10 +214,8 @@ class BeloteActivity : GameActivity() {
                 }
                 listGames.add(g)
 
-                val f = ScoreBeloteFragment()
-                f.listPlayers = names
-                f.listGames = listGames
-                supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, ScoreBeloteFragment()).commit()
             }
 
             if (res.resultCode == Request.EDITGAME.value) {
@@ -215,7 +261,7 @@ class BeloteActivity : GameActivity() {
                         // if coinchee, double contract value
                         if (gi.taker == 0 && gi.success) bonusT1_i += if (isCoinchee) 2 * contrat else contrat
                         if (gi.taker == 1 && gi.success) bonusT2_i += if (isCoinchee) 2 * contrat else contrat
-                        if(isCoinchee && !gi.success) totalPoints *= 2 // double reward for defense if defeat when coinchee
+                        if (isCoinchee && !gi.success) totalPoints *= 2 // double reward for defense if defeat when coinchee
                     }
 
                     if (nbPlayers == 4) {
@@ -242,10 +288,8 @@ class BeloteActivity : GameActivity() {
                     gi.score = newScore.toMutableList()
                 }
 
-                val f = ScoreBeloteFragment()
-                f.listPlayers = names
-                f.listGames = listGames
-                supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, ScoreBeloteFragment()).commit()
             }
         }
 }
