@@ -7,14 +7,15 @@ import com.example.gamescore.TypeGameSaved
 
 open class GameTarot : Game {
     constructor()
-    constructor(game_id: Int, player_take: Int, contract: String, success: Boolean, difference : Int, bonus: Int, score: List<Int>) {
+    constructor(game_id: Int, player_take: Int, contract: String, success: Boolean, difference : Int, bonus_name: List<Int>, bonus_value: List<Int>, score: List<Int>) {
         this.gameId = game_id
         this.nbPlayers = 4
         this.playerTake = player_take
         this.contract = contract
         this.difference = difference
         this.success = success
-        this.bonus = bonus
+        this.bonusName = bonus_name
+        this.bonusValue = bonus_value
         this.score = score
     }
 
@@ -22,7 +23,8 @@ open class GameTarot : Game {
     var contract : String = "Garde"
     var success : Boolean = true
     var difference: Int = 0
-    var bonus: Int = -1
+    var bonusName: List<Int> = ArrayList<Int>()
+    var bonusValue: List<Int> = ArrayList<Int>()
 
     override fun toString(): String {
         return super.toString() + "| Tarot | nb_players=$nbPlayers, player_take=$playerTake, contract='$contract', score=$score "

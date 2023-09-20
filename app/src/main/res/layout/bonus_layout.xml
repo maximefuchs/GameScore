@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -8,19 +7,28 @@
     <Spinner
         android:id="@+id/spinner_bonus_name"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_weight="3"
         android:paddingStart="5dp"
         android:paddingEnd="5dp" />
 
     <Spinner
         android:id="@+id/spinner_bonus_value"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_weight="3"
         android:paddingStart="5dp"
         android:paddingEnd="5dp" />
+
+    <ImageButton
+        android:id="@+id/btn_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:background="@color/colorTransparent"
+        android:layout_gravity="center"
+        android:src="@mipmap/cancel" />
 
 </LinearLayout>

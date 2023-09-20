@@ -7,12 +7,14 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
+import androidx.core.view.allViews
 import com.example.gamescore.AddGameActivity
 import com.example.gamescore.R
 import com.example.gamescore.Request
 import kotlinx.android.synthetic.main.activity_add_game_tarot.*
 import kotlinx.android.synthetic.main.bonus_layout.view.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AddGameTarotActivity : AddGameActivity() {
     private var bonuses: HashMap<String, Int> = hashMapOf(
@@ -27,7 +29,7 @@ class AddGameTarotActivity : AddGameActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_game_tarot)
-        var game : GameTarot
+        var game: GameTarot
         var gameId = 0
 
         winBtn = btnWin
@@ -72,23 +74,22 @@ class AddGameTarotActivity : AddGameActivity() {
             }
         }
 
-//        val playersNone = ArrayList(players.map { it }) // create copy
-//        playersNone.add(0, " - ")
-//        val adapterBonus = ArrayAdapter(this, R.layout.spinner_item, playersNone)
-
+        // Inflate the dynamic layout
+        val inflater = LayoutInflater.from(this)
+        val dynamicLayout = inflater.inflate(R.layout.bonus_layout, null)
         btnAddBonus.setOnClickListener {
-            // Inflate the dynamic layout
-            val inflater = LayoutInflater.from(this)
-            val dynamicLayout = inflater.inflate(R.layout.bonus_layout, null)
 
-            val playersNone = ArrayList(players.map { it }) // create copy
-            playersNone.add(0, " - ")
-            val adapterBonusName = ArrayAdapter(this, R.layout.spinner_item, playersNone)
+            val playersName = ArrayList(players.map { it }) // create copy
+            val adapterBonusName = ArrayAdapter(this, R.layout.spinner_item, playersName)
             dynamicLayout.spinner_bonus_name.adapter = adapterBonusName
 
             val bonuses = resources.getStringArray(R.array.bonuses)
             val adapterBonusValue = ArrayAdapter(this, R.layout.spinner_item, bonuses)
             dynamicLayout.spinner_bonus_value.adapter = adapterBonusValue
+
+            dynamicLayout.btn_remove.setOnClickListener {
+                LL_bonus.removeView(dynamicLayout)
+            }
 
             // Add the dynamic layout to the parent layout
             LL_bonus.addView(dynamicLayout)
@@ -108,10 +109,9 @@ class AddGameTarotActivity : AddGameActivity() {
         btnLose.setOnClickListener { partyIsWon = changeResult(false, ecartScore) }
         btnWin.setOnClickListener { partyIsWon = changeResult(true, ecartScore) }
 
-        if (edit)
-        {
+        if (edit) {
             game = b.getSerializable("lastGame") as GameTarot
-            if (game.nbPlayers == 5){
+            if (game.nbPlayers == 5) {
                 game = b.getSerializable("lastGame") as GameTarot5
                 spinner_called.setSelection(game.teammate)
             }
@@ -119,26 +119,51 @@ class AddGameTarotActivity : AddGameActivity() {
             spinner_contrat.setSelection(contracts.indexOf(game.contract))
             ecartScore = changeEcart(game.difference)
             partyIsWon = changeResult(game.success)
-//            spinner_bonus.setSelection(game.bonus + 1)
+            for (index in 0 until game.bonusName.size) {
+                val playersName = ArrayList(players.map { it }) // create copy
+                val adapterBonusName = ArrayAdapter(this, R.layout.spinner_item, playersName)
+                dynamicLayout.spinner_bonus_name.adapter = adapterBonusName
+                dynamicLayout.spinner_bonus_name.setSelection(game.bonusName[index])
+
+                val bonuses = resources.getStringArray(R.array.bonuses)
+                val adapterBonusValue = ArrayAdapter(this, R.layout.spinner_item, bonuses)
+                dynamicLayout.spinner_bonus_value.adapter = adapterBonusValue
+                dynamicLayout.spinner_bonus_value.setSelection(game.bonusName[index])
+
+                dynamicLayout.btn_remove.setOnClickListener {
+                    LL_bonus.removeView(dynamicLayout)
+                }
+
+                // Add the dynamic layout to the parent layout
+                LL_bonus.addView(dynamicLayout)
+            }
             gameId = game.gameId
         }
 
 
         btnValider.setOnClickListener {
             val intent = Intent()
-            intent.putExtra("preneur",spinner_preneur.selectedItemPosition)
-//            if (spinner_bonus.selectedItemPosition != 0)
-//                intent.putExtra("bonus",spinner_bonus.selectedItemPosition)
-//            else // no bonus
-                intent.putExtra("bonus", -1)
+            intent.putExtra("preneur", spinner_preneur.selectedItemPosition)
+            val listNames = mutableListOf<Int>()
+            val listValues = mutableListOf<Int>()
+            for (view in LL_bonus.allViews) {
+                val positionName: Int = view.spinner_bonus_name.selectedItemPosition
+                val positionValue: String = view.spinner_bonus_value.selectedItem as String
+                val bonusValue = bonuses[positionValue]
+                listNames.add(positionName)
+                listValues.add(bonusValue!!)
+            }
+            intent.putExtra("list_bonus_names", ArrayList(listNames))
+            intent.putExtra("list_bonus_values", ArrayList(listValues))
+
             if (players.size == 5)
-                intent.putExtra("appel",spinner_called.selectedItemPosition)
+                intent.putExtra("appel", spinner_called.selectedItemPosition)
             intent.putExtra("contrat", spinner_contrat.selectedItem.toString())
             intent.putExtra("result", partyIsWon)
             intent.putExtra("ecart", ecartScore)
-            if(edit)
-                intent.putExtra("game_id",gameId)
-            setResult(if(edit) Request.EDITGAME.value else Request.ADDGAME.value, intent)
+            if (edit)
+                intent.putExtra("game_id", gameId)
+            setResult(if (edit) Request.EDITGAME.value else Request.ADDGAME.value, intent)
             finish()
         }
 
@@ -174,7 +199,8 @@ class AddGameTarotActivity : AddGameActivity() {
 
     private fun changeResult(is_won: Boolean, score_id: Int): Boolean {
         this.changeResult(is_won)
-        val button = if (score_id == 0) btn0 else if (score_id == 10) btn10 else if (score_id == 20) btn20 else btn30
+        val button =
+            if (score_id == 0) btn0 else if (score_id == 10) btn10 else if (score_id == 20) btn20 else btn30
         button.setBackgroundColor(
             ContextCompat.getColor(
                 applicationContext,
