@@ -109,14 +109,17 @@ class TarotActivity : GameActivity() {
     private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { res ->
+            val b: Bundle = res.data?.extras!!
+            val preneur = b.getInt("preneur")
+            val contrat = b.getString("contrat")!!
+            val result = b.getBoolean("result")
+            val ecart = b.getInt("ecart")
+            val bonusNames = b.getIntArray("list_bonus_names")!!
+            val bonusValues = b.getIntArray("list_bonus_values")!!
+
+
             if (res.resultCode == Request.ADDGAME.value) {
-                val b: Bundle = res.data?.extras!!
-                val preneur = b.getInt("preneur")
-                val contrat = b.getString("contrat")!!
                 val valContrat = contrats[contrat]!!
-                val result = b.getBoolean("result")
-                val ecart = b.getInt("ecart")
-                val bonus = b.getInt("bonus")
                 var toAdd = valContrat.plus(ecart)
                 if (!result) toAdd = -toAdd
 
@@ -131,14 +134,18 @@ class TarotActivity : GameActivity() {
                     else mutableListOf(0, 0, 0, 0, 0)
                 }
                 if (names.size == 4) {
-                    for (i in 0..3) {
-                        if (i == preneur) newScore[i] = newScore[i] + 3 * toAdd
-                        else newScore[i] = newScore[i] - toAdd
+                    for (index_player in 0..3) {
+                        if (index_player == preneur) newScore[index_player] =
+                            newScore[index_player] + 3 * toAdd
+                        else newScore[index_player] = newScore[index_player] - toAdd
 
-                        if (bonus != -1) // -1 means no bonus
-                        {
-                            if (i == bonus) newScore[i] = newScore[i] + 30
-                            else newScore[i] = newScore[i] - 10
+                        for (index_bonus in bonusNames.indices) {
+                            val nameBonus = bonusNames[index_bonus]
+                            val valueBonus = bonusValues[index_bonus]
+                            if (nameBonus == index_player)
+                                newScore[index_player] = newScore[index_player] + valueBonus * 3
+                            else
+                                newScore[index_player] = newScore[index_player] - valueBonus
                         }
                     }
                     g = GameTarot(
@@ -147,27 +154,31 @@ class TarotActivity : GameActivity() {
                         contrat,
                         result,
                         ecart,
-                        bonus,
+                        bonusNames,
+                        bonusValues,
                         newScore
                     )
                 } else {
                     val appel = b.getInt("appel")
-                    for (i in 0..4) {
+                    for (index_player in 0..4) {
                         if (appel == preneur) {
-                            if (i == preneur) newScore[i] = newScore[i] + 4 * toAdd
-                            else newScore[i] = newScore[i] - toAdd
+                            if (index_player == preneur) newScore[index_player] = newScore[index_player] + 4 * toAdd
+                            else newScore[index_player] = newScore[index_player] - toAdd
                         } else {
-                            when (i) {
-                                preneur -> newScore[i] = newScore[i] + 2 * toAdd
-                                appel -> newScore[i] = newScore[i] + toAdd
-                                else -> newScore[i] = newScore[i] - toAdd
+                            when (index_player) {
+                                preneur -> newScore[index_player] = newScore[index_player] + 2 * toAdd
+                                appel -> newScore[index_player] = newScore[index_player] + toAdd
+                                else -> newScore[index_player] = newScore[index_player] - toAdd
                             }
                         }
 
-                        if (bonus != -1) // -1 means no bonus
-                        {
-                            if (i == bonus) newScore[i] = newScore[i] + 40
-                            else newScore[i] = newScore[i] - 10
+                        for (index_bonus in bonusNames.indices) {
+                            val nameBonus = bonusNames[index_bonus]
+                            val valueBonus = bonusValues[index_bonus]
+                            if (nameBonus == index_player)
+                                newScore[index_player] = newScore[index_player] + valueBonus * 4
+                            else
+                                newScore[index_player] = newScore[index_player] - valueBonus
                         }
                     }
                     g = GameTarot5(
@@ -177,7 +188,8 @@ class TarotActivity : GameActivity() {
                         appel,
                         result,
                         ecart,
-                        bonus,
+                        bonusNames,
+                        bonusValues,
                         newScore
                     )
                 }
@@ -189,13 +201,6 @@ class TarotActivity : GameActivity() {
             }
 
             if (res.resultCode == Request.EDITGAME.value) {
-                val b: Bundle = res.data?.extras!!
-                val preneur = b.getInt("preneur")
-                val contrat = b.getString("contrat")!!
-                val result = b.getBoolean("result")
-                val ecart = b.getInt("ecart")
-                val bonus = b.getInt("bonus")
-
                 val g: GameTarot
                 if (names.size == 4)
                     g = listGames[b.getInt("game_id")] as GameTarot
@@ -207,7 +212,8 @@ class TarotActivity : GameActivity() {
                 g.contract = contrat
                 g.success = result
                 g.difference = ecart
-                g.bonus = bonus
+                g.bonusName = bonusNames
+                g.bonusValue = bonusValues
 
 
                 val newScore = if (names.size == 4) mutableListOf(0, 0, 0, 0)
@@ -218,36 +224,42 @@ class TarotActivity : GameActivity() {
                     var toAdd = valContrat?.plus(gi.difference)
                     if (!gi.success) toAdd = -toAdd!!
                     if (names.size == 4) {
-                        for (i in 0..3) {
-                            if (i == gi.playerTake) newScore[i] = newScore[i] + 3 * toAdd!!
-                            else newScore[i] = newScore[i] - toAdd!!
+                        for (index_player in 0..3) {
+                            if (index_player == gi.playerTake) newScore[index_player] = newScore[index_player] + 3 * toAdd!!
+                            else newScore[index_player] = newScore[index_player] - toAdd!!
 
-                            if (gi.bonus != -1) // -1 means no bonus
-                            {
-                                if (i == gi.bonus) newScore[i] = newScore[i] + 30
-                                else newScore[i] = newScore[i] - 10
+                            for (index_bonus in gi.bonusName.indices) {
+                                val nameBonus = gi.bonusName[index_bonus]
+                                val valueBonus = gi.bonusValue[index_bonus]
+                                if (nameBonus == index_player)
+                                    newScore[index_player] = newScore[index_player] + valueBonus * 3
+                                else
+                                    newScore[index_player] = newScore[index_player] - valueBonus
                             }
                         }
                     } else {
                         gi = listGames[game_id] as GameTarot5
                         val appelI = gi.teammate
                         val preneurI = gi.playerTake
-                        for (i in 0..4) {
+                        for (index_player in 0..4) {
                             if (appelI == preneurI) {
-                                if (i == preneurI) newScore[i] = newScore[i] + 4 * toAdd!!
-                                else newScore[i] = newScore[i] - toAdd!!
+                                if (index_player == preneurI) newScore[index_player] = newScore[index_player] + 4 * toAdd!!
+                                else newScore[index_player] = newScore[index_player] - toAdd!!
                             } else {
-                                when (i) {
-                                    preneurI -> newScore[i] = newScore[i] + 2 * toAdd!!
-                                    appelI -> newScore[i] = newScore[i] + toAdd!!
-                                    else -> newScore[i] = newScore[i] - toAdd!!
+                                when (index_player) {
+                                    preneurI -> newScore[index_player] = newScore[index_player] + 2 * toAdd!!
+                                    appelI -> newScore[index_player] = newScore[index_player] + toAdd!!
+                                    else -> newScore[index_player] = newScore[index_player] - toAdd!!
                                 }
                             }
 
-                            if (gi.bonus != -1) // -1 means no bonus
-                            {
-                                if (i == gi.bonus) newScore[i] = newScore[i] + 40
-                                else newScore[i] = newScore[i] - 10
+                            for (index_bonus in gi.bonusName.indices) {
+                                val nameBonus = gi.bonusName[index_bonus]
+                                val valueBonus = gi.bonusValue[index_bonus]
+                                if (nameBonus == index_player)
+                                    newScore[index_player] = newScore[index_player] + valueBonus * 4
+                                else
+                                    newScore[index_player] = newScore[index_player] - valueBonus
                             }
                         }
                     }
