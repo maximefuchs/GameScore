@@ -89,8 +89,8 @@ class AddGameTarotActivity : AddGameActivity() {
             }
             spinner_preneur.setSelection(game.playerTake)
             spinner_contrat.setSelection(contracts.indexOf(game.contract))
-            ecartScore = changeEcart(game.difference)
             partyIsWon = changeResult(game.success)
+            ecartScore = changeEcart(game.difference)
             spinner_bonus.setSelection(game.bonus + 1)
             gameId = game.gameId
         }
