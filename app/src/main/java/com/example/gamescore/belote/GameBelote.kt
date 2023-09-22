@@ -7,7 +7,7 @@ import com.example.gamescore.TypeGameSaved
 open class GameBelote : Game {
     constructor()
 
-    constructor(game_id: Int, taker: Int, success: Boolean, difference : Int, bonus1: Int, bonus2: Int, score: List<Int>) {
+    constructor(game_id: Int, taker: Int, success: Boolean, difference : Int, bonus1: Int, bonus2: Int, score: IntArray) {
         this.gameId = game_id
         this.nbPlayers = 4
         this.taker = taker

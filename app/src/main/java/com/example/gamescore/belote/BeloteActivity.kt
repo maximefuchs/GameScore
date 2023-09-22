@@ -38,10 +38,10 @@ class BeloteActivity : GameActivity() {
 
             if (enumGameType == TypeGameSaved.BELOTE) {
                 val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers", 4)
-                val score = mutableListOf<Int>()
+                val score = if (numberOfPlayers == 3) intArrayOf(0,0,0) else intArrayOf(0,0,0,0)
                 val listNames = arrayListOf<String>()
                 for (i in 0 until numberOfPlayers) {
-                    score.add(sharedPreferences.getInt("playerScore_$i", 0))
+                    score[i] = sharedPreferences.getInt("playerScore_$i", 0)
                     sharedPreferences.getString("Name_$i", i.toString())?.let { listNames.add(it) }
                 }
                 names = listNames
@@ -244,7 +244,7 @@ class BeloteActivity : GameActivity() {
                 g.bonusTeam2 = bonusT2
 
 
-                val newScore = if (nbPlayers == 4) mutableListOf(0, 0) else mutableListOf(0, 0, 0)
+                val newScore = if (nbPlayers == 4) intArrayOf(0, 0) else intArrayOf(0, 0, 0)
                 for (game_id in 0 until listGames.size) {
                     val gi: GameBelote = listGames[game_id] as GameBelote
                     val ecart_i = gi.difference
@@ -285,7 +285,7 @@ class BeloteActivity : GameActivity() {
                                     newScore[i] + (if (gi.taker == i) 0 + bonusT1_i else totalPoints + bonusT2_i)
                         }
                     }
-                    gi.score = newScore.toMutableList()
+                    gi.score = newScore
                 }
 
                 supportFragmentManager.beginTransaction()
