@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
-import androidx.core.view.allViews
 import com.example.gamescore.AddGameActivity
 import com.example.gamescore.R
 import com.example.gamescore.Request
@@ -17,14 +16,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class AddGameTarotActivity : AddGameActivity() {
-    private var bonuses: HashMap<String, Int> = hashMapOf(
-        "Petit au bout" to 10,
-        "Poignée" to 10,
-        "Double Poignée" to 20,
-        "Triple Poignée" to 30,
-        "Misère" to 10,
-        "Double Misère" to 20
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,9 +67,9 @@ class AddGameTarotActivity : AddGameActivity() {
 
         // Inflate the dynamic layout
         val inflater = LayoutInflater.from(this)
-        val dynamicLayout = inflater.inflate(R.layout.bonus_layout, null)
         btnAddBonus.setOnClickListener {
 
+            val dynamicLayout = inflater.inflate(R.layout.bonus_layout, null)
             val playersName = ArrayList(players.map { it }) // create copy
             val adapterBonusName = ArrayAdapter(this, R.layout.spinner_item, playersName)
             dynamicLayout.spinner_bonus_name.adapter = adapterBonusName
@@ -92,6 +83,8 @@ class AddGameTarotActivity : AddGameActivity() {
             }
 
             // Add the dynamic layout to the parent layout
+//            if (dynamicLayout.parent != null)
+//                (dynamicLayout.parent as ViewGroup).removeView(dynamicLayout)
             LL_bonus.addView(dynamicLayout)
         }
 
@@ -119,20 +112,24 @@ class AddGameTarotActivity : AddGameActivity() {
             spinner_contrat.setSelection(contracts.indexOf(game.contract))
             ecartScore = changeEcart(game.difference)
             partyIsWon = changeResult(game.success)
-            for (index in 0 until game.bonusName.size) {
+            for (index in game.bonusPlayersId.indices) {
+                val dynamicLayout = inflater.inflate(R.layout.bonus_layout, null)
                 val playersName = ArrayList(players.map { it }) // create copy
                 val adapterBonusName = ArrayAdapter(this, R.layout.spinner_item, playersName)
                 dynamicLayout.spinner_bonus_name.adapter = adapterBonusName
-                dynamicLayout.spinner_bonus_name.setSelection(game.bonusName[index])
 
                 val bonuses = resources.getStringArray(R.array.bonuses)
                 val adapterBonusValue = ArrayAdapter(this, R.layout.spinner_item, bonuses)
                 dynamicLayout.spinner_bonus_value.adapter = adapterBonusValue
-                dynamicLayout.spinner_bonus_value.setSelection(game.bonusName[index])
 
                 dynamicLayout.btn_remove.setOnClickListener {
                     LL_bonus.removeView(dynamicLayout)
                 }
+                val playerId = game.bonusPlayersId[index]
+                val bonusName = game.bonusStringNames[index]
+                val bonusValueId = bonuses.indexOf(bonusName)
+                dynamicLayout.spinner_bonus_name.setSelection(playerId)
+                dynamicLayout.spinner_bonus_value.setSelection(bonusValueId)
 
                 // Add the dynamic layout to the parent layout
                 LL_bonus.addView(dynamicLayout)
@@ -144,17 +141,18 @@ class AddGameTarotActivity : AddGameActivity() {
         btnValider.setOnClickListener {
             val intent = Intent()
             intent.putExtra("preneur", spinner_preneur.selectedItemPosition)
-            val listNames = mutableListOf<Int>()
-            val listValues = mutableListOf<Int>()
-            for (view in LL_bonus.allViews) {
-                val positionName: Int = view.spinner_bonus_name.selectedItemPosition
-                val positionValue: String = view.spinner_bonus_value.selectedItem as String
-                val bonusValue = bonuses[positionValue]
-                listNames.add(positionName)
-                listValues.add(bonusValue!!)
+            val size = LL_bonus.childCount
+            val listPlayersId = IntArray(size)
+            val listStringBonus = arrayOfNulls<String>(size)
+            for (childIndex in 0 until size) {
+                val child = LL_bonus.getChildAt(childIndex)
+                val bonusIdPlayer: Int = child.spinner_bonus_name.selectedItemPosition
+                val bonusStringName: String = child.spinner_bonus_value.selectedItem as String
+                listPlayersId[childIndex] = bonusIdPlayer
+                listStringBonus[childIndex] = bonusStringName
             }
-            intent.putExtra("list_bonus_names", ArrayList(listNames))
-            intent.putExtra("list_bonus_values", ArrayList(listValues))
+            intent.putExtra("list_bonus_names", listPlayersId)
+            intent.putExtra("list_bonus_values", listStringBonus)
 
             if (players.size == 5)
                 intent.putExtra("appel", spinner_called.selectedItemPosition)

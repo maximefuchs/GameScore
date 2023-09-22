@@ -102,13 +102,14 @@ class TarotActivity : GameActivity() {
     private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { res ->
+            if (res.data?.extras == null) return@registerForActivityResult
             val b: Bundle = res.data?.extras!!
             val preneur = b.getInt("preneur")
             val contrat = b.getString("contrat")!!
             val result = b.getBoolean("result")
             val ecart = b.getInt("ecart")
-            val bonusNames = b.getIntArray("list_bonus_names")!!
-            val bonusValues = b.getIntArray("list_bonus_values")!!
+            val bonusNames = if (b.getIntArray("list_bonus_names") != null) b.getIntArray("list_bonus_names")!! else intArrayOf()
+            val bonusValues = if (b.getStringArray("list_bonus_values") != null) b.getStringArray("list_bonus_values")!! else arrayOf<String>()
 
 
             if (res.resultCode == Request.ADDGAME.value) {
@@ -165,16 +166,19 @@ class TarotActivity : GameActivity() {
                 g.contract = contrat
                 g.success = result
                 g.difference = ecart
-                g.bonusName = bonusNames
-                g.bonusValue = bonusValues
+                g.bonusPlayersId = bonusNames
+                g.bonusStringNames = bonusValues
 
 
                 var previousScore = if (names.size == 4) intArrayOf(0, 0, 0, 0)
                 else intArrayOf(0, 0, 0, 0, 0)
-                for (game_id in 0 until listGames.size) {
-                    val gi: GameTarot = listGames[game_id] as GameTarot
-                    gi.updateScore(previousScore)
-                    previousScore = gi.score
+                for (game in listGames) {
+                    if (!game.restart)
+                        (game as GameTarot).updateScore(previousScore)
+//                for (game_id in 0 until listGames.size) {
+//                    val gi: GameTarot = listGames[game_id] as GameTarot
+//                    gi.updateScore(previousScore)
+                    previousScore = game.score
                 }
 
                 supportFragmentManager.beginTransaction()

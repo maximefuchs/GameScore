@@ -9,15 +9,14 @@ class GameTarot5 : GameTarot {
         teammate: Int,
         success: Boolean,
         difference: Int,
-        bonus_name: IntArray,
-        bonus_value: IntArray
+        bonus_players_id: IntArray, bonus_string_names: Array<String>
     ) : super(
         game_id,
         player_take,
         contract,
         success,
         difference,
-        bonus_name, bonus_value
+        bonus_players_id, bonus_string_names
     ) {
         this.nbPlayers = 5
         this.teammate = teammate
@@ -37,7 +36,8 @@ class GameTarot5 : GameTarot {
 
         for (index_player in 0..4) {
             if (teammate == playerTake) {
-                if (index_player == playerTake) score[index_player] = score[index_player] + 4 * toAdd
+                if (index_player == playerTake) score[index_player] =
+                    score[index_player] + 4 * toAdd
                 else score[index_player] = score[index_player] - toAdd
             } else {
                 when (index_player) {
@@ -47,10 +47,11 @@ class GameTarot5 : GameTarot {
                 }
             }
 
-            for (index_bonus in bonusName.indices) {
-                val nameBonus = bonusName[index_bonus]
-                val valueBonus = bonusValue[index_bonus]
-                if (nameBonus == index_player)
+            for (index_bonus in bonusPlayersId.indices) {
+                val bonusPlayerId = bonusPlayersId[index_bonus]
+                val bonusStringName = bonusStringNames[index_bonus]
+                val valueBonus = bonuses[bonusStringName]!!
+                if (bonusPlayerId == index_player)
                     score[index_player] = score[index_player] + valueBonus * 4
                 else
                     score[index_player] = score[index_player] - valueBonus

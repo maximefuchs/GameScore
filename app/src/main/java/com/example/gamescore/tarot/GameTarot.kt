@@ -1,9 +1,6 @@
 package com.example.gamescore.tarot
 
-import android.content.Context
-import android.content.SharedPreferences
 import com.example.gamescore.Game
-import com.example.gamescore.TypeGameSaved
 import java.util.HashMap
 
 open class GameTarot : Game {
@@ -14,7 +11,7 @@ open class GameTarot : Game {
         contract: String,
         success: Boolean,
         difference: Int,
-        bonus_name: IntArray, bonus_value: IntArray
+        bonus_players_id: IntArray, bonus_string_names: Array<String>
     ) {
         this.gameId = game_id
         this.nbPlayers = 4
@@ -22,8 +19,8 @@ open class GameTarot : Game {
         this.contract = contract
         this.difference = difference
         this.success = success
-        this.bonusName = bonus_name
-        this.bonusValue = bonus_value
+        this.bonusPlayersId = bonus_players_id
+        this.bonusStringNames = bonus_string_names
     }
 
     val contracts: HashMap<String, Int> = hashMapOf(
@@ -34,13 +31,22 @@ open class GameTarot : Game {
         "Garde Contre" to 160
     )
 
+    var bonuses: HashMap<String, Int> = hashMapOf(
+        "Petit au Bout" to 10,
+        "Poignée" to 10,
+        "Double Poignée" to 20,
+        "Triple Poignée" to 30,
+        "Misère" to 10,
+        "Double Misère" to 20
+    )
+
 
     var playerTake: Int = 0
     var contract: String = "Garde"
     var success: Boolean = true
     var difference: Int = 0
-    var bonusName: IntArray = intArrayOf()
-    var bonusValue: IntArray = intArrayOf()
+    var bonusPlayersId: IntArray = intArrayOf()
+    var bonusStringNames: Array<String> = arrayOf<String>()
     override var score: IntArray = intArrayOf()
 
     override fun toString(): String {
@@ -51,17 +57,18 @@ open class GameTarot : Game {
         val contractValue = contracts[contract]!!
         var toAdd = contractValue + difference
         if (!success) toAdd = -toAdd
-        score = previousScore
+        score = previousScore.clone()
 
         for (index_player in 0..3) {
             if (index_player == playerTake) score[index_player] =
                 score[index_player] + 3 * toAdd
             else score[index_player] = score[index_player] - toAdd
 
-            for (index_bonus in bonusName.indices) {
-                val nameBonus = bonusName[index_bonus]
-                val valueBonus = bonusValue[index_bonus]
-                if (nameBonus == index_player)
+            for (index_bonus in bonusPlayersId.indices) {
+                val bonusPlayerId = bonusPlayersId[index_bonus]
+                val bonusStringName = bonusStringNames[index_bonus]
+                val valueBonus = bonuses[bonusStringName]!!
+                if (bonusPlayerId == index_player)
                     score[index_player] = score[index_player] + valueBonus * 3
                 else
                     score[index_player] = score[index_player] - valueBonus
