@@ -1,5 +1,7 @@
 package com.example.gamescore.belote
 
+import kotlin.math.abs
+
 open class GameBeloteCoinchee : GameBelote {
     constructor()
 
@@ -11,16 +13,14 @@ open class GameBeloteCoinchee : GameBelote {
         difference: Int,
         bonus1: Int,
         bonus2: Int,
-        isCoinchee: Boolean,
-        score: IntArray
+        isCoinchee: Boolean
     ) : super(
         game_id,
         taker,
         success,
         difference,
         bonus1,
-        bonus2,
-        score
+        bonus2
     ) {
         this.nbPlayers = 4
         this.coinchee = isCoinchee
@@ -31,7 +31,20 @@ open class GameBeloteCoinchee : GameBelote {
     var coinchee: Boolean = false
 
     override fun toString(): String {
-        return super.toString() + "| Belote | taker $taker, success $success, difference $difference"
+        return super.toString() + "| Belote | taker $takerId, success $success, difference $difference"
+    }
+
+    override fun updateScore(previousScore: IntArray) {
+        var totalPoints = if (abs(difference) == 250) 250 else 162
+        if (success) {
+            // if coinchee, double contract value
+            if (takerId == 0 && success) bonusTeam1 += if (coinchee) 2 * contract else contract
+            if (takerId == 1 && success) bonusTeam1 += if (coinchee) 2 * contract else contract
+            if (coinchee && !success) totalPoints *= 2 // double reward for defense if defeat when coinchee
+        }
+        score = previousScore
+        computeScore(totalPoints)
+
     }
 
 }
