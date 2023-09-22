@@ -27,14 +27,14 @@ class AddGameTarotActivity : AddGameActivity() {
         val edit = b.getBoolean("edit")
 
 
-        if (players.size == 4)
-            llcalled.visibility = View.GONE
 
         val context = this
         val adapterPreneur = ArrayAdapter(this, R.layout.spinner_item, players)
         spinner_preneur.adapter = adapterPreneur
 
-        if (players.size == 5) {
+        if (players.size == 4)
+            llcalled.visibility = View.GONE
+        else { // 5 players
             var updatedPlayers = players.clone() as ArrayList<String>
             updatedPlayers[0] = context.getString(R.string.player_alone)
 
@@ -48,10 +48,14 @@ class AddGameTarotActivity : AddGameActivity() {
                     position: Int,
                     id: Long
                 ) {
+                    val previousPosition = spinner_called.selectedItemPosition // to keep the previous position on the spinner
+                    // this is useful is case we are editing a game.
+                    // Otherwise, when we change the spinner_preneur, the spinner_called will change too
                     updatedPlayers = players.clone() as ArrayList<String>
                     updatedPlayers[position] = context.getString(R.string.player_alone)
                     spinner_called.adapter =
                         ArrayAdapter(context, R.layout.spinner_item, updatedPlayers)
+                    spinner_called.setSelection(previousPosition)
 
                 }
 
