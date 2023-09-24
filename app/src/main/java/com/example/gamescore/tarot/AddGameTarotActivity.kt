@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.content.ContextCompat
 import com.example.gamescore.AddGameActivity
 import com.example.gamescore.R
 import com.example.gamescore.Request
