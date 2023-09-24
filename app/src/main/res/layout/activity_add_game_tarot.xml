@@ -112,7 +112,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ecart"
+            android:text="@string/difference_name"
+            android:textColor="@color/colorAccentTransparent"
             android:textSize="30sp" />
 
         <LinearLayout
@@ -123,31 +124,35 @@
 
             <Button
                 android:id="@+id/btn0"
+                style="@style/ButtonStyleDifferenceUnselected"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="@string/difference_0" />
 
             <Button
                 android:id="@+id/btn10"
+                style="@style/ButtonStyleDifferenceUnselected"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="10" />
+                android:text="@string/difference_10" />
 
             <Button
                 android:id="@+id/btn20"
+                style="@style/ButtonStyleDifferenceUnselected"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="20" />
+                android:text="@string/difference_20" />
 
             <Button
                 android:id="@+id/btn30"
+                style="@style/ButtonStyleDifferenceUnselected"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="30" />
+                android:text="@string/difference_30" />
 
         </LinearLayout>
 
@@ -159,7 +164,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Bonus"
+                android:text="@string/bonus_name"
+                android:textColor="@color/colorAccentTransparent"
                 android:textSize="30sp" />
 
             <Spinner
@@ -178,9 +184,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="20dp"
             android:background="@drawable/background_games"
             android:padding="10dp"
-            android:layout_margin="20dp"
             android:src="@drawable/checked" />
 
     </LinearLayout>

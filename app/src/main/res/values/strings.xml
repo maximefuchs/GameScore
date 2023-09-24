@@ -29,6 +29,12 @@
         <item>Garde Sans</item>
         <item>Garde Contre</item>
     </string-array>
+    <string name="difference_name">Ecart</string>
+    <string name="bonus_name">Bonus</string>
+    <string name="difference_0">0</string>
+    <string name="difference_10">10</string>
+    <string name="difference_20">20</string>
+    <string name="difference_30">30</string>
     <!--    BELOTE     -->
     <string name="title_type_belote">Type de jeu</string>
     <string name="type_belote_1">Normale</string>

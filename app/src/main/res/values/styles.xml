@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ButtonStyleDifferenceUnselected">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimaryLight</item>
+    </style>
+    <style name="ButtonStyleDifferenceSelected">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
 </resources>
