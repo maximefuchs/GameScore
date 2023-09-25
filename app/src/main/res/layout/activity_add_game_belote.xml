@@ -97,8 +97,8 @@
             android:id="@+id/LL_contrat_coinchee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
             android:visibility="gone">
 
             <ImageView
@@ -123,7 +123,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/score"
+            android:textColor="@color/colorAccentTransparent"
             android:textSize="30sp" />
+
         <LinearLayout
             android:id="@+id/LL_OandD"
             android:layout_width="match_parent"
@@ -137,6 +139,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/bonus_offense"
+                android:textColor="@color/colorAccentTransparent"
                 android:textSize="20sp" />
 
             <TextView
@@ -145,6 +148,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/bonus_defense"
+                android:textColor="@color/colorAccentTransparent"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -156,24 +160,14 @@
 
             <EditText
                 android:id="@+id/scoreT1"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autofillHints="0"
-                android:gravity="center"
-                android:hint="@string/hintBeloteScore"
-                android:inputType="number"
+                style="@style/ScoreAddGameBelote"
+                android:autofillHints="ScoreTeam1"
                 android:nextFocusRight="@id/rootLoayout" />
 
             <EditText
                 android:id="@+id/scoreT2"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autofillHints="0"
-                android:gravity="center"
-                android:hint="@string/hintBeloteScore"
-                android:inputType="number"
+                style="@style/ScoreAddGameBelote"
+                android:autofillHints="ScoreTeam2"
                 android:nextFocusRight="@id/rootLoayout" />
 
         </LinearLayout>
@@ -192,6 +186,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/bonus"
+            android:textColor="@color/colorAccentTransparent"
             android:textSize="30sp" />
 
 
@@ -201,22 +196,31 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
-            <NumberPicker
+            <com.shawnlin.numberpicker.NumberPicker
                 android:id="@+id/bonus_T1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                app:np_dividerColor="@color/colorAccentTransparent"
+                app:np_selectedTextColor="@color/colorAccent"
+                app:np_selectedTextSize="22sp"
+                app:np_textColor="@color/colorAccentTransparent"
+                app:np_textSize="22sp" />
 
-            <NumberPicker
+            <com.shawnlin.numberpicker.NumberPicker
                 android:id="@+id/bonus_T2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                app:np_dividerColor="@color/colorAccentTransparent"
+                app:np_selectedTextColor="@color/colorAccent"
+                app:np_selectedTextSize="22sp"
+                app:np_textColor="@color/colorAccentTransparent"
+                app:np_textSize="22sp" />
 
         </LinearLayout>
 

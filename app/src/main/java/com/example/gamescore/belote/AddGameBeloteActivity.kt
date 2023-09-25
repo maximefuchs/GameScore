@@ -1,6 +1,7 @@
 package com.example.gamescore.belote
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -54,16 +55,17 @@ class AddGameBeloteActivity : AddGameActivity() {
 
         // set step of 10 of bonus picker
         val nums: Array<String> = Array(51) { i: Int -> "${i * 10}" }
-        bonus_T1.value = 0
         bonus_T1.minValue = 0
         bonus_T1.maxValue = nums.size - 1
         bonus_T1.wrapSelectorWheel = false
         bonus_T1.displayedValues = nums
-        bonus_T2.value = 0
+        bonus_T1.value = 0 // value should be set as last, otherwise picker goes to last value
+
         bonus_T2.minValue = 0
         bonus_T2.maxValue = nums.size - 1
         bonus_T2.wrapSelectorWheel = false
         bonus_T2.displayedValues = nums
+        bonus_T2.value = 0
 
         scoreT1.setOnKeyListener(getViewOnclickListener(true))
         scoreT2.setOnKeyListener(getViewOnclickListener(false))
@@ -153,6 +155,7 @@ class AddGameBeloteActivity : AddGameActivity() {
             }
         }
 
+
         btnValider.setOnClickListener {
             // score string null
             if (scoreT1.text.toString() == "" || scoreT2.text.toString() == "") {
@@ -180,9 +183,11 @@ class AddGameBeloteActivity : AddGameActivity() {
             valueScoreT1 += bonus_T1.value * 10
             valueScoreT2 += bonus_T2.value * 10
             val scoreWinnerError = if (isCoinchee) {
-                    // will be set to true if team on offense has less than defense or less than contrat and game is set to be won by offense
-                ((taker == 0 && partyWon && (valueScoreT2 >= valueScoreT1 || valueScoreT1 < spinner_contrat.selectedItem.toString().toInt() )) ||
-                        (taker == 1 && partyWon && (valueScoreT1 >= valueScoreT2 || valueScoreT2 < spinner_contrat.selectedItem.toString().toInt() )))
+                // will be set to true if team on offense has less than defense or less than contrat and game is set to be won by offense
+                ((taker == 0 && partyWon && (valueScoreT2 >= valueScoreT1 || valueScoreT1 < spinner_contrat.selectedItem.toString()
+                    .toInt())) ||
+                        (taker == 1 && partyWon && (valueScoreT1 >= valueScoreT2 || valueScoreT2 < spinner_contrat.selectedItem.toString()
+                            .toInt())))
             } else
                 if (players.size == 3)
                     partyWon && valueScoreT1 <= valueScoreT2
