@@ -162,13 +162,15 @@
                 android:id="@+id/scoreT1"
                 style="@style/ScoreAddGameBelote"
                 android:autofillHints="ScoreTeam1"
-                android:nextFocusRight="@id/rootLoayout" />
+                android:nextFocusRight="@id/rootLoayout"
+                tools:ignore="LabelFor"/>
 
             <EditText
                 android:id="@+id/scoreT2"
                 style="@style/ScoreAddGameBelote"
                 android:autofillHints="ScoreTeam2"
-                android:nextFocusRight="@id/rootLoayout" />
+                android:nextFocusRight="@id/rootLoayout"
+                tools:ignore="LabelFor" />
 
         </LinearLayout>
 
