@@ -7,7 +7,7 @@ open class Game() : Serializable {
 
     var gameId: Int = 0
     var nbPlayers: Int = 4
-    var score: List<Int> = listOf<Int>()
+    open var score: IntArray = intArrayOf()
     var restart : Boolean = false // when we use a saved score
 
     override fun toString(): String {
