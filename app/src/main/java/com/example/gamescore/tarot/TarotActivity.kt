@@ -87,7 +87,7 @@ class TarotActivity : GameActivity() {
         resultLauncher.launch(intent)
     }
 
-    fun editTarotGame(game_id: Int): Boolean {
+    override fun editGame(game_id: Int): Boolean {
         val intent = Intent(this, AddGameTarotActivity::class.java)
         val bundle = Bundle()
         bundle.putBoolean("edit", true)

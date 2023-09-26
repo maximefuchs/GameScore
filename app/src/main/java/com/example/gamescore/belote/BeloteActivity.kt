@@ -113,7 +113,7 @@ class BeloteActivity : GameActivity() {
         resultLauncher.launch(intent)
     }
 
-    fun editBeloteGame(game_id: Int): Boolean {
+    override fun editGame(game_id: Int): Boolean {
         val intent = Intent(this, AddGameBeloteActivity::class.java)
         val bundle = Bundle()
         bundle.putBoolean("edit", true)
