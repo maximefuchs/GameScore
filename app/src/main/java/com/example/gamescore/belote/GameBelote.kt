@@ -28,7 +28,7 @@ open class GameBelote : Game {
 
     open fun updateScore(previousScore : IntArray) {
         val totalPoints = if (abs(difference) == 250) 250 else 162
-        score = previousScore
+        score = previousScore.clone()
         computeScore(totalPoints)
     }
 

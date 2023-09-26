@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.gamescore.*
+import com.example.gamescore.tarot.GameTarot
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlin.math.abs
 import java.util.ArrayList
@@ -215,7 +216,8 @@ class BeloteActivity : GameActivity() {
 
                 var previousScore = if (nbPlayers == 4) intArrayOf(0, 0) else intArrayOf(0, 0, 0)
                 for (game in listGames) {
-                    (game as GameBelote).updateScore(previousScore)
+                    if (!game.restart)
+                        (game as GameBelote).updateScore(previousScore)
                     previousScore = game.score
                 }
 

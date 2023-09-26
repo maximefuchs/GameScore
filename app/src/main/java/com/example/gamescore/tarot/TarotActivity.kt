@@ -175,9 +175,6 @@ class TarotActivity : GameActivity() {
                 for (game in listGames) {
                     if (!game.restart)
                         (game as GameTarot).updateScore(previousScore)
-//                for (game_id in 0 until listGames.size) {
-//                    val gi: GameTarot = listGames[game_id] as GameTarot
-//                    gi.updateScore(previousScore)
                     previousScore = game.score
                 }
 
