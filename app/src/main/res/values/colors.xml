@@ -5,6 +5,8 @@
     <color name="colorPrimaryLightUp">#7bd48a</color>
     <color name="colorVictoryUp">#7bd48a</color>
     <color name="colorDefeatUp">#eb9da7</color>
+    <color name="colorNegative">#940f1a</color>
+    <color name="colorPositive">#195e08</color>
     <color name="colorPrimaryLight">#5c965c</color>
     <color name="colorAccent">#FFF</color>
     <color name="colorAccentTransparent">#CFFF</color>

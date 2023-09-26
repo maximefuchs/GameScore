@@ -20,26 +20,26 @@
 
     <!-- Quit buttons -->
     <style name="ButtonStyleQuitYes">
-        <item name="android:background">@color/colorDefeat</item>
+        <item name="android:background">@color/colorNegative</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:text">@string/yes</item>
     </style>
 
     <style name="ButtonStyleQuitNo">
-        <item name="android:background">@color/colorPrimaryLightUp</item>
+        <item name="android:background">@color/colorPositive</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:text">@string/no</item>
     </style>
 
     <!-- Restart buttons -->
     <style name="ButtonStyleRestartNo">
-        <item name="android:background">@color/colorDefeat</item>
+        <item name="android:background">@color/colorNegative</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:text">@string/no</item>
     </style>
 
     <style name="ButtonStyleRestartYes">
-        <item name="android:background">@color/colorPrimaryLightUp</item>
+        <item name="android:background">@color/colorPositive</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:text">@string/yes</item>
     </style>
