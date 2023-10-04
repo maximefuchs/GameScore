@@ -5,11 +5,15 @@ import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.RelativeLayout
 import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_game.*
+import kotlinx.android.synthetic.main.help_layout.view.*
 import java.util.ArrayList
 
 enum class Request(val value: Int) {
@@ -19,7 +23,7 @@ enum class Request(val value: Int) {
 }
 
 enum class TypeGameSaved {
-    BELOTE,TAROT
+    BELOTE, TAROT
 }
 
 open class GameActivity : AppCompatActivity() {
@@ -55,6 +59,33 @@ open class GameActivity : AppCompatActivity() {
         }
         btnNoQuit.setOnClickListener {
             hideBackPressedMenu()
+        }
+
+
+        // Inflate the dynamic layout
+        val inflater = LayoutInflater.from(this)
+        var boolShowHelp = false
+        val dynamicLayout = inflater.inflate(R.layout.help_layout, null)
+        // Set layout parameters for the inflated view
+        val layoutParams = RelativeLayout.LayoutParams(
+            RelativeLayout.LayoutParams.MATCH_PARENT,
+            RelativeLayout.LayoutParams.MATCH_PARENT
+        )
+        dynamicLayout.layoutParams = layoutParams
+        // Set text
+        val rulesText = getString(R.string.tarot_game_rules)
+
+        val textView = dynamicLayout.text_help
+        textView.text = Html.fromHtml(rulesText, Html.FROM_HTML_MODE_COMPACT)
+
+        help_btn.setOnClickListener {
+            if (!boolShowHelp) {
+                GameActivityId.addView(dynamicLayout)
+                boolShowHelp = true
+            } else {
+                GameActivityId.removeView(dynamicLayout)
+                boolShowHelp = false
+            }
         }
 
     }

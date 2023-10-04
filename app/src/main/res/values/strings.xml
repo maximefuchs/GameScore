@@ -22,6 +22,7 @@
     <string name="nb_players_tarot_1">4</string>
     <string name="nb_players_tarot_2">5</string>
     <string name="description_add_game">Add Game</string>
+    <string name="description_help">Help</string>
     <string-array name="contrats">
         <item>Petite</item>
         <item>Pousse</item>
@@ -35,6 +36,37 @@
     <string name="difference_10">10</string>
     <string name="difference_20">20</string>
     <string name="difference_30">30</string>
+
+    <string name="tarot_game_rules"><![CDATA[
+    <h1>Tarot Card Game Rules</h1>
+
+    <h2>Objective:</h2>
+    <p>The objective of Tarot is to score points by taking specific cards in tricks and fulfilling contracts.</p>
+
+    <h2>Players:</h2>
+    <p>Tarot is typically played by 3 to 5 players.</p>
+
+    <h2>Setup:</h2>
+    <ol>
+        <li>A standard deck of 78 Tarot cards is used.</li>
+        <li>The deck consists of 4 suits: Cups, Coins, Swords, and Batons, each numbered from 1 to 10, and 21 Trump cards.</li>
+        <li>Trump cards have special abilities and are ranked higher than the numbered cards.</li>
+    </ol>
+
+    <h2>Dealing:</h2>
+    <ol>
+        <li>The dealer shuffles the deck and offers it to the player on their right for a cut.</li>
+        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
+        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
+        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
+        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
+        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
+        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
+        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
+    </ol>
+    <!— Add more sections as needed with h2 headings and paragraphs (p) for each rule. —>]]>
+    </string>
+
     <!--    BELOTE     -->
     <string name="title_type_belote">Type de jeu</string>
     <string name="type_belote_1">Normale</string>

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/GameActivityId"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".tarot.TarotActivity">
@@ -19,6 +20,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="50dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/help_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/colorAccentTransparent2"
+        android:contentDescription="@string/description_help"
+        android:padding="10dp"
+        android:src="@drawable/question"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="50dp"
+        app:shapeAppearanceOverlay="@style/CustomHelpButton" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -159,17 +174,19 @@
 
                 <Button
                     android:id="@+id/btnNoSaved"
+                    style="@style/ButtonStyleRestartNo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/ButtonStyleRestartNo" />
+                    android:layout_height="wrap_content" />
 
                 <Button
                     android:id="@+id/btnSaved"
+                    style="@style/ButtonStyleRestartYes"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/ButtonStyleRestartYes" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

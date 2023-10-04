@@ -58,4 +58,24 @@
         <item name="android:textSize">22sp</item>
     </style>
 
+    <!-- Help button style -->
+    <style name="CustomHelpButton">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <!-- Help message style -->
+    <style name="HelpMessage">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <!-- Help scrollview style -->
+    <style name="HelpScrollView">
+        <item name="android:padding">10sp</item>
+        <item name="android:layout_marginVertical">60sp</item>
+        <item name="android:layout_marginHorizontal">30sp</item>
+        <item name="android:background">@drawable/rounded_background</item>
+    </style>
+
+
 </resources>

@@ -5,15 +5,20 @@
       <map>
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/drawable/background_games.xml" value="0.30052083333333335" />
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/drawable/borderUp.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/drawable/rounded_background.xml" value="0.24479166666666666" />
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/activity_add_game_belote.xml" value="0.25" />
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/activity_add_game_tarot.xml" value="0.33" />
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/activity_game.xml" value="0.284375" />
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/activity_main.xml" value="0.284375" />
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/belote_list_item.xml" value="0.4" />
+        <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/bonus_layout.xml" value="0.4" />
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/fragment_name.xml" value="0.284375" />
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/fragment_nb_players.xml" value="0.284375" />
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/fragment_score.xml" value="0.284375" />
         <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/fragment_type_belote.xml" value="0.284375" />
+        <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/help.xml" value="0.4" />
+        <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/help_layout.xml" value="0.4" />
+        <entry key="..\:/Users/maxim/AndroidStudioProjects/GameScore/app/src/main/res/layout/tarot_list_item.xml" value="0.4" />
       </map>
     </option>
   </component>
