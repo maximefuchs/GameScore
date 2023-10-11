@@ -30,6 +30,7 @@
         android:contentDescription="@string/description_help"
         android:padding="10dp"
         android:src="@drawable/question"
+        android:visibility="gone"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="50dp"

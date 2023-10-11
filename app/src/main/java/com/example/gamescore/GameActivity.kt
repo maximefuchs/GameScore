@@ -40,6 +40,11 @@ open class GameActivity : AppCompatActivity() {
     var showAddGameButton: Boolean = false
     var namesSaved: Boolean = false
 
+    // help layout variables
+    private var showHelp: Boolean = false
+    private lateinit var helpLayout : View
+    var helpText : String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +69,6 @@ open class GameActivity : AppCompatActivity() {
 
         // Inflate the dynamic layout
         val inflater = LayoutInflater.from(this)
-        var boolShowHelp = false
         val dynamicLayout = inflater.inflate(R.layout.help_layout, null)
         // Set layout parameters for the inflated view
         val layoutParams = RelativeLayout.LayoutParams(
@@ -72,20 +76,10 @@ open class GameActivity : AppCompatActivity() {
             RelativeLayout.LayoutParams.MATCH_PARENT
         )
         dynamicLayout.layoutParams = layoutParams
-        // Set text
-        val rulesText = getString(R.string.tarot_game_rules)
-
-        val textView = dynamicLayout.text_help
-        textView.text = Html.fromHtml(rulesText, Html.FROM_HTML_MODE_COMPACT)
+        helpLayout = dynamicLayout
 
         help_btn.setOnClickListener {
-            if (!boolShowHelp) {
-                GameActivityId.addView(dynamicLayout)
-                boolShowHelp = true
-            } else {
-                GameActivityId.removeView(dynamicLayout)
-                boolShowHelp = false
-            }
+            showHelpPopUp()
         }
 
     }
@@ -98,6 +92,10 @@ open class GameActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        if (showHelp) {
+            showHelpPopUp()
+            return
+        }
         if (!backPressed) {
             showBackPressedMenu()
         } else {
@@ -106,6 +104,7 @@ open class GameActivity : AppCompatActivity() {
     }
 
     private fun showBackPressedMenu() {
+        help_btn.visibility = View.GONE
         LLquit.translationY = offSetQuit
         ObjectAnimator.ofFloat(LLquit, "translationY", 0f).apply {
             duration = animDelay
@@ -131,6 +130,7 @@ open class GameActivity : AppCompatActivity() {
             start()
         }.doOnEnd {
             RLquit.visibility = View.GONE
+            help_btn.visibility = View.VISIBLE
             if (showAddGameButton)
                 add_game.visibility = View.VISIBLE
         }
@@ -157,5 +157,17 @@ open class GameActivity : AppCompatActivity() {
             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right)
             .replace(container, fragment)
             .commit()
+    }
+
+    private fun showHelpPopUp() {
+        if (!showHelp) {
+            val textView = helpLayout.text_help
+            textView.text = Html.fromHtml(helpText, Html.FROM_HTML_MODE_COMPACT)
+            GameActivityId.addView(helpLayout)
+            showHelp = true
+        } else {
+            GameActivityId.removeView(helpLayout)
+            showHelp = false
+        }
     }
 }

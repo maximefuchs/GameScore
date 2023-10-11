@@ -79,6 +79,8 @@ class TarotActivity : GameActivity() {
         names = list_names
         listGames = arrayListOf()
         fragmentTransition(R.id.container, ScoreTarotFragment())
+        help_btn.visibility = View.VISIBLE
+        helpText = getString(R.string.tarot_game_rules)
     }
 
     private fun startSavedGame() {
