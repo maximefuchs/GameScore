@@ -67,6 +67,33 @@
     <!— Add more sections as needed with h2 headings and paragraphs (p) for each rule. —>]]>
     </string>
 
+    <string name="tarot_game_count">
+        <![CDATA[
+        <h2>Comptage des points</h2>
+        <br>
+        <h3>Valeur des cartes</h3>
+        <p>Pour compter les cartes, il faut toujours joindre une carte basse avec une carte habillée.<br>
+        <br>
+            Le 21 ou le 1 d\'atout, ou l\'excuse (les bouts) : 5 points<br>
+            le Roi : 5 points<br>
+            la Dame : 4 points<br>
+            le Cavalier : 3 points<br>
+            le Valet : 2 points<br>
+            Les autres cartes par 2 valent 1 point.
+        </p>
+        <br>
+
+        <h3>Points nécessaires</h3>
+        <p>
+            3 bouts : 36 points<br>
+            2 bouts : 41 points<br>
+            1 bout : 51 points<br>
+            Aucun bout : 56 points
+        </p>
+        <br>
+        ]]>
+    </string>
+
     <!--    BELOTE     -->
     <string name="title_type_belote">Type de jeu</string>
     <string name="type_belote_1">Normale</string>
