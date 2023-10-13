@@ -140,4 +140,76 @@
     <string name="hint_fill_score">Reseignez le score</string>
     <string name="score_invalid">Score invalide</string>
     <string name="coinchee">Coinchée</string>
+
+    <string name="belote_game_count">
+        <![CDATA[
+        <h2>Valeur des cartes</h2>
+        <br>
+
+        <p>La valeur des cartes dépend du type de partie jouée.</p>
+        <br>
+
+        <h3>Partie normale</h3>
+        <br>
+            L\'As : 11 points<br>
+            le 10 : 10 points<br>
+            la Roi : 4 points<br>
+            la Dame : 3 points<br>
+            le Valet : 2 points<br>
+            Les autres cartes valent 0 point.
+        <br>
+        <p>A l\'atout, le valet vaut 20 points et le 9 vaut 14 points, les autres cartes gardent leur valeur initiale.</p>
+        <br>
+
+        <h3>Sans Atout</h3>
+        <br>
+        <p> Les cartes ont leur valeur initiale, sauf l\'As, qui vaut 19 points.</p>
+        <br>
+
+        <h3>Tout Atout</h3>
+        <br>
+            le Valet : 14 points<br>
+            le 9 : 9 points<br>
+            L\'As : 7 points<br>
+            le 10 : 5 points<br>
+            la Roi : 3 points<br>
+            la Dame : 2 points<br>
+            Les autres cartes valent 0 point.
+        <br>
+
+        <h2>Annonces</h2>
+        <br>
+        <p>Un joueur montre son annonce lors du premier tour, lorsque c\'est à son tour de jouer. <br>
+        Le joueur ou l\'équipe avec l\'annonce la plus haute permet à son équipe de compter ses annonces dans le score
+        de la partie.</p>
+        <br>
+            3 cartes de la même couleur qui se suivent (une tierce) : 20 points<br>
+            4 cartes de la même couleur qui se suivent (un cinquante) : 50 points<br>
+            5 cartes de la même couleur qui se suivent (un cent) : 100 points<br>
+            4 mêmes cartes (un carré) : 100 points<br>
+            Carré de 9 : 150 points<br>
+            Carré de valets : 200 points<br>
+        <br>
+
+        <h2>Victoire ou non</h2>
+        <br>
+        <p>En sachant que le dernier pli vaut 10 points, il y a 162 points au total.<br>
+        Les annonces sont comptées dans le score pour savoir si une partie est gagnée ou non.
+        Le joueur ou l\'équipe qui prend doit faire autant ou plus de points que son adversaire
+        pour gagner la partie. <br>
+        Si elle fait moins, on dit que la partie est chutée et l\'équipe marque 0. L\'adversaire marque 162.<br>
+        Si une équipe fait tous plis, on dit qu'elle fait capot et marque 250 points à 0.<br>
+        Dans tous les cas (gagnée, chutée ou capot), les annonces sont tout de même comptées</p>
+        <br>
+        ]]>
+    </string>
+
+    <!--  AIDE  -->
+    <string name="help_actions">
+        <![CDATA[
+        <h2>Modifier une partie</h2>
+        <p>Pour modifier une partie, appuyez longtemps sur la partie en question. Une page s\'ouvrira pour faire la modification.</p>
+        <br>
+        ]]>
+    </string>
 </resources>
