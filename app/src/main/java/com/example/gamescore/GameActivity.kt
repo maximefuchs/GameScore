@@ -170,4 +170,11 @@ open class GameActivity : AppCompatActivity() {
             showHelp = false
         }
     }
+
+    open fun startGame(list_names: ArrayList<String>){
+        hideKeyBoard()
+        names = list_names
+        listGames = arrayListOf()
+        help_btn.visibility = View.VISIBLE
+    }
 }
