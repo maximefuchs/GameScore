@@ -167,9 +167,11 @@ abstract class GameActivity : AppCompatActivity() {
             textView.text = Html.fromHtml(helpText, Html.FROM_HTML_MODE_COMPACT)
             GameActivityId.addView(helpLayout)
             showHelp = true
+            add_game.visibility = View.GONE
         } else {
             GameActivityId.removeView(helpLayout)
             showHelp = false
+            add_game.visibility = View.VISIBLE
         }
     }
 
@@ -177,6 +179,10 @@ abstract class GameActivity : AppCompatActivity() {
         hideKeyBoard()
         names = list_names
         listGames = arrayListOf()
+        showHelpButton()
+    }
+
+    open fun showHelpButton() {
         help_btn.visibility = View.VISIBLE
     }
 }

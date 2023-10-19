@@ -38,7 +38,7 @@ class BeloteListAdapter(private var games: ArrayList<Game>,
     private fun onBindViewHolder(viewHolder: BeloteListAdapter.ViewHolder, position: Int) {
         viewHolder.tvT1.text = games[position].score[0].toString()
         viewHolder.tvT2.text = games[position].score[1].toString()
-        if (games[position] is GameBelote3) {
+        if (games[position].nbPlayers == 3) {
             viewHolder.tvT3.visibility = View.VISIBLE
             viewHolder.tvT3.text = games[position].score[2].toString()
         }
