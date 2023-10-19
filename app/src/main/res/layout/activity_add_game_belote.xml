@@ -84,13 +84,15 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/coinchee"
+                android:textColor="@color/colorAccentTransparent"
                 android:textSize="20sp" />
 
             <CheckBox
                 android:id="@+id/CBisCoinchee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp" />
+                android:layout_margin="10dp"
+                android:buttonTint="@color/colorAccentTransparent" />
         </LinearLayout>
 
         <LinearLayout
@@ -163,7 +165,7 @@
                 style="@style/ScoreAddGameBelote"
                 android:autofillHints="ScoreTeam1"
                 android:nextFocusRight="@id/rootLoayout"
-                tools:ignore="LabelFor"/>
+                tools:ignore="LabelFor" />
 
             <EditText
                 android:id="@+id/scoreT2"
