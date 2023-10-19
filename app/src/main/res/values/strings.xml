@@ -29,6 +29,14 @@
         <item>Garde Sans</item>
         <item>Garde Contre</item>
     </string-array>
+    <string-array name="bonuses">
+        <item>Petit au Bout</item>
+        <item>Poignée</item>
+        <item>Double Poignée</item>
+        <item>Triple Poignée</item>
+        <item>Misère</item>
+        <item>Double Misère</item>
+    </string-array>
     <!--    BELOTE     -->
     <string name="title_type_belote">Type de jeu</string>
     <string name="type_belote_1">Normale</string>

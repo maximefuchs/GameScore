@@ -93,7 +93,7 @@ class AddGameBeloteActivity : AddGameActivity() {
             var game: GameBelote
             if (isCoinchee) {
                 game = b.getSerializable("lastGame") as GameBeloteCoinchee
-                spinner_contrat.setSelection(contracts.indexOf(game.contrat.toString()))
+                spinner_contrat.setSelection(contracts.indexOf(game.contract.toString()))
                 CBisCoinchee.isChecked = game.coinchee
                 bonus_T1.value = 0
                 bonus_T2.value = 0
@@ -115,8 +115,8 @@ class AddGameBeloteActivity : AddGameActivity() {
                     scoreT2.setText(if (calculus == 250) "250" else "162")
                 }
             } else { // 4 players
-                val scoreTX = if (game.taker == 0) scoreT1 else scoreT2
-                val scoreTX_ = if (game.taker == 0) scoreT2 else scoreT1
+                val scoreTX = if (game.takerId == 0) scoreT1 else scoreT2
+                val scoreTX_ = if (game.takerId == 0) scoreT2 else scoreT1
                 if (game.success) {
                     scoreTX.setText(calculus.toString())
                     scoreTX_.setText(if (calculus == 250) "0" else (162 - calculus).toString())
@@ -125,7 +125,7 @@ class AddGameBeloteActivity : AddGameActivity() {
                     scoreTX_.setText(if (calculus == 250) "250" else "162")
                 }
             }
-            spinner_preneur.setSelection(game.taker)
+            spinner_preneur.setSelection(game.takerId)
             partyWon = changeResult(game.success)
 
             gameId = game.gameId
@@ -173,21 +173,22 @@ class AddGameBeloteActivity : AddGameActivity() {
                         || (valueScoreT1 in 163..249)
                         || (valueScoreT2 in 163..249))
 
-            val ecart = if (players.size == 3)
-                valueScoreT1 - valueScoreT2
-            else
-                if (taker == 0) valueScoreT1 - valueScoreT2 else valueScoreT2 - valueScoreT1
+            val ecart = when {
+                players.size == 3 -> valueScoreT1 - valueScoreT2
+                taker == 0 -> valueScoreT1 - valueScoreT2 // 4 players and team 1 takes
+                else -> valueScoreT2 - valueScoreT1 // 4 players and team 2 takes
+            }
             valueScoreT1 += bonus_T1.value * 10
             valueScoreT2 += bonus_T2.value * 10
-            val scoreWinnerError = if (isCoinchee) {
-                    // will be set to true if team on offense has less than defense or less than contrat and game is set to be won by offense
-                ((taker == 0 && partyWon && (valueScoreT2 >= valueScoreT1 || valueScoreT1 < spinner_contrat.selectedItem.toString().toInt() )) ||
-                        (taker == 1 && partyWon && (valueScoreT1 >= valueScoreT2 || valueScoreT2 < spinner_contrat.selectedItem.toString().toInt() )))
-            } else
-                if (players.size == 3)
-                    partyWon && valueScoreT1 <= valueScoreT2
-                else
-                    ((taker == 0 && partyWon && valueScoreT2 >= valueScoreT1) || (taker == 1 && partyWon && valueScoreT1 >= valueScoreT2))
+            val scoreWinnerError = when {
+                isCoinchee -> {
+                    // will be set to true if team on offense has less than defense or less than contract value and game is set to be won by offense
+                    ((taker == 0 && partyWon && (valueScoreT2 >= valueScoreT1 || valueScoreT1 < spinner_contrat.selectedItem.toString().toInt() )) ||
+                            (taker == 1 && partyWon && (valueScoreT1 >= valueScoreT2 || valueScoreT2 < spinner_contrat.selectedItem.toString().toInt() )))
+                }
+                players.size == 3 -> partyWon && valueScoreT1 <= valueScoreT2 // score of winner is not higher than the other team
+                else -> ((taker == 0 && partyWon && valueScoreT2 >= valueScoreT1) || (taker == 1 && partyWon && valueScoreT1 >= valueScoreT2)) // same with 4 players
+            }
 
             if (scoreSumError || scoreOutOfBounds || scoreWinnerError) {
                 score_warning.setText(R.string.score_invalid)
