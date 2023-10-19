@@ -5,11 +5,15 @@ import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.RelativeLayout
 import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_game.*
+import kotlinx.android.synthetic.main.help_layout.view.*
 import java.util.ArrayList
 
 enum class Request(val value: Int) {
@@ -19,7 +23,7 @@ enum class Request(val value: Int) {
 }
 
 enum class TypeGameSaved {
-    BELOTE,TAROT
+    BELOTE, TAROT
 }
 
 abstract class GameActivity : AppCompatActivity() {
@@ -35,6 +39,11 @@ abstract class GameActivity : AppCompatActivity() {
     private var backPressed: Boolean = false
     var showAddGameButton: Boolean = false
     var namesSaved: Boolean = false
+
+    // help layout variables
+    private var showHelp: Boolean = false
+    private lateinit var helpLayout : View
+    var helpText : String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +66,22 @@ abstract class GameActivity : AppCompatActivity() {
             hideBackPressedMenu()
         }
 
+
+        // Inflate the dynamic layout
+        val inflater = LayoutInflater.from(this)
+        val dynamicLayout = inflater.inflate(R.layout.help_layout, null)
+        // Set layout parameters for the inflated view
+        val layoutParams = RelativeLayout.LayoutParams(
+            RelativeLayout.LayoutParams.MATCH_PARENT,
+            RelativeLayout.LayoutParams.MATCH_PARENT
+        )
+        dynamicLayout.layoutParams = layoutParams
+        helpLayout = dynamicLayout
+
+        help_btn.setOnClickListener {
+            showHelpPopUp()
+        }
+
     }
 
     abstract fun editGame(game_id: Int): Boolean
@@ -69,6 +94,10 @@ abstract class GameActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        if (showHelp) {
+            showHelpPopUp()
+            return
+        }
         if (!backPressed) {
             showBackPressedMenu()
         } else {
@@ -77,6 +106,7 @@ abstract class GameActivity : AppCompatActivity() {
     }
 
     private fun showBackPressedMenu() {
+        help_btn.visibility = View.GONE
         LLquit.translationY = offSetQuit
         ObjectAnimator.ofFloat(LLquit, "translationY", 0f).apply {
             duration = animDelay
@@ -102,6 +132,7 @@ abstract class GameActivity : AppCompatActivity() {
             start()
         }.doOnEnd {
             RLquit.visibility = View.GONE
+            help_btn.visibility = View.VISIBLE
             if (showAddGameButton)
                 add_game.visibility = View.VISIBLE
         }
@@ -128,5 +159,24 @@ abstract class GameActivity : AppCompatActivity() {
             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right)
             .replace(container, fragment)
             .commit()
+    }
+
+    private fun showHelpPopUp() {
+        if (!showHelp) {
+            val textView = helpLayout.text_help
+            textView.text = Html.fromHtml(helpText, Html.FROM_HTML_MODE_COMPACT)
+            GameActivityId.addView(helpLayout)
+            showHelp = true
+        } else {
+            GameActivityId.removeView(helpLayout)
+            showHelp = false
+        }
+    }
+
+    open fun startGame(list_names: ArrayList<String>){
+        hideKeyBoard()
+        names = list_names
+        listGames = arrayListOf()
+        help_btn.visibility = View.VISIBLE
     }
 }
