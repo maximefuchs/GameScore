@@ -102,10 +102,16 @@ class BeloteActivity : GameActivity() {
     }
 
     override fun showHelpButton() {
-        if (gameType == TypeGame.COINCHEE)
-            helpText = getString(R.string.belote_coinchee_game_count)
-        else
+        if (nbPlayers == 3) {
+            helpText = getString(R.string.belote_rules_3players)
+            helpText2 = getString(R.string.belote_game_count)
+        } else {
             helpText = getString(R.string.belote_game_count)
+            helpText2 = if (gameType == TypeGame.COINCHEE)
+                getString(R.string.belote_info_annonce_coinchee)
+            else
+                getString(R.string.belote_info_annonce_normale)
+        }
         super.showHelpButton()
     }
 

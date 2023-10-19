@@ -44,6 +44,7 @@ abstract class GameActivity : AppCompatActivity() {
     private var showHelp: Boolean = false
     private lateinit var helpLayout : View
     var helpText : String = ""
+    var helpText2 : String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -139,7 +140,7 @@ abstract class GameActivity : AppCompatActivity() {
         backPressed = false
     }
 
-    fun hideKeyBoard() {
+    private fun hideKeyBoard() {
         val view: View? = this.currentFocus
         if (view != null) {
             val inputMethodManager =
@@ -165,6 +166,8 @@ abstract class GameActivity : AppCompatActivity() {
         if (!showHelp) {
             val textView = helpLayout.text_help
             textView.text = Html.fromHtml(helpText, Html.FROM_HTML_MODE_COMPACT)
+            val textView2 = helpLayout.text_help2
+            textView2.text = Html.fromHtml(helpText2, Html.FROM_HTML_MODE_COMPACT)
             GameActivityId.addView(helpLayout)
             showHelp = true
             add_game.visibility = View.GONE

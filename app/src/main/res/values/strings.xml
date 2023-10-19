@@ -45,40 +45,8 @@
     <string name="difference_20">20</string>
     <string name="difference_30">30</string>
 
-    <string name="tarot_game_rules"><![CDATA[
-    <h1>Tarot Card Game Rules</h1>
-
-    <h2>Objective:</h2>
-    <p>The objective of Tarot is to score points by taking specific cards in tricks and fulfilling contracts.</p>
-
-    <h2>Players:</h2>
-    <p>Tarot is typically played by 3 to 5 players.</p>
-
-    <h2>Setup:</h2>
-    <ol>
-        <li>A standard deck of 78 Tarot cards is used.</li>
-        <li>The deck consists of 4 suits: Cups, Coins, Swords, and Batons, each numbered from 1 to 10, and 21 Trump cards.</li>
-        <li>Trump cards have special abilities and are ranked higher than the numbered cards.</li>
-    </ol>
-
-    <h2>Dealing:</h2>
-    <ol>
-        <li>The dealer shuffles the deck and offers it to the player on their right for a cut.</li>
-        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
-        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
-        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
-        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
-        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
-        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
-        <li>The dealer then deals the cards in batches, usually 3 or 4 at a time, until each player has a hand of 18 cards.</li>
-    </ol>
-    <!— Add more sections as needed with h2 headings and paragraphs (p) for each rule. —>]]>
-    </string>
-
     <string name="tarot_game_count">
         <![CDATA[
-        <h2>Comptage des points</h2>
-        <br>
         <h3>Valeur des cartes</h3>
         <p>Pour compter les cartes, il faut toujours joindre une carte basse avec une carte habillée.<br>
         <br>
@@ -97,6 +65,29 @@
             2 bouts : 41 points<br>
             1 bout : 51 points<br>
             Aucun bout : 56 points
+        </p>
+        ]]>
+    </string>
+
+    <string name="poignees_4players">
+        <![CDATA[
+        <h3>Poignées</h3>
+        <p>
+            Simple : 10 atouts<br>
+            Double : 12 atouts<br>
+            Triple : 15 atouts
+        </p>
+        <br>
+        ]]>
+    </string>
+
+    <string name="poignees_5players">
+        <![CDATA[
+        <h3>Poignées</h3>
+        <p>
+            Simple : 8 atouts<br>
+            Double : 10 atouts<br>
+            Triple : 13 atouts
         </p>
         <br>
         ]]>
@@ -182,14 +173,10 @@
             le 10 : 5 points<br>
             la Roi : 3 points<br>
             la Dame : 2 points<br>
-            Les autres cartes valent 0 point.
+            Les autres cartes valent 0 point.<br>
         <br>
 
         <h2>Annonces</h2>
-        <br>
-        <p>Un joueur montre son annonce lors du premier tour, lorsque c\'est à son tour de jouer. <br>
-        Le joueur ou l\'équipe avec l\'annonce la plus haute permet à son équipe de compter ses annonces dans le score
-        de la partie.</p>
         <br>
             3 cartes de couleur identique qui se suivent (une tierce) : 20 points<br>
             4 cartes de couleur identique qui se suivent (un cinquante) : 50 points<br>
@@ -197,79 +184,34 @@
             4 mêmes cartes (un carré) : 100 points<br>
             Carré de 9 : 150 points<br>
             Carré de valets : 200 points<br>
-        <br>
-
-        <h2>Victoire ou non</h2>
-        <br>
-        <p>En sachant que le dernier pli vaut 10 points, il y a 162 points au total.<br>
-        Les annonces sont comptées dans le score pour savoir si une partie est gagnée ou non.
-        Le joueur ou l\'équipe qui prend doit faire autant ou plus de points que son adversaire
-        pour gagner la partie. <br>
-        Si elle fait moins, on dit que la partie est chutée et l\'équipe marque 0. L\'adversaire marque 162.<br>
-        Si une équipe fait tous plis, on dit qu\'elle fait capot et marque 250 points à 0.<br>
-        Dans tous les cas (gagnée, chutée ou capot), les annonces sont tout de même comptées</p>
         <br>
         ]]>
     </string>
 
-    <string name="belote_coinchee_game_count">
+    <string name="belote_rules_3players">
         <![CDATA[
-        <h2>Valeur des cartes</h2>
+        <h2>La belote à 3</h2>
         <br>
+        <p>On distribue les cartes de la manière suivante : 3, puis 2, puis 2.<br>
+        Au moment souhaité, mettre deux fois une carte de coté pendant la distribution, ce sera \"l\'écart\".
+        Après avoir fini de distribuer, retourner la première carte du paquet sur les deux cartes écartées. <br>
+        Si un joueur prend (même déroulement que pour la belote normale), ce joueur prend la carte retournée ainsi que les 2 cartes écartées.
+        Distribuer ensuite les restant du paquet de manière suivante : 2 cartes pour le joueur ayant pris, 3 pour les autres. <br>
+        Le joueur ayant pris doit faire un écart de deux cartes, afin que tous les joueurs aient 10 cartes.<br>
+        La partie se déroule en 1 contre 2. Il n\'y a pas d\'annonces, sauf "belote-rebelote" avec Dame-Roi à l\'atout.
+         ]]>
+    </string>
 
-        <p>La valeur des cartes dépend du type de partie jouée.</p>
+    <string name="belote_info_annonce_normale">
+        <![CDATA[
+        <p>Les annonces sont comptées dans le score pour savoir si une partie est gagnée ou non (contrairement à la belote coinchée).</p>
         <br>
-
-        <h3>Partie normale</h3>
-        <br>
-            L\'As : 11 points<br>
-            le 10 : 10 points<br>
-            la Roi : 4 points<br>
-            la Dame : 3 points<br>
-            le Valet : 2 points<br>
-            Les autres cartes valent 0 point.
-        <br>
-        <p>A l\'atout, le valet vaut 20 points et le 9 vaut 14 points, les autres cartes gardent leur valeur initiale.</p>
-        <br>
-
-        <h3>Sans Atout</h3>
-        <br>
-        <p> Les cartes ont leur valeur initiale, sauf l\'As, qui vaut 19 points.</p>
-        <br>
-
-        <h3>Tout Atout</h3>
-        <br>
-            le Valet : 14 points<br>
-            le 9 : 9 points<br>
-            L\'As : 7 points<br>
-            le 10 : 5 points<br>
-            la Roi : 3 points<br>
-            la Dame : 2 points<br>
-            Les autres cartes valent 0 point.
-        <br>
-
-        <h2>Annonces</h2>
-        <br>
-        <p>Un joueur montre son annonce lors du premier tour, lorsque c\'est à son tour de jouer. <br>
-        Le joueur ou l\'équipe avec l\'annonce la plus haute permet à son équipe de compter ses annonces.</p>
-        <br>
-            3 cartes de couleur identique qui se suivent (une tierce) : 20 points<br>
-            4 cartes de couleur identique qui se suivent (un cinquante) : 50 points<br>
-            5 cartes de couleur identique qui se suivent (un cent) : 100 points<br>
-            4 mêmes cartes (un carré) : 100 points<br>
-            Carré de 9 : 150 points<br>
-            Carré de valets : 200 points<br>
-        <br>
-
-        <h2>Victoire ou non</h2>
-        <br>
-        <p>En sachant que le dernier pli vaut 10 points, il y a 162 points au total.<br>
-        Les annonces <b>ne sont pas</b> comptées dans le score pour savoir si une partie est gagnée ou non.
-        Le joueur ou l\'équipe qui prend doit faire autant ou plus de points que son adversaire
-        pour gagner la partie. <br>
-        Si elle fait moins, on dit que la partie est chutée et l\'équipe marque 0. L\'adversaire marque 162.<br>
-        Si une équipe fait tous plis, on dit qu\'elle fait capot et marque 250 points à 0.<br>
-        Dans tous les cas (gagnée, chutée ou capot), les annonces sont tout de même comptées</p>
+        ]]>
+    </string>
+    <string name="belote_info_annonce_coinchee">
+        <![CDATA[
+        <p>Les annonces ne sont pas comptées dans le score pour savoir si une partie est gagnée ou non (contrairement à la belote normale).
+        Elles sont par contre comptées sur le score final.</p>
         <br>
         ]]>
     </string>
