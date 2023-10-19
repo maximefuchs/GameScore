@@ -30,7 +30,7 @@ class BeloteActivity : GameActivity() {
         if (savedInstanceState != null) {
             if (nbPlayers == 4)
                 gameType = savedInstanceState.getSerializable(stateType) as TypeGame
-            startSavedGame()
+            fragmentTransition(R.id.container, ScoreBeloteFragment())
         } else {
             val sharedPreferences: SharedPreferences =
                 context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
@@ -66,6 +66,7 @@ class BeloteActivity : GameActivity() {
                     // TODO: check between parent class variables and variables passed from activity to fragment
 
                     fragmentTransition(R.id.container, ScoreBeloteFragment())
+                    showHelpButton()
                 }
                 RLsaved.visibility = View.VISIBLE
             } else {
@@ -95,17 +96,17 @@ class BeloteActivity : GameActivity() {
         fragmentTransition(R.id.container, NameFragmentBelote())
     }
 
-    private fun startSavedGame() {
-        fragmentTransition(R.id.container, ScoreBeloteFragment())
-    }
-
     override fun startGame(list_names: ArrayList<String>) {
         super.startGame(list_names)
         fragmentTransition(R.id.container, ScoreBeloteFragment())
+    }
+
+    override fun showHelpButton() {
         if (gameType == TypeGame.COINCHEE)
             helpText = getString(R.string.belote_coinchee_game_count)
         else
             helpText = getString(R.string.belote_game_count)
+        super.showHelpButton()
     }
 
     private fun addBeloteGame() {

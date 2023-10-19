@@ -177,6 +177,10 @@ abstract class GameActivity : AppCompatActivity() {
         hideKeyBoard()
         names = list_names
         listGames = arrayListOf()
+        showHelpButton()
+    }
+
+    open fun showHelpButton() {
         help_btn.visibility = View.VISIBLE
     }
 }

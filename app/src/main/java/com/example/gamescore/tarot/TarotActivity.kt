@@ -19,7 +19,7 @@ class TarotActivity : GameActivity() {
 
         // If we have a saved state then we can restore it now
         if (savedInstanceState != null) {
-            startSavedGame()
+            fragmentTransition(R.id.container, ScoreTarotFragment())
         } else {
             val sharedPreferences: SharedPreferences =
                 context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
@@ -53,6 +53,7 @@ class TarotActivity : GameActivity() {
                     listGames.add(game)
                     // TODO: check between parent class variables and variables passed from activity to fragment
                     fragmentTransition(R.id.container, ScoreTarotFragment())
+                    showHelpButton()
                 }
                 RLsaved.visibility = View.VISIBLE
             } else {
@@ -72,11 +73,11 @@ class TarotActivity : GameActivity() {
     override fun startGame(list_names: ArrayList<String>) {
         super.startGame(list_names)
         fragmentTransition(R.id.container, ScoreTarotFragment())
-        helpText = getString(R.string.tarot_game_count)
     }
 
-    private fun startSavedGame() {
-        fragmentTransition(R.id.container, ScoreTarotFragment())
+    override fun showHelpButton() {
+        helpText = getString(R.string.tarot_game_count)
+        super.showHelpButton()
     }
 
     private fun addTarotGame() {
