@@ -26,7 +26,7 @@ enum class TypeGameSaved {
     BELOTE, TAROT
 }
 
-open class GameActivity : AppCompatActivity() {
+abstract class GameActivity : AppCompatActivity() {
     lateinit var context: Context
     var names: ArrayList<String> = arrayListOf()
     lateinit var listGames: ArrayList<Game>
@@ -83,6 +83,8 @@ open class GameActivity : AppCompatActivity() {
         }
 
     }
+
+    abstract fun editGame(game_id: Int): Boolean
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -175,6 +177,10 @@ open class GameActivity : AppCompatActivity() {
         hideKeyBoard()
         names = list_names
         listGames = arrayListOf()
+        showHelpButton()
+    }
+
+    open fun showHelpButton() {
         help_btn.visibility = View.VISIBLE
     }
 }

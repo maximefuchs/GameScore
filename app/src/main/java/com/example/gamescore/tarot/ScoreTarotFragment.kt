@@ -35,34 +35,15 @@ class ScoreTarotFragment : ScoreFragment() {
         }
 
         saveLastGame(TypeGameSaved.TAROT)
-        val act = activity as TarotActivity
         // TODO: make this feature more visible
         val onItemClick = { game: Game ->
-            if (game.restart) {
-                Toast.makeText(
-                    act.context,
-                    act.resources.getString(R.string.click_hint_not_possible),
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Toast.makeText(
-                    act.context,
-                    act.resources.getString(R.string.long_click_hint),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            handleItemShortClick(game)
         }
+
+//        val act = activity as TarotActivity
         val onItemLongClick = { position: Int ->
-            if (listGames[position].restart) {
-                Toast.makeText(
-                    act.context,
-                    act.resources.getString(R.string.click_hint_not_possible),
-                    Toast.LENGTH_SHORT
-                ).show()
-                true // because onItemLongClick is of time (Int) -> Boolean
-            } else {
-                act.editTarotGame(position)
-            }
+            handleItemLongClick(position)
+            true // because onItemLongClick is of time (Int) -> Boolean
         }
         val adapter = TarotListAdapter(listGames, onItemClick, onItemLongClick)
         v.RV_games.adapter = adapter

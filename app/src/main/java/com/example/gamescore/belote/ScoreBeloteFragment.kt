@@ -23,7 +23,7 @@ class ScoreBeloteFragment : ScoreFragment() {
         val act = activity as BeloteActivity
         v.LL_belote.visibility = View.VISIBLE
 
-        if(act.nbPlayers == 4) {
+        if (act.nbPlayers == 4) {
             var placeholder: String = resources.getText(R.string.placeholder_team).toString()
             v.T1.text = placeholder.format(listPlayers[0].take(2), listPlayers[1].take(2))
             placeholder = resources.getText(R.string.placeholder_team).toString()
@@ -38,16 +38,14 @@ class ScoreBeloteFragment : ScoreFragment() {
 
         saveLastGame(TypeGameSaved.BELOTE)
 
-        val onItemClick = { _ : Game ->
-            Toast.makeText(
-                act.context,
-                act.resources.getString(R.string.long_click_hint),
-                Toast.LENGTH_SHORT
-            ).show()
+        val onItemClick = { game : Game ->
+            handleItemShortClick(game)
         }
         val onItemLongClick = {position : Int ->
-            act.editBeloteGame(position)
+            handleItemLongClick(position)
+            true // because onItemLongClick is of time (Int) -> Boolean
         }
+
         val adapter = BeloteListAdapter(listGames,onItemClick,onItemLongClick)
         v.RV_games.adapter = adapter
 

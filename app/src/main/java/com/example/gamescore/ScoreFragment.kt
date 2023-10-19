@@ -7,9 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.gamescore.tarot.GameTarot
+import com.example.gamescore.tarot.TarotActivity
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.fragment_score.view.*
 import java.util.*
@@ -57,6 +59,36 @@ open class ScoreFragment : Fragment() {
                     act.namesSaved = true
                 }
             }
+        }
+    }
+
+    fun handleItemShortClick(game : Game){
+        val act = activity as GameActivity
+        if (game.restart) {
+            Toast.makeText(
+                act.context,
+                act.resources.getString(R.string.click_hint_not_possible),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            Toast.makeText(
+                act.context,
+                act.resources.getString(R.string.long_click_hint),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    fun handleItemLongClick(position : Int) {
+        val act = activity as GameActivity
+        if (listGames[position].restart) {
+            Toast.makeText(
+                act.context,
+                act.resources.getString(R.string.click_hint_not_possible),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            act.editGame(position)
         }
     }
 }

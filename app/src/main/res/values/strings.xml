@@ -30,6 +30,14 @@
         <item>Garde Sans</item>
         <item>Garde Contre</item>
     </string-array>
+    <string-array name="bonuses">
+        <item>Petit au Bout</item>
+        <item>Poignée</item>
+        <item>Double Poignée</item>
+        <item>Triple Poignée</item>
+        <item>Misère</item>
+        <item>Double Misère</item>
+    </string-array>
     <string name="difference_name">Ecart</string>
     <string name="bonus_name">Bonus</string>
     <string name="difference_0">0</string>
