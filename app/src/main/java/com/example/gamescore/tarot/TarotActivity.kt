@@ -67,11 +67,11 @@ class TarotActivity : GameActivity() {
         fragmentTransition(R.id.container, NameFragmentTarot())
     }
 
-    fun startGame(list_names: ArrayList<String>) {
-        hideKeyBoard()
-        names = list_names
-        listGames = arrayListOf()
+
+    override fun startGame(list_names: ArrayList<String>) {
+        super.startGame(list_names)
         fragmentTransition(R.id.container, ScoreTarotFragment())
+        helpText = getString(R.string.tarot_game_count)
     }
 
     private fun startSavedGame() {

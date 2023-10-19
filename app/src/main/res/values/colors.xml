@@ -5,12 +5,18 @@
     <color name="colorPrimaryLightUp">#7bd48a</color>
     <color name="colorVictoryUp">#7bd48a</color>
     <color name="colorDefeatUp">#eb9da7</color>
+    <color name="colorNegative">#940f1a</color>
+    <color name="colorPositive">#195e08</color>
     <color name="colorPrimaryLight">#5c965c</color>
     <color name="colorAccent">#FFF</color>
+    <color name="colorAccentTransparent">#CFFF</color>
+    <color name="colorAccentTransparent2">#9FFF</color>
     <color name="colorFlash">#03DAC5</color>
 
-    <color name="colorBlackTransparent">#40000000</color>
     <color name="colorTransparent">#00000000</color>
+    <color name="colorBlackTransparent">#40000000</color>
+    <color name="colorBlackTransparent2">#80000000</color>
+    <color name="colorBlack">#000</color>
 
     <color name="colorDefeat">#c99198</color>
     <color name="colorVictory">#91c9b6</color>

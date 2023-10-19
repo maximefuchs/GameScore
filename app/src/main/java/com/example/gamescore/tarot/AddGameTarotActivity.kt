@@ -96,11 +96,11 @@ class AddGameTarotActivity : AddGameActivity() {
         val adapterContrat = ArrayAdapter(this, R.layout.spinner_item, contracts)
         spinner_contrat.adapter = adapterContrat
 
-        var ecartScore = changeEcart(0)
-        btn0.setOnClickListener { ecartScore = changeEcart(0) }
-        btn10.setOnClickListener { ecartScore = changeEcart(10) }
-        btn20.setOnClickListener { ecartScore = changeEcart(20) }
-        btn30.setOnClickListener { ecartScore = changeEcart(30) }
+        var ecartScore = changeEcart(0,10)
+        btn0.setOnClickListener { ecartScore = changeEcart(0,ecartScore) }
+        btn10.setOnClickListener { ecartScore = changeEcart(10,ecartScore) }
+        btn20.setOnClickListener { ecartScore = changeEcart(20,ecartScore) }
+        btn30.setOnClickListener { ecartScore = changeEcart(30,ecartScore) }
 
         var partyIsWon = changeResult(true)
         btnLose.setOnClickListener { partyIsWon = changeResult(false, ecartScore) }
@@ -114,7 +114,6 @@ class AddGameTarotActivity : AddGameActivity() {
             }
             spinner_preneur.setSelection(game.playerTake)
             spinner_contrat.setSelection(contracts.indexOf(game.contract))
-            ecartScore = changeEcart(game.difference)
             partyIsWon = changeResult(game.success)
             for (index in game.bonusPlayersId.indices) {
                 val dynamicLayout = inflater.inflate(R.layout.bonus_layout, null)
@@ -171,32 +170,41 @@ class AddGameTarotActivity : AddGameActivity() {
 
     }
 
-    private fun changeEcart(score_id: Int): Int {
-        btn0.setBackgroundColor(
-            ContextCompat.getColor(
-                applicationContext,
-                if (score_id == 0) colorForScore else R.color.colorPrimaryLight
-            )
-        )
-        btn10.setBackgroundColor(
-            ContextCompat.getColor(
-                applicationContext,
-                if (score_id == 10) colorForScore else R.color.colorPrimaryLight
-            )
-        )
-        btn20.setBackgroundColor(
-            ContextCompat.getColor(
-                applicationContext,
-                if (score_id == 20) colorForScore else R.color.colorPrimaryLight
-            )
-        )
-        btn30.setBackgroundColor(
-            ContextCompat.getColor(
-                applicationContext,
-                if (score_id == 30) colorForScore else R.color.colorPrimaryLight
-            )
-        )
-        return score_id
+    private fun changeEcart(new_score_id: Int, current_score_id : Int): Int {
+        if (current_score_id == new_score_id)
+            return new_score_id
+        val clickedButton = if (new_score_id == 0) btn0 else if (new_score_id == 10) btn10 else if (new_score_id == 20) btn20 else btn30
+        val previousButton = if (current_score_id == 0) btn0 else if (current_score_id == 10) btn10 else if (current_score_id == 20) btn20 else btn30
+        previousButton.setBackgroundResource(R.color.colorPrimaryLight)
+        previousButton.setTextAppearance(R.style.ButtonStyleDifferenceUnselected)
+        clickedButton.setBackgroundResource(colorForScore)
+        clickedButton.setTextAppearance(R.style.ButtonStyleDifferenceSelected)
+
+//        btn0.setBackgroundColor(
+//            ContextCompat.getColor(
+//                applicationContext,
+//                if (score_id == 0) colorForScore else R.color.colorPrimaryLight
+//            )
+//        )
+//        btn10.setBackgroundColor(
+//            ContextCompat.getColor(
+//                applicationContext,
+//                if (score_id == 10) colorForScore else R.color.colorPrimaryLight
+//            )
+//        )
+//        btn20.setBackgroundColor(
+//            ContextCompat.getColor(
+//                applicationContext,
+//                if (score_id == 20) colorForScore else R.color.colorPrimaryLight
+//            )
+//        )
+//        btn30.setBackgroundColor(
+//            ContextCompat.getColor(
+//                applicationContext,
+//                if (score_id == 30) colorForScore else R.color.colorPrimaryLight
+//            )
+//        )
+        return new_score_id
     }
 
     private fun changeResult(is_won: Boolean, score_id: Int): Boolean {

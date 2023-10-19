@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="@string/team_1"
-        android:textColor="#FFF"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:visibility="gone" />
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="@string/J1"
-            android:textColor="#FFF"
+            android:textColor="@color/colorAccent"
             android:textSize="30sp" />
 
         <EditText
@@ -40,7 +40,9 @@
             android:hint="@string/hint_name"
             android:inputType="textCapWords"
             android:maxLines="1"
-            android:textColor="#FFF"
+            android:textColor="@color/colorAccent"
+            android:backgroundTint="@color/colorAccentTransparent2"
+            android:textColorHint="@color/colorAccentTransparent2"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -54,7 +56,7 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="@string/J2"
-            android:textColor="#FFF"
+            android:textColor="@color/colorAccent"
             android:textSize="30sp" />
 
         <EditText
@@ -65,7 +67,9 @@
             android:hint="@string/hint_name"
             android:inputType="textCapWords"
             android:maxLines="1"
-            android:textColor="#FFF"
+            android:textColor="@color/colorAccent"
+            android:backgroundTint="@color/colorAccentTransparent2"
+            android:textColorHint="@color/colorAccentTransparent2"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -75,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="@string/team_2"
-        android:textColor="#FFF"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:visibility="gone" />
 
@@ -89,7 +93,7 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="@string/J3"
-            android:textColor="#FFF"
+            android:textColor="@color/colorAccent"
             android:textSize="30sp" />
 
         <EditText
@@ -100,7 +104,9 @@
             android:hint="@string/hint_name"
             android:inputType="textCapWords"
             android:maxLines="1"
-            android:textColor="#FFF"
+            android:textColor="@color/colorAccent"
+            android:backgroundTint="@color/colorAccentTransparent2"
+            android:textColorHint="@color/colorAccentTransparent2"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -115,7 +121,7 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="@string/J4"
-            android:textColor="#FFF"
+            android:textColor="@color/colorAccent"
             android:textSize="30sp" />
 
         <EditText
@@ -126,7 +132,9 @@
             android:hint="@string/hint_name"
             android:inputType="textCapWords"
             android:maxLines="1"
-            android:textColor="#FFF"
+            android:textColor="@color/colorAccent"
+            android:backgroundTint="@color/colorAccentTransparent2"
+            android:textColorHint="@color/colorAccentTransparent2"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -142,7 +150,7 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="@string/J5"
-            android:textColor="#FFF"
+            android:textColor="@color/colorAccent"
             android:textSize="30sp" />
 
         <EditText
@@ -153,7 +161,9 @@
             android:hint="@string/hint_name"
             android:inputType="textCapWords"
             android:maxLines="1"
-            android:textColor="#FFF"
+            android:textColor="@color/colorAccent"
+            android:backgroundTint="@color/colorAccentTransparent2"
+            android:textColorHint="@color/colorAccentTransparent2"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -167,25 +177,26 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="horizontal">
+
             <ImageButton
                 android:id="@+id/erase_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20sp"
                 android:background="@drawable/background_games"
                 android:contentDescription="@string/validate_button"
                 android:padding="10sp"
                 android:src="@drawable/recyclebin"
-                android:layout_marginEnd="20sp"
                 android:textSize="30sp" />
 
             <ImageButton
                 android:id="@+id/ok_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
                 android:background="@drawable/background_games"
                 android:contentDescription="@string/validate_button"
                 android:padding="10sp"
-                android:layout_marginStart="20sp"
                 android:src="@drawable/checked"
                 android:textSize="30sp" />
         </LinearLayout>

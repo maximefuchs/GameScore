@@ -97,11 +97,13 @@ class BeloteActivity : GameActivity() {
         fragmentTransition(R.id.container, ScoreBeloteFragment())
     }
 
-    fun startGame(list_names: ArrayList<String>) {
-        hideKeyBoard()
-        names = list_names
-        listGames = ArrayList<Game>()
+    override fun startGame(list_names: ArrayList<String>) {
+        super.startGame(list_names)
         fragmentTransition(R.id.container, ScoreBeloteFragment())
+        if (gameType == TypeGame.COINCHEE)
+            helpText = getString(R.string.belote_coinchee_game_count)
+        else
+            helpText = getString(R.string.belote_game_count)
     }
 
     private fun addBeloteGame() {

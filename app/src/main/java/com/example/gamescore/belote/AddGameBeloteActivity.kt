@@ -1,6 +1,7 @@
 package com.example.gamescore.belote
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -54,16 +55,17 @@ class AddGameBeloteActivity : AddGameActivity() {
 
         // set step of 10 of bonus picker
         val nums: Array<String> = Array(51) { i: Int -> "${i * 10}" }
-        bonus_T1.value = 0
         bonus_T1.minValue = 0
         bonus_T1.maxValue = nums.size - 1
         bonus_T1.wrapSelectorWheel = false
         bonus_T1.displayedValues = nums
-        bonus_T2.value = 0
+        bonus_T1.value = 0 // value should be set as last, otherwise picker goes to last value
+
         bonus_T2.minValue = 0
         bonus_T2.maxValue = nums.size - 1
         bonus_T2.wrapSelectorWheel = false
         bonus_T2.displayedValues = nums
+        bonus_T2.value = 0
 
         scoreT1.setOnKeyListener(getViewOnclickListener(true))
         scoreT2.setOnKeyListener(getViewOnclickListener(false))
@@ -152,6 +154,7 @@ class AddGameBeloteActivity : AddGameActivity() {
                 }
             }
         }
+
 
         btnValider.setOnClickListener {
             // score string null
