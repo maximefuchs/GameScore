@@ -35,6 +35,7 @@ class TarotActivity : GameActivity() {
                     sharedPreferences.getString("Name_$i", i.toString())?.let { listNames.add(it) }
                 }
                 names = listNames
+                nbPlayers = numberOfPlayers
 
                 btnNoSaved.setOnClickListener {
                     RLsaved.visibility = View.GONE

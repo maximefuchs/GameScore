@@ -47,6 +47,7 @@ class BeloteActivity : GameActivity() {
                     sharedPreferences.getString("Name_$i", i.toString())?.let { listNames.add(it) }
                 }
                 names = listNames
+                nbPlayers = numberOfPlayers
 
                 btnNoSaved.setOnClickListener {
                     RLsaved.visibility = View.GONE
@@ -63,6 +64,7 @@ class BeloteActivity : GameActivity() {
                     listGames = ArrayList<Game>()
                     listGames.add(game)
                     // TODO: check between parent class variables and variables passed from activity to fragment
+
                     fragmentTransition(R.id.container, ScoreBeloteFragment())
                 }
                 RLsaved.visibility = View.VISIBLE
@@ -163,7 +165,7 @@ class BeloteActivity : GameActivity() {
                             difference,
                             bonusT1,
                             bonusT2,
-                            isCoinchee,
+                            isCoinchee
                         )
                     } else
                         g = GameBelote(
