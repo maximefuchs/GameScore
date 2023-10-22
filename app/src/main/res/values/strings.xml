@@ -225,4 +225,8 @@
         <br>
         ]]>
     </string>
+
+    <!-- IMAGE -->
+    <string name="tarot_image_description">TarotImage</string>
+    <string name="belote_image_description">BeloteImage</string>
 </resources>

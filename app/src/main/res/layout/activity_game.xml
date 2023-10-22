@@ -5,6 +5,7 @@
     android:id="@+id/GameActivityId"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".tarot.TarotActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -37,64 +38,52 @@
         app:maxImageSize="30dp"
         app:shapeAppearanceOverlay="@style/CustomHelpButton" />
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
+
+        <LinearLayout
+            android:id="@+id/mainLL"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginStart="10dp"
+                android:text="@string/app_name"
+                android:textColor="#CCCC"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/FrameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/game_default"
+                android:textColor="#EEE"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-                    <LinearLayout
-                        android:id="@+id/mainLL"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+        </ScrollView>
+    </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/app_name"
-                            android:textColor="#CCCC"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/FrameTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/game_default"
-                            android:textColor="#EEE"
-                            android:textSize="40sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </RelativeLayout>
-
-                <FrameLayout
-                    android:id="@+id/container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </ScrollView>
 
     <RelativeLayout
         android:id="@+id/RLquit"
