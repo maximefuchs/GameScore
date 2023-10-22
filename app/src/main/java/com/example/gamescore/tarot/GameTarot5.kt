@@ -32,7 +32,7 @@ class GameTarot5 : GameTarot {
         val contractValue = contracts[contract]!!
         var toAdd = contractValue + difference
         if (!success) toAdd = -toAdd
-        score = previousScore
+        score = previousScore.clone()
 
         for (index_player in 0..4) {
             if (teammate == playerTake) {

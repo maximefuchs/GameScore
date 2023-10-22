@@ -30,7 +30,7 @@ class GameBelote3 : GameBelote {
     override fun updateScore(previousScore: IntArray) {
         var totalPoints = if (abs(difference) == 250) 250 else 162
         val scoreWritten = if (abs(difference) == 250) 250 else (162 + difference) / 2
-        score = previousScore
+        score = previousScore.clone()
         if (!success) totalPoints /= 2
         for (playerId in 0..2) {
             if (success)
