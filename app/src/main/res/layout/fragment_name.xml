@@ -1,206 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:isScrollContainer="true"
-    android:orientation="vertical"
-    android:padding="35sp"
     tools:context=".NameFragment">
 
-    <TextView
-        android:id="@+id/TV_team1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="@string/team_1"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        android:visibility="gone" />
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_centerInParent="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/J1"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp" />
-
-        <EditText
-            android:id="@+id/nameP1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="name"
-            android:backgroundTint="@color/colorAccentTransparent2"
-            android:hint="@string/hint_name"
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccentTransparent2"
-            android:textSize="30sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/J2"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp" />
-
-        <EditText
-            android:id="@+id/nameP2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="name"
-            android:backgroundTint="@color/colorAccentTransparent2"
-            android:hint="@string/hint_name"
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccentTransparent2"
-            android:textSize="30sp" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/TV_team2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="@string/team_2"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/J3"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp" />
-
-        <EditText
-            android:id="@+id/nameP3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="name"
-            android:backgroundTint="@color/colorAccentTransparent2"
-            android:hint="@string/hint_name"
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccentTransparent2"
-            android:textSize="30sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/LLP4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/J4"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp" />
-
-        <EditText
-            android:id="@+id/nameP4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="name"
-            android:backgroundTint="@color/colorAccentTransparent2"
-            android:hint="@string/hint_name"
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccentTransparent2"
-            android:textSize="30sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llP5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/J5"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp" />
-
-        <EditText
-            android:id="@+id/nameP5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="name"
-            android:backgroundTint="@color/colorAccentTransparent2"
-            android:hint="@string/hint_name"
-            android:inputType="textCapWords"
-            android:maxLines="1"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccentTransparent2"
-            android:textSize="30sp" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
+            android:isScrollContainer="true"
+            android:orientation="vertical"
+            android:padding="35sp">
 
-            <ImageButton
-                android:id="@+id/erase_btn"
+            <TextView
+                android:id="@+id/TV_team1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20sp"
-                android:background="@drawable/background_games"
-                android:contentDescription="@string/validate_button"
-                android:padding="10sp"
-                android:src="@drawable/recyclebin"
-                android:textSize="30sp" />
+                android:layout_margin="5dp"
+                android:text="@string/team_1"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:visibility="gone" />
 
-            <ImageButton
-                android:id="@+id/ok_btn"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="@string/J1"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="30sp" />
+
+                <EditText
+                    android:id="@+id/nameP1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:backgroundTint="@color/colorAccentTransparent2"
+                    android:hint="@string/hint_name"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@color/colorAccentTransparent2"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="@string/J2"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="30sp" />
+
+                <EditText
+                    android:id="@+id/nameP2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:backgroundTint="@color/colorAccentTransparent2"
+                    android:hint="@string/hint_name"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@color/colorAccentTransparent2"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/TV_team2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:background="@drawable/background_games"
-                android:contentDescription="@string/validate_button"
-                android:padding="10sp"
-                android:src="@drawable/checked"
-                android:textSize="30sp" />
+                android:layout_margin="5dp"
+                android:text="@string/team_2"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="@string/J3"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="30sp" />
+
+                <EditText
+                    android:id="@+id/nameP3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:backgroundTint="@color/colorAccentTransparent2"
+                    android:hint="@string/hint_name"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@color/colorAccentTransparent2"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LLP4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="@string/J4"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="30sp" />
+
+                <EditText
+                    android:id="@+id/nameP4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:backgroundTint="@color/colorAccentTransparent2"
+                    android:hint="@string/hint_name"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@color/colorAccentTransparent2"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llP5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:text="@string/J5"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="30sp" />
+
+                <EditText
+                    android:id="@+id/nameP5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="name"
+                    android:backgroundTint="@color/colorAccentTransparent2"
+                    android:hint="@string/hint_name"
+                    android:inputType="textCapWords"
+                    android:maxLines="1"
+                    android:textColor="@color/colorAccent"
+                    android:textColorHint="@color/colorAccentTransparent2"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/erase_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20sp"
+                        android:background="@drawable/background_games"
+                        android:contentDescription="@string/validate_button"
+                        android:padding="10sp"
+                        android:src="@drawable/recyclebin"
+                        android:textSize="30sp" />
+
+                    <ImageButton
+                        android:id="@+id/ok_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20sp"
+                        android:background="@drawable/background_games"
+                        android:contentDescription="@string/validate_button"
+                        android:padding="10sp"
+                        android:src="@drawable/checked"
+                        android:textSize="30sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
         </LinearLayout>
+    </ScrollView>
 
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>
