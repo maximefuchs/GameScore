@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.RelativeLayout
 import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
+import com.example.gamescore.belote.ScoreBeloteFragment
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.help_layout.view.*
 import java.util.ArrayList
@@ -31,20 +32,28 @@ abstract class GameActivity : AppCompatActivity() {
     var names: ArrayList<String> = arrayListOf()
     lateinit var listGames: ArrayList<Game>
     var nbPlayers: Int = 4
-    private val stateNames = "names"
-    private val stateGames = "games"
 
+    // quit layout on back pressed
     private val offSetQuit = 150f
     private val animDelay: Long = 200
     private var backPressed: Boolean = false
     var showAddGameButton: Boolean = false
+
+    // saved state
+    private val stateNames = "names"
+    private val stateGames = "games"
     var namesSaved: Boolean = false
+
+    // back to previous fragemnt
+    var inSettings = true
+    var firstFragment = true
+    lateinit var previousFragment: Fragment
 
     // help layout variables
     private var showHelp: Boolean = false
-    private lateinit var helpLayout : View
-    var helpText : String = ""
-    var helpText2 : String = ""
+    private lateinit var helpLayout: View
+    var helpText: String = ""
+    var helpText2: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,14 +104,26 @@ abstract class GameActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (showHelp) {
-            showHelpPopUp()
+        if (firstFragment) {
+            finish()
             return
         }
-        if (!backPressed) {
-            showBackPressedMenu()
+        if (inSettings) {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+            transaction.replace(R.id.container, previousFragment) // Replace with your fragment
+            transaction.addToBackStack(null) // Add to the back stack for navigation
+            transaction.commit()
         } else {
-            hideBackPressedMenu()
+            if (showHelp) {
+                showHelpPopUp()
+                return
+            }
+            if (!backPressed) {
+                showBackPressedMenu()
+            } else {
+                hideBackPressedMenu()
+            }
         }
     }
 
@@ -178,7 +199,7 @@ abstract class GameActivity : AppCompatActivity() {
         }
     }
 
-    open fun startGame(list_names: ArrayList<String>){
+    open fun startGame(list_names: ArrayList<String>) {
         hideKeyBoard()
         names = list_names
         listGames = arrayListOf()

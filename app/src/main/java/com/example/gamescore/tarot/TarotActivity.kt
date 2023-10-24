@@ -66,7 +66,9 @@ class TarotActivity : GameActivity() {
     }
 
     fun getName(nb_players: Int) {
+        firstFragment = false
         nbPlayers = nb_players
+        previousFragment = NbPlayersTarotFragment()
         fragmentTransition(R.id.container, NameFragmentTarot())
     }
 

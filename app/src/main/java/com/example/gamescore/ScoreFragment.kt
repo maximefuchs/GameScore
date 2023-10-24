@@ -28,6 +28,7 @@ open class ScoreFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_score, container, false)
         val act = activity as GameActivity
+        act.inSettings = false // for onBackPressed purposes
         listPlayers = act.names
         listGames = act.listGames
         act.showAddGameButton = true
