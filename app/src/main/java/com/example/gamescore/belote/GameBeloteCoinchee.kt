@@ -42,9 +42,12 @@ open class GameBeloteCoinchee : GameBelote {
             if (takerId == 1 && success) bonusTeam1 += if (coinchee) 2 * contract else contract
             if (coinchee && !success) totalPoints *= 2 // double reward for defense if defeat when coinchee
         }
-        score = previousScore
+        score = previousScore.clone()
         computeScore(totalPoints)
-
+        // double points if coinchée and game is lost
+        if (!success && coinchee) {
+            score[(takerId + 1) % 2] += 162
+            // takerId + 1 % 2 gives 1 if takerId = 0 and 0 if takerId = 1
+        }
     }
-
 }
