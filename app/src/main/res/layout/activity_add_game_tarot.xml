@@ -159,14 +159,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="Bonus"
+            android:text="@string/bonus_name"
+            android:textColor="@color/colorAccentTransparent"
             android:textSize="30sp" />
 
         <LinearLayout
+            android:id="@+id/LL_bonus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/LL_bonus">
+            android:orientation="vertical">
 
         </LinearLayout>
 
@@ -174,8 +175,9 @@
             android:id="@+id/btnAddBonus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorTransparent"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorTransparent"
             android:src="@drawable/add" />
 
 

@@ -13,6 +13,8 @@ open class NbPlayersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val act = activity as GameActivity
+        act.firstFragment = true
         return inflater.inflate(R.layout.fragment_nb_players, container, false)
     }
 

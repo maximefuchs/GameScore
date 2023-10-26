@@ -19,8 +19,8 @@
             android:layout_margin="30sp"
             android:gravity="center_horizontal"
             android:text="@string/app_name"
-            android:textSize="50sp"
             android:textColor="@color/colorAccentTransparent2"
+            android:textSize="50sp"
             android:textStyle="bold" />
 
 
@@ -36,6 +36,7 @@
                 android:layout_height="200dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/background_games"
+                android:contentDescription="@string/tarot_image_description"
                 android:src="@drawable/tarot" />
 
             <TextView
@@ -58,6 +59,7 @@
                 android:layout_height="200dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/background_games"
+                android:contentDescription="@string/belote_image_description"
                 android:src="@drawable/belote" />
 
             <TextView

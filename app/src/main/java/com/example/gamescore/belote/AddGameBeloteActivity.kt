@@ -67,6 +67,13 @@ class AddGameBeloteActivity : AddGameActivity() {
         bonus_T2.displayedValues = nums
         bonus_T2.value = 0
 
+        bonus_T1.setOnValueChangedListener { _, _, _ ->
+            score_warning.visibility = View.INVISIBLE
+        }
+        bonus_T2.setOnValueChangedListener { _, _, _ ->
+            score_warning.visibility = View.INVISIBLE
+        }
+
         scoreT1.setOnKeyListener(getViewOnclickListener(true))
         scoreT2.setOnKeyListener(getViewOnclickListener(false))
 
@@ -219,6 +226,7 @@ class AddGameBeloteActivity : AddGameActivity() {
 
     private fun getViewOnclickListener(isT1: Boolean): View.OnKeyListener {
         return View.OnKeyListener { _, keyCode, event ->
+            score_warning.visibility = View.INVISIBLE
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 updateScore(isT1)
                 hideKeyBoard()
@@ -245,6 +253,7 @@ class AddGameBeloteActivity : AddGameActivity() {
         scoreForTX = when (scoreString) {
             "" -> 162
             "250" -> 0
+            "0" -> 250
             else -> (162 - scoreString.toInt())
         }
         if (scoreForTX < 0) scoreForTX = 0

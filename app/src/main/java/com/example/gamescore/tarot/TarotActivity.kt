@@ -28,7 +28,8 @@ class TarotActivity : GameActivity() {
 
             if (enumGameType == TypeGameSaved.TAROT) {
                 val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers", 4)
-                val score = if( numberOfPlayers == 4) intArrayOf(0,0,0,0) else intArrayOf(0,0,0,0,0)
+                val score =
+                    if (numberOfPlayers == 4) intArrayOf(0, 0, 0, 0) else intArrayOf(0, 0, 0, 0, 0)
                 val listNames = arrayListOf<String>()
                 for (i in 0 until numberOfPlayers) {
                     score[i] = sharedPreferences.getInt("playerScore_$i", 0)
@@ -65,7 +66,9 @@ class TarotActivity : GameActivity() {
     }
 
     fun getName(nb_players: Int) {
+        firstFragment = false
         nbPlayers = nb_players
+        previousFragment = NbPlayersTarotFragment()
         fragmentTransition(R.id.container, NameFragmentTarot())
     }
 
@@ -77,6 +80,10 @@ class TarotActivity : GameActivity() {
 
     override fun showHelpButton() {
         helpText = getString(R.string.tarot_game_count)
+        if (nbPlayers == 4)
+            helpText2 = getString(R.string.poignees_4players)
+        else
+            helpText2 = getString(R.string.poignees_5players)
         super.showHelpButton()
     }
 
@@ -110,8 +117,10 @@ class TarotActivity : GameActivity() {
             val contrat = b.getString("contrat")!!
             val result = b.getBoolean("result")
             val ecart = b.getInt("ecart")
-            val bonusNames = if (b.getIntArray("list_bonus_names") != null) b.getIntArray("list_bonus_names")!! else intArrayOf()
-            val bonusValues = if (b.getStringArray("list_bonus_values") != null) b.getStringArray("list_bonus_values")!! else arrayOf<String>()
+            val bonusNames =
+                if (b.getIntArray("list_bonus_names") != null) b.getIntArray("list_bonus_names")!! else intArrayOf()
+            val bonusValues =
+                if (b.getStringArray("list_bonus_values") != null) b.getStringArray("list_bonus_values")!! else arrayOf<String>()
 
 
             if (res.resultCode == Request.ADDGAME.value) {
