@@ -3,15 +3,12 @@ package com.example.gamescore
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.gamescore.tarot.GameTarot
-import com.example.gamescore.tarot.TarotActivity
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.fragment_score.view.*
 import java.util.*

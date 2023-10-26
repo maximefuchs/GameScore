@@ -24,7 +24,7 @@ enum class Request(val value: Int) {
 }
 
 enum class TypeGameSaved {
-    BELOTE, TAROT
+    BELOTE, BELOTE_COINCHEE, TAROT
 }
 
 abstract class GameActivity : AppCompatActivity() {
