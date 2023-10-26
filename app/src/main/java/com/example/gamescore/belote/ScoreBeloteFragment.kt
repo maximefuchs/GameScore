@@ -28,25 +28,24 @@ class ScoreBeloteFragment : ScoreFragment() {
             v.T1.text = placeholder.format(listPlayers[0].take(2), listPlayers[1].take(2))
             placeholder = resources.getText(R.string.placeholder_team).toString()
             v.T2.text = placeholder.format(listPlayers[2].take(2), listPlayers[3].take(2))
-        }
-        else { // 3 players
+        } else { // 3 players
             v.T3.visibility = View.VISIBLE
             v.T1.text = listPlayers[0].take(2)
             v.T2.text = listPlayers[1].take(2)
             v.T3.text = listPlayers[2].take(2)
         }
 
-        saveLastGame(TypeGameSaved.BELOTE)
+        saveLastGame(if (act.gameType == TypeGame.COINCHEE) TypeGameSaved.BELOTE_COINCHEE else TypeGameSaved.BELOTE)
 
-        val onItemClick = { game : Game ->
+        val onItemClick = { game: Game ->
             handleItemShortClick(game)
         }
-        val onItemLongClick = {position : Int ->
+        val onItemLongClick = { position: Int ->
             handleItemLongClick(position)
             true // because onItemLongClick is of time (Int) -> Boolean
         }
 
-        val adapter = BeloteListAdapter(listGames,onItemClick,onItemLongClick)
+        val adapter = BeloteListAdapter(listGames, onItemClick, onItemLongClick)
         v.RV_games.adapter = adapter
 
         return v

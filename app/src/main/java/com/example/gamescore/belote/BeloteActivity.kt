@@ -19,7 +19,7 @@ enum class TypeGame {
 
 class BeloteActivity : GameActivity() {
 
-    private var gameType = TypeGame.NORMALE
+    var gameType = TypeGame.NORMALE
     val stateType = "type"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,17 +34,21 @@ class BeloteActivity : GameActivity() {
         } else {
             val sharedPreferences: SharedPreferences =
                 context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
-            val gameType = sharedPreferences.getString("type", null)
-            val enumGameType = gameType?.let { enumValueOf<TypeGameSaved>(it) }
+            val gameClass = sharedPreferences.getString("type", null)
+            val enumGameType = gameClass?.let { enumValueOf<TypeGameSaved>(it) }
 
-            if (enumGameType == TypeGameSaved.BELOTE) {
+
+            if (enumGameType == TypeGameSaved.BELOTE || enumGameType == TypeGameSaved.BELOTE_COINCHEE) {
+                if (enumGameType == TypeGameSaved.BELOTE_COINCHEE)
+                    gameType = TypeGame.COINCHEE
                 val numberOfPlayers = sharedPreferences.getInt("numberOfPlayers", 4)
                 val score =
                     if (numberOfPlayers == 3) intArrayOf(0, 0, 0) else intArrayOf(0, 0, 0, 0)
                 val listNames = arrayListOf<String>()
                 for (i in 0 until numberOfPlayers) {
                     score[i] = sharedPreferences.getInt("playerScore_$i", 0)
-                    sharedPreferences.getString("Name_$i", i.toString())?.let { listNames.add(it) }
+                    sharedPreferences.getString("Name_$i", i.toString())
+                        ?.let { listNames.add(it) }
                 }
                 names = listNames
                 nbPlayers = numberOfPlayers
@@ -96,7 +100,8 @@ class BeloteActivity : GameActivity() {
     fun getName(nbOfPlayers: Int) {
         firstFragment = false
         nbPlayers = nbOfPlayers
-        previousFragment = if (nbOfPlayers == 3) NbPlayersBeloteFragment() else TypeBeloteFragment()
+        previousFragment =
+            if (nbOfPlayers == 3) NbPlayersBeloteFragment() else TypeBeloteFragment()
         fragmentTransition(R.id.container, NameFragmentBelote())
     }
 
@@ -161,7 +166,8 @@ class BeloteActivity : GameActivity() {
                     gameId = listGames.last().gameId + 1
                 } else {
                     gameId = 0
-                    previousScore = if (nbPlayers == 3) intArrayOf(0, 0, 0) else intArrayOf(0, 0)
+                    previousScore =
+                        if (nbPlayers == 3) intArrayOf(0, 0, 0) else intArrayOf(0, 0)
                 }
 
                 if (nbPlayers == 4) {
@@ -229,7 +235,8 @@ class BeloteActivity : GameActivity() {
                 g.bonusTeam2 = bonusT2
 
 
-                var previousScore = if (nbPlayers == 4) intArrayOf(0, 0) else intArrayOf(0, 0, 0)
+                var previousScore =
+                    if (nbPlayers == 4) intArrayOf(0, 0) else intArrayOf(0, 0, 0)
                 for (game in listGames) {
                     if (!game.restart)
                         (game as GameBelote).updateScore(previousScore)

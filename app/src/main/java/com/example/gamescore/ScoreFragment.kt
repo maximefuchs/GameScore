@@ -3,15 +3,12 @@ package com.example.gamescore
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.gamescore.tarot.GameTarot
-import com.example.gamescore.tarot.TarotActivity
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.fragment_score.view.*
 import java.util.*
@@ -29,6 +26,7 @@ open class ScoreFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_score, container, false)
         val act = activity as GameActivity
         act.inSettings = false // for onBackPressed purposes
+        act.firstFragment = false // has to be set to false here too for when we start from a saved game
         listPlayers = act.names
         listGames = act.listGames
         act.showAddGameButton = true
