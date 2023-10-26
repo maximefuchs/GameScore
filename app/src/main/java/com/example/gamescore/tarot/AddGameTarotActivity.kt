@@ -96,7 +96,7 @@ class AddGameTarotActivity : AddGameActivity() {
         val adapterContrat = ArrayAdapter(this, R.layout.spinner_item, contracts)
         spinner_contrat.adapter = adapterContrat
 
-        var ecartScore = changeEcart(0,10)
+        var ecartScore = changeEcart(0,10) // this is to initialize the right colors
         btn0.setOnClickListener { ecartScore = changeEcart(0,ecartScore) }
         btn10.setOnClickListener { ecartScore = changeEcart(10,ecartScore) }
         btn20.setOnClickListener { ecartScore = changeEcart(20,ecartScore) }
@@ -114,7 +114,8 @@ class AddGameTarotActivity : AddGameActivity() {
             }
             spinner_preneur.setSelection(game.playerTake)
             spinner_contrat.setSelection(contracts.indexOf(game.contract))
-            partyIsWon = changeResult(game.success)
+            partyIsWon = changeResult(game.success) // this has to be above changeEcart
+            ecartScore = changeEcart(game.difference, ecartScore) // this uses the updated colors from changeResult
             for (index in game.bonusPlayersId.indices) {
                 val dynamicLayout = inflater.inflate(R.layout.bonus_layout, null)
                 val playersName = ArrayList(players.map { it }) // create copy
@@ -180,30 +181,6 @@ class AddGameTarotActivity : AddGameActivity() {
         clickedButton.setBackgroundResource(colorForScore)
         clickedButton.setTextAppearance(R.style.ButtonStyleDifferenceSelected)
 
-//        btn0.setBackgroundColor(
-//            ContextCompat.getColor(
-//                applicationContext,
-//                if (score_id == 0) colorForScore else R.color.colorPrimaryLight
-//            )
-//        )
-//        btn10.setBackgroundColor(
-//            ContextCompat.getColor(
-//                applicationContext,
-//                if (score_id == 10) colorForScore else R.color.colorPrimaryLight
-//            )
-//        )
-//        btn20.setBackgroundColor(
-//            ContextCompat.getColor(
-//                applicationContext,
-//                if (score_id == 20) colorForScore else R.color.colorPrimaryLight
-//            )
-//        )
-//        btn30.setBackgroundColor(
-//            ContextCompat.getColor(
-//                applicationContext,
-//                if (score_id == 30) colorForScore else R.color.colorPrimaryLight
-//            )
-//        )
         return new_score_id
     }
 
