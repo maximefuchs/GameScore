@@ -29,6 +29,7 @@ open class ScoreFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_score, container, false)
         val act = activity as GameActivity
         act.inSettings = false // for onBackPressed purposes
+        act.firstFragment = false // has to be set to false here too for when we start from a saved game
         listPlayers = act.names
         listGames = act.listGames
         act.showAddGameButton = true
