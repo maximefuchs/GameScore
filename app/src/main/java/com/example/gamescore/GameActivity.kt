@@ -70,7 +70,6 @@ abstract class GameActivity : AppCompatActivity() {
         // quitting
         btnQuit.setOnClickListener {
             finish()
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top)
         }
         btnNoQuit.setOnClickListener {
             hideBackPressedMenu()
