@@ -30,7 +30,7 @@ enum class TypeGameSaved {
 abstract class GameActivity : AppCompatActivity() {
     lateinit var context: Context
     var names: ArrayList<String> = arrayListOf()
-    lateinit var listGames: ArrayList<Game>
+    var listGames: ArrayList<Game> = arrayListOf()
     var nbPlayers: Int = 4
 
     // quit layout on back pressed
@@ -97,6 +97,9 @@ abstract class GameActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        if (inSettings)
+            // dont save anything because it hasnt been initialized
+            return
         // save state
         outState.putSerializable(stateNames, names)
         outState.putSerializable(stateGames, listGames)
