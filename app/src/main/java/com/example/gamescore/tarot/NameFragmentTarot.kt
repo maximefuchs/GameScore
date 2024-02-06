@@ -17,6 +17,7 @@ class NameFragmentTarot : NameFragment() {
         // Inflate the layout for this fragment
         val v = super.onCreateView(inflater, container, savedInstanceState)!!
         val act = activity as TarotActivity
+        act.previousFragment = NbPlayersTarotFragment()
         if (act.nbPlayers == 5)
             v.llP5.visibility = View.VISIBLE
 

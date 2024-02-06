@@ -17,6 +17,7 @@ class TypeBeloteFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_type_belote, container, false)
         val act = activity as BeloteActivity
+        act.previousFragment = NbPlayersBeloteFragment()
 
         v.normale.setOnClickListener {
             act.typeOfGame(TypeGame.NORMALE)

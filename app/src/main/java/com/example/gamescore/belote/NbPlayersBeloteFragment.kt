@@ -22,11 +22,15 @@ class NbPlayersBeloteFragment : NbPlayersFragment() {
         val fourP = v.btn_option2
         fourP.setText(R.string.nb_players_belote_2)
         val act = activity as BeloteActivity
+        act.firstFragment = true
 
         threeP.setOnClickListener {
+            act.firstFragment = false
+            act.typeOfGame(TypeGame.NORMALE)
             act.getName(3)
         }
         fourP.setOnClickListener {
+            act.firstFragment = false
             act.getTypeOfGame()
         }
 
