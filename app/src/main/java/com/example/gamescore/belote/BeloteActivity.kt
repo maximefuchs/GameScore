@@ -87,8 +87,6 @@ class BeloteActivity : GameActivity() {
     }
 
     fun getTypeOfGame() {
-        firstFragment = false
-        previousFragment = NbPlayersBeloteFragment()
         fragmentTransition(R.id.container, TypeBeloteFragment())
     }
 
@@ -98,10 +96,7 @@ class BeloteActivity : GameActivity() {
     }
 
     fun getName(nbOfPlayers: Int) {
-        firstFragment = false
         nbPlayers = nbOfPlayers
-        previousFragment =
-            if (nbOfPlayers == 3) NbPlayersBeloteFragment() else TypeBeloteFragment()
         fragmentTransition(R.id.container, NameFragmentBelote())
     }
 

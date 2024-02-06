@@ -18,9 +18,13 @@ class NameFragmentBelote : NameFragment() {
         // Inflate the layout for this fragment
         val v = super.onCreateView(inflater, container, savedInstanceState)!!
         val act = activity as BeloteActivity
-        if (act.nbPlayers == 3)
+
+        if (act.nbPlayers == 3) {
+            act.previousFragment = NbPlayersBeloteFragment()
             v.LLP4.visibility = View.GONE
+        }
         else {
+            act.previousFragment = TypeBeloteFragment()
             v.TV_team1.visibility = View.VISIBLE
             v.TV_team2.visibility = View.VISIBLE
         }

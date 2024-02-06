@@ -40,7 +40,8 @@ class ScoreTarotFragment : ScoreFragment() {
             handleItemShortClick(game)
         }
 
-//        val act = activity as TarotActivity
+        val act = activity as TarotActivity
+        act.inSettings = false
         val onItemLongClick = { position: Int ->
             handleItemLongClick(position)
             true // because onItemLongClick is of time (Int) -> Boolean

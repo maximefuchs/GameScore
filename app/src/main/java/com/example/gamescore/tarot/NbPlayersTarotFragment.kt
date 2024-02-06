@@ -21,11 +21,14 @@ class NbPlayersTarotFragment : NbPlayersFragment() {
         val fiveP = v.btn_option2
         fiveP.setText(R.string.nb_players_tarot_2)
         val act = activity as TarotActivity
+        act.firstFragment = true
 
         fourP.setOnClickListener {
+            act.firstFragment = false
             act.getName(4)
         }
         fiveP.setOnClickListener {
+            act.firstFragment = false
             act.getName(5)
         }
 
